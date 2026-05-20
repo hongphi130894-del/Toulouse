@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
 /* =========================================================
-   UI NEAT & COMPACT - TỐI ƯU SỰ GỌN GÀNG, DỄ NHÌN
+   UI NEAT & COMPACT - DỮ LIỆU HIỂN THỊ FULL & CUỘN NGANG
 ========================================================= */
 :root {
   --olive: #6B7A2E;
@@ -18,7 +18,7 @@
   --olive-pale: #f6f8f0;
   --gold: #B89020;
   
-  --bg-page: #f5f6f1; /* Nền xám kem rất nhạt, dịu mắt */
+  --bg-page: #f5f6f1;
   --bg-card: #ffffff;
   
   --text-main: #222222;
@@ -32,9 +32,8 @@
   --orange: #ed6c02;
   --indigo: #3f51b5;
   
-  --radius: 6px; /* Bo góc nhỏ, thanh lịch */
+  --radius: 6px; 
   
-  /* Sử dụng font hệ thống để tối ưu hiển thị, chữ thẳng hàng tuyệt đối */
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -45,7 +44,7 @@ body {
 }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 16px; padding-bottom: 60px; }
 
-/* --- INPUTS & FORMS (Gọn gàng, nhỏ nhắn) --- */
+/* --- INPUTS & FORMS --- */
 input[type=text], input[type=number], input[type=time], input[type=date], 
 input[type=password], textarea, select {
   font-family: var(--font); border: 1px solid var(--border); border-radius: var(--radius);
@@ -71,7 +70,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--border-focus); b
 .date-row input { width: 130px; font-weight: 600; color: var(--olive-dark); border-color: transparent; background: transparent; cursor: pointer; padding: 4px; height: 28px;}
 .date-row input:focus { border-color: var(--border); background: white; }
 
-/* Nút bấm (Buttons) */
+/* Buttons */
 .btn {
   font-family: var(--font); font-size: 12.5px; font-weight: 500; 
   padding: 0 12px; height: 32px; border-radius: var(--radius); cursor: pointer; 
@@ -98,7 +97,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--border-focus); b
 .tab-btn.active { background: var(--bg-card); color: var(--olive-dark); font-weight: 600; border-color: var(--border); border-bottom-color: var(--bg-card); }
 .tab-btn:hover:not(.active) { color: var(--text-main); background: rgba(0,0,0,0.03); }
 
-/* --- METRICS (Thống kê ngang hàng) --- */
+/* --- METRICS --- */
 .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .mc {
   background: var(--bg-card); border-radius: var(--radius); padding: 12px 14px; 
@@ -110,7 +109,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--border-focus); b
 .mc-val.red { color: var(--red); } .mc-val.green { color: var(--green); }
 .mc.cost-card { border-left-color: var(--orange); } .mc.profit-card { border-left-color: var(--green); }
 
-/* --- FORMS (Thêm/Sửa) --- */
+/* --- FORMS --- */
 .fcard { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
 .fcard.editing { border-color: var(--olive); box-shadow: 0 0 0 3px var(--olive-pale); }
 .ftitle { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; margin-bottom: 12px; color: var(--olive-dark); }
@@ -124,41 +123,20 @@ input:focus, textarea:focus, select:focus { border-color: var(--border-focus); b
 .fbtns { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
 .btn-sub.orange { background: var(--orange); } .btn-sub.ai { background: var(--indigo); }
 
-/* --- BẢNG DỮ LIỆU (ÉP CHUẨN ROW, KHÔNG NHẢY DÒNG) --- */
-.tw { overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); }
-table { width: 100%; border-collapse: collapse; font-size: 12.5px; table-layout: fixed; } /* table-layout: fixed ép bảng không tự giãn lộn xộn */
-th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-th { background: #f0f2eb; color: var(--olive-dark); font-weight: 600; white-space: nowrap; border-bottom: 2px solid var(--border); }
-td { 
-  white-space: nowrap; /* BẮT BUỘC để không nhảy dòng */
-  overflow: hidden; 
-  text-overflow: ellipsis; /* Dài quá hiện dấu ... */
-  color: var(--text-main);
-}
+/* --- BẢNG DỮ LIỆU (TỰ ĐỘNG GIÃN RỘNG THEO NỘI DUNG, SCROLL NGANG MƯỢT) --- */
+.tw { overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; } /* Đảm bảo chữ cùng 1 dòng */
+th, td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+th { background: #f0f2eb; color: var(--olive-dark); font-weight: 600; border-bottom: 2px solid var(--border); text-align: left; }
+td { color: var(--text-main); }
 td.red { color: var(--red); font-weight: 600; }
 td.img-cell { text-align: center; }
-
-/* Set cứng độ rộng từng cột để bảng đẹp nhất */
-colgroup col:nth-child(1) { width: 40px; } /* STT */
-colgroup col:nth-child(2) { width: 70px; } /* Giờ */
-colgroup col:nth-child(3) { width: 80px; } /* Size */
-colgroup col:nth-child(4) { width: 90px; } /* Giá bánh */
-colgroup col:nth-child(5) { width: 80px; } /* Giá PK */
-colgroup col:nth-child(6) { width: 120px; } /* Phụ kiện */
-colgroup col:nth-child(7) { width: 100px; } /* Tổng B+PK */
-colgroup col:nth-child(8) { width: 80px; } /* Phí Ship */
-colgroup col:nth-child(9) { width: 100px; } /* Thành tiền */
-colgroup col:nth-child(10) { width: 120px; } /* Khách hàng */
-colgroup col:nth-child(11) { width: 100px; } /* SĐT */
-colgroup col:nth-child(12) { width: 150px; } /* Địa chỉ */
-colgroup col:nth-child(13) { width: 120px; } /* Ghi chú */
-colgroup col:nth-child(14) { width: 70px; } /* Thao tác */
 
 tr:hover td { background: var(--olive-pale); }
 tr.hi td { background: #fffde7; }
 tr.trow td { background: #f0f2eb; color: var(--olive-dark); font-weight: 700; border-bottom: none; }
 
-/* Các cột tiền tệ căn lề phải cho chuẩn kế toán */
+/* Cột tiền tệ căn phải cho dễ nhìn */
 td:nth-child(4), td:nth-child(5), td:nth-child(7), td:nth-child(8), td:nth-child(9) { text-align: right; }
 th:nth-child(4), th:nth-child(5), th:nth-child(7), th:nth-child(8), th:nth-child(9) { text-align: right; }
 
@@ -166,7 +144,7 @@ th:nth-child(4), th:nth-child(5), th:nth-child(7), th:nth-child(8), th:nth-child
 .abtn.e:hover { color: var(--olive); background: var(--olive-pale); }
 .abtn.d:hover { color: var(--red); background: #ffebee; }
 
-/* --- CÁC THÀNH PHẦN KHÁC --- */
+/* --- MODALS --- */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999; }
 .modal-box { background: var(--bg-card); border-radius: var(--radius); padding: 24px; width: min(400px, 100%); max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
 .modal-box h3 { font-size: 16px; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
@@ -214,9 +192,6 @@ th:nth-child(4), th:nth-child(5), th:nth-child(7), th:nth-child(8), th:nth-child
   .fbtns { justify-content: stretch; flex-direction: column;}
   .btn-sub, .btn-cancel { width: 100%; }
   #clockSvg { display: none; }
-  
-  /* Cho phép bảng scroll ngang mượt mà trên mobile */
-  .tw { margin-bottom: 12px; }
 }
 
 @media print { .hdr, .tabs, .btn-row, .dash-ctrl, .btn-ol, #tab-orders, #tab-costs, #tab-report, .rpt-card:first-child { display: none !important; } #tab-dashboard { display: block !important; } body { background: #fff; } .chart-card { border: 1px solid #ccc; padding: 0;} .wrap { padding: 0; max-width: 100%;} }
@@ -359,11 +334,6 @@ th:nth-child(4), th:nth-child(5), th:nth-child(7), th:nth-child(8), th:nth-child
   </div>
 
   <div class="tw">
-    <colgroup>
-      <col style="width: 40px;"><col style="width: 70px;"><col style="width: 80px;"><col style="width: 90px;"><col style="width: 80px;">
-      <col style="width: 120px;"><col style="width: 100px;"><col style="width: 80px;"><col style="width: 100px;"><col style="width: 120px;">
-      <col style="width: 100px;"><col style="width: 150px;"><col style="width: 120px;"><col style="width: 70px;">
-    </colgroup>
     <table>
       <thead><tr><th>#</th><th>Giờ</th><th>Size</th><th>Giá Bánh</th><th>Giá PK</th><th>Phụ Kiện</th><th>Cộng(B+PK)</th><th>Ship</th><th>Thành Tiền</th><th>Khách</th><th>SĐT</th><th>Địa Chỉ</th><th>Ghi Chú</th><th>Sửa</th></tr></thead>
       <tbody id="tbody"></tbody><tfoot id="tfoot"></tfoot>
@@ -421,7 +391,6 @@ th:nth-child(4), th:nth-child(5), th:nth-child(7), th:nth-child(8), th:nth-child
   </div>
 
   <div class="tw">
-    <colgroup><col style="width: 40px;"><col style="width: 120px;"><col style="width: 120px;"><col style="width: 100px;"><col style="width: 100px;"><col style="width: 80px;"><col style="width: 150px;"><col style="width: 70px;"></colgroup>
     <table>
       <thead><tr><th>#</th><th>Đối Tác</th><th>Hạng Mục</th><th>Giá Nhập</th><th>MKT</th><th>Hóa Đơn</th><th>Ghi Chú</th><th>Sửa</th></tr></thead>
       <tbody id="costTbody"></tbody><tfoot id="costTfoot"></tfoot>
@@ -511,8 +480,7 @@ th:nth-child(4), th:nth-child(5), th:nth-child(7), th:nth-child(8), th:nth-child
 
 <script>
 // =========================================================================
-// JAVASCRIPT GIỮ NGUYÊN 100% CẤU TRÚC VÀ LOGIC
-// Không minify để đảm bảo không bị lỗi syntax khi copy.
+// JAVASCRIPT LOGIC
 // =========================================================================
 
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbw9sWIdwYbnjieLcYJP82nyQUi0BeLnQh1Bw_ImYawIRr2f5T6zW7MhvuGYvPUfVWPvDw/exec';
@@ -544,7 +512,7 @@ let fImgs={rent:null,elec:null,water:null};const capitalize=s=>s.charAt(0).toUpp
 
 function updateMetrics(orders){const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0);$('mCount').textContent=orders.length;$('mCake').textContent=fmt(cake);$('mShip').textContent=fmt(ship);$('mTotal').textContent=fmt(cake+ship);}function updateFormLock(){const locked=isPast($('selDate').value)&&editId===null;$('pastNotice').style.display=locked?'block':'none';$('btnSub').disabled=locked;}
 
-function renderTable(){if(!currentOrders.length){$('tbody').innerHTML=`<tr><td colspan="14" style="text-align:center; padding: 2rem 1rem; color: #999;">Trống</td></tr>`;$('tfoot').innerHTML='';return;}$('tbody').innerHTML=currentOrders.map((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);const isTemp=String(o.id).startsWith('_tmp');return`<tr ${editId===o.id?'class="hi"':''} style="${isTemp?'opacity:.5':''}"><td>${i+1}</td><td>${esc(o.time)}</td><td title="${esc(o.size)}">${esc(o.size)}</td><td>${fmt(o.cakePrice)}</td><td>${fmt(o.accPrice)}</td><td title="${esc(o.acc)}">${esc(o.acc)}</td><td class="red">${fmt(sum)}</td><td>${fmt(o.ship)}</td><td class="red" style="font-weight:700">${fmt(tot)}</td><td title="${esc(o.name)}"><b>${esc(o.name)}</b></td><td>${esc(o.phone)}</td><td title="${esc(o.addr)}">${esc(o.addr)}</td><td title="${esc(o.note)}">${esc(o.note)}</td><td style="display:flex;gap:4px;">${isTemp?'...':(`<button class="abtn e" onclick="startEdit('${o.id}')">✎</button><button class="abtn d" onclick="delOrder('${o.id}')">✗</button>`)}</td></tr>`;}).join('');const tC=currentOrders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),tS=currentOrders.reduce((s,o)=>s+n(o.ship),0);$('tfoot').innerHTML=`<tr class="trow"><td colspan="6" style="text-align:right">TỔNG NGÀY:</td><td>${fmt(tC)}</td><td>${fmt(tS)}</td><td>${fmt(tC+tS)}</td><td colspan="5"></td></tr>`;}
+function renderTable(){if(!currentOrders.length){$('tbody').innerHTML=`<tr><td colspan="14" style="text-align:center; padding: 2rem 1rem; color: #999;">Trống</td></tr>`;$('tfoot').innerHTML='';return;}$('tbody').innerHTML=currentOrders.map((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);const isTemp=String(o.id).startsWith('_tmp');return`<tr ${editId===o.id?'class="hi"':''} style="${isTemp?'opacity:.5':''}"><td>${i+1}</td><td>${esc(o.time)}</td><td>${esc(o.size)}</td><td>${fmt(o.cakePrice)}</td><td>${fmt(o.accPrice)}</td><td>${esc(o.acc)}</td><td class="red">${fmt(sum)}</td><td>${fmt(o.ship)}</td><td class="red" style="font-weight:700">${fmt(tot)}</td><td><b>${esc(o.name)}</b></td><td>${esc(o.phone)}</td><td>${esc(o.addr)}</td><td>${esc(o.note)}</td><td style="display:flex;gap:4px;">${isTemp?'...':(`<button class="abtn e" onclick="startEdit('${o.id}')">✎</button><button class="abtn d" onclick="delOrder('${o.id}')">✗</button>`)}</td></tr>`;}).join('');const tC=currentOrders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),tS=currentOrders.reduce((s,o)=>s+n(o.ship),0);$('tfoot').innerHTML=`<tr class="trow"><td colspan="6" style="text-align:right">TỔNG NGÀY:</td><td>${fmt(tC)}</td><td>${fmt(tS)}</td><td>${fmt(tC+tS)}</td><td colspan="5"></td></tr>`;}
 async function render(){const date=$('selDate').value,pKey={action:'getOrders',date};const cached=cGet(new URLSearchParams(pKey).toString());if(cached){currentOrders=cached.orders||[];renderTable();updateMetrics(currentOrders);updateFormLock();api(pKey).then(r=>{if(!r.ok)return;cSet(new URLSearchParams(pKey).toString(),r);currentOrders=r.orders||[];renderTable();updateMetrics(currentOrders);}).catch(()=>{});return;}$('tbody').innerHTML=`<tr><td colspan="14" style="text-align:center; padding: 2rem; color:#999">Đang tải...</td></tr>`;$('tfoot').innerHTML='';try{const r=await api(pKey);if(!r.ok)throw new Error(r.error);cSet(new URLSearchParams(pKey).toString(),r);currentOrders=r.orders||[];renderTable();updateMetrics(currentOrders);}catch(e){$('tbody').innerHTML=`<tr><td colspan="14" style="text-align:center; color: var(--red); padding: 1rem;">⚠️ ${esc(e.message)}</td></tr>`;updateMetrics([]);toast('Lỗi tải dữ liệu',true);}updateFormLock();}
 function getForm(){return{time:$('fTime').value,size:$('fSize').value,cakePrice:n($('fCake').value)*1000,accPrice:n($('fAcc').value)*1000,acc:$('fAccDesc').value,ship:n($('fShip').value)*1000,name:$('fName').value,phone:$('fPhone').value,addr:$('fAddr').value,note:$('fNote').value};}function setForm(o){$('fTime').value=o.time||'';$('fSize').value=o.size||'';$('fCake').value=o.cakePrice?o.cakePrice/1000:'';$('fAcc').value=o.accPrice?o.accPrice/1000:'';$('fAccDesc').value=o.acc||'';$('fShip').value=o.ship?o.ship/1000:'';$('fName').value=o.name||'';$('fPhone').value=o.phone||'';$('fAddr').value=o.addr||'';$('fNote').value=o.note||'';calc();}
 async function submitOrder(){if(isPast($('selDate').value)&&editId===null){toast('Chỉ được sửa ngày cũ!',true);return;}const date=$('selDate').value,o={...getForm(),date};const isEdit=editId!==null;let tempId=null;if(!isEdit){tempId='_tmp_'+Date.now();currentOrders=[...currentOrders,{...o,id:tempId}];renderTable();updateMetrics(currentOrders);cancelEdit();}$('btnSub').disabled=true;$('btnTxt').textContent='Lưu...';try{await api(isEdit?{action:'updateOrder',data:JSON.stringify({id:editId,order:o})}:{action:'addOrder',data:JSON.stringify(o)});toast(isEdit?'Cập nhật xong':'Lưu đơn thành công');cDel(date);if(isEdit)cancelEdit();await render();}catch(e){if(tempId)currentOrders=currentOrders.filter(x=>x.id!==tempId);renderTable();updateMetrics(currentOrders);toast('Lỗi: '+e.message,true);}$('btnSub').disabled=false;$('btnTxt').textContent=isEdit?'Cập nhật':'Lưu đơn hàng';updateFormLock();}
@@ -552,7 +520,7 @@ function startEdit(id){requireAuth('admin',()=>{const o=currentOrders.find(x=>x.
 $('ftoggle').addEventListener('click',()=>{formOpen=!formOpen;$('fbody').style.display=formOpen?'':'none';$('fchev').style.transform=formOpen?'':'rotate(-90deg)';});
 
 async function renderCosts(){const date=$('selDate').value;const[y,m]=[date.split('-')[0],date.split('-')[1]];$('fixedMonthBadge').textContent=`Tháng ${parseInt(m)}/${y}`;const pKey={action:'getCosts',date};const cached=cGet(new URLSearchParams(pKey).toString());if(cached){currentCosts=cached.costs||[];_renderCostTable();api(pKey).then(r=>{if(!r.ok)return;cSet(new URLSearchParams(pKey).toString(),r);currentCosts=r.costs||[];_renderCostTable();}).catch(()=>{});loadFixedCosts();return;}$('costTbody').innerHTML=`<tr><td colspan="8" style="text-align:center; padding: 2rem; color:#999">Đang tải...</td></tr>`;$('costTfoot').innerHTML='';try{const r=await api(pKey);if(!r.ok)throw new Error(r.error);cSet(new URLSearchParams(pKey).toString(),r);currentCosts=r.costs||[];_renderCostTable();}catch(e){$('costTbody').innerHTML=`<tr><td colspan="8" style="text-align:center; color: var(--red); padding: 1rem;">⚠️ ${esc(e.message)}</td></tr>`;toast('Lỗi: '+e.message,true);}loadFixedCosts();}
-function _renderCostTable(){const tP=currentCosts.reduce((s,c)=>s+n(c.price),0),tA=currentCosts.reduce((s,c)=>s+n(c.adCost),0);$('cCount').textContent=currentCosts.length;$('cPurchase').textContent=fmt(tP);$('cAd').textContent=fmt(tA);$('cDayTotal').textContent=fmt(tP+tA);if(!currentCosts.length){$('costTbody').innerHTML=`<tr><td colspan="8" style="text-align:center; padding: 2rem; color:#999">Trống</td></tr>`;$('costTfoot').innerHTML='';return;}$('costTbody').innerHTML=currentCosts.map((c,i)=>{const fId=getFileId(c.imageUrl);const imgCell=fId?`<img class="img-thumb" src="${driveThumb(fId)}" onclick="openImgViewer('${driveView(fId)}')" onerror="this.style.display='none'">`:'-';return`<tr ${editCostId===c.id?'class="hi"':''}><td>${i+1}</td><td title="${esc(c.supplier)}"><b>${esc(c.supplier)||'-'}</b></td><td title="${esc(c.product)}">${esc(c.product)||'-'}</td><td class="red">${c.price?fmt(c.price):'-'}</td><td>${c.adCost?fmt(c.adCost):'-'}</td><td class="img-cell">${imgCell}</td><td title="${esc(c.note)}">${esc(c.note)||'-'}</td><td style="display:flex;gap:4px;"><button class="abtn e" onclick="startCostEdit('${c.id}')">✎</button><button class="abtn d" onclick="delCost('${c.id}')">✗</button></td></tr>`;}).join('');$('costTfoot').innerHTML=`<tr class="trow"><td colspan="3" style="text-align:right">TỔNG:</td><td>${fmt(tP)}</td><td>${fmt(tA)}</td><td colspan="3"></td></tr>`;}
+function _renderCostTable(){const tP=currentCosts.reduce((s,c)=>s+n(c.price),0),tA=currentCosts.reduce((s,c)=>s+n(c.adCost),0);$('cCount').textContent=currentCosts.length;$('cPurchase').textContent=fmt(tP);$('cAd').textContent=fmt(tA);$('cDayTotal').textContent=fmt(tP+tA);if(!currentCosts.length){$('costTbody').innerHTML=`<tr><td colspan="8" style="text-align:center; padding: 2rem; color:#999">Trống</td></tr>`;$('costTfoot').innerHTML='';return;}$('costTbody').innerHTML=currentCosts.map((c,i)=>{const fId=getFileId(c.imageUrl);const imgCell=fId?`<img class="img-thumb" src="${driveThumb(fId)}" onclick="openImgViewer('${driveView(fId)}')" onerror="this.style.display='none'">`:'-';return`<tr ${editCostId===c.id?'class="hi"':''}><td>${i+1}</td><td><b>${esc(c.supplier)||'-'}</b></td><td>${esc(c.product)||'-'}</td><td class="red">${c.price?fmt(c.price):'-'}</td><td>${c.adCost?fmt(c.adCost):'-'}</td><td class="img-cell">${imgCell}</td><td>${esc(c.note)||'-'}</td><td style="display:flex;gap:4px;"><button class="abtn e" onclick="startCostEdit('${c.id}')">✎</button><button class="abtn d" onclick="delCost('${c.id}')">✗</button></td></tr>`;}).join('');$('costTfoot').innerHTML=`<tr class="trow"><td colspan="3" style="text-align:right">TỔNG:</td><td>${fmt(tP)}</td><td>${fmt(tA)}</td><td colspan="3"></td></tr>`;}
 async function submitCost(){const date=$('selDate').value,isEdit=editCostId!==null;let imageUrl='';if(pendingFileId)imageUrl=driveFullUrl(pendingFileId);else if(isEdit&&currentEditFileId&&!pendingClearImage)imageUrl=driveFullUrl(currentEditFileId);const costData={date,supplier:$('cSupplier').value.trim(),product:$('cProduct').value.trim(),price:n($('cPrice').value)*1000,imageUrl,adCost:n($('cAdCost').value)*1000,note:$('cNote').value.trim()};$('cBtnTxt').textContent='Lưu...';$('cBtnSub').disabled=true;try{if(isEdit){if(pendingClearImage&&currentEditFileId)apiPost({action:'deleteImage',fileId:currentEditFileId}).catch(()=>{});await api({action:'updateCost',data:JSON.stringify({id:editCostId,cost:costData})});toast('Cập nhật xong!');}else{const r=await api({action:'addCost',data:JSON.stringify(costData)});if(!r.ok)throw new Error(r.error);toast('Đã lưu chi phí!');}pendingImageData=null;pendingFileId=null;pendingClearImage=false;cancelCostEdit();cDel($('selDate').value);await renderCosts();}catch(e){toast('Lỗi: '+e.message,true);}$('cBtnTxt').textContent=isEdit?'Cập nhật':'Lưu chi phí';$('cBtnSub').disabled=false;}
 function startCostEdit(id){requireAuth('boss',()=>{const c=currentCosts.find(x=>x.id===id);if(!c)return;$('cSupplier').value=c.supplier||'';$('cProduct').value=c.product||'';$('cPrice').value=c.price?c.price/1000:'';$('cAdCost').value=c.adCost?c.adCost/1000:'';$('cNote').value=c.note||'';editCostId=id;pendingImageData=null;pendingFileId=null;pendingClearImage=false;currentEditFileId=getFileId(c.imageUrl);const prevUrl=driveThumb(currentEditFileId,'w400');if(prevUrl){$('cImgEl').src=prevUrl;$('cImgPreview').style.display='';$('cImgDropContent').style.display='none';}else{$('cImgPreview').style.display='none';$('cImgDropContent').style.display='';}$('cTitle').textContent='Sửa: '+(c.supplier||'');$('cBtnTxt').textContent='Cập nhật';$('cBtnCancel').style.display='';$('costCard').classList.add('editing');if(!costFormOpen){costFormOpen=true;$('costBody').style.display='';$('cchev').style.transform='';}$('costCard').scrollIntoView({behavior:'smooth'});renderCosts();});}
 function cancelCostEdit(){if(pendingFileId){apiPost({action:'deleteImage',fileId:pendingFileId}).catch(()=>{});pendingFileId=null;}editCostId=null;currentEditFileId=null;pendingImageData=null;pendingClearImage=false;$('cSupplier').value='';$('cProduct').value='';$('cPrice').value='';$('cAdCost').value='';$('cNote').value='';$('cImgPreview').style.display='none';$('cImgDropContent').style.display='';$('cImageFile').value='';$('cTitle').textContent='Thêm Chi phí';$('cBtnTxt').textContent='Lưu chi phí';$('cBtnCancel').style.display='none';$('costCard').classList.remove('editing');}
