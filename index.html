@@ -383,6 +383,55 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   #tab-dashboard{display:block!important}body{background:#fff}
   .chart-card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}.wrap{padding:0}
 }
+/* ══ TECH VIBE: NỀN LƯỚI TINH TẾ ══ */
+body {
+  background-image: 
+    linear-gradient(rgba(107, 122, 46, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107, 122, 46, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px; 
+  background-position: center center;
+}
+[data-theme="dark"] body {
+  background-image: 
+    linear-gradient(rgba(176, 192, 80, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(176, 192, 80, 0.03) 1px, transparent 1px);
+}
+/* ══ TECH VIBE: TIA QUÉT AI (CHẬM & MỜ) ══ */
+#aiCard {
+  position: relative;
+  overflow: hidden;
+}
+#aiCard::before {
+  content: '';
+  position: absolute;
+  top: -10%; left: 0; width: 100%; height: 1px;
+  background: var(--indigo);
+  box-shadow: 0 0 8px 1px var(--indigo);
+  animation: cyberScan 6s ease-in-out infinite;
+  opacity: 0.15; 
+  z-index: 1;
+  pointer-events: none;
+}
+@keyframes cyberScan {
+  0% { top: -10%; opacity: 0; }
+  20% { opacity: 0.25; }
+  80% { opacity: 0.25; }
+  100% { top: 110%; opacity: 0; }
+}
+/* ══ TECH VIBE: HIỆU ỨNG HOVER THẺ THÔNG SỐ (NHẸ NHÀNG) ══ */
+.mc {
+  transition: all 0.3s ease;
+}
+.mc:hover {
+  outline: 1px solid rgba(107, 122, 46, 0.3);
+  outline-offset: -2px;
+  box-shadow: 0 8px 20px rgba(107, 122, 46, 0.08), inset 0 0 8px rgba(107, 122, 46, 0.04);
+  transform: translateY(-2px);
+}
+[data-theme="dark"] .mc:hover {
+  outline-color: rgba(176, 192, 80, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(176, 192, 80, 0.06);
+}
 </style>
 </head>
 <body>
