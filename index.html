@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
 /* =========================================================
-   UI TECH & SOFT - NỀN CARO, SỐ ĐẦY ĐỦ, CHỮ RÚT GỌN
+   UI TECH & SOFT - NỀN CARO, SỐ ĐẦY ĐỦ, FORM 2 CỘT GỌN GÀNG
 ========================================================= */
 :root {
   --olive: #6B7A2E;
@@ -18,13 +18,15 @@
   --olive-pale: #f9fbf4;
   --gold: #B89020;
   
-  --bg-page: #f2f4ef; /* Nền xám kem tổng thể */
-  --bg-card: rgba(255, 255, 255, 0.85); /* Hiệu ứng kính mờ (Glassmorphism) */
+  --bg-page: #f1f3ed; /* Màu nền 1 của caro */
+  --bg-checker: #e9ece4; /* Màu nền 2 của caro */
+  
+  --bg-card: rgba(255, 255, 255, 0.9); /* Hiệu ứng kính mờ (Glassmorphism) */
   
   --text-main: #2b2e25;
   --text-muted: #6b725c;
   
-  --border: rgba(107,122,46,0.15);
+  --border: rgba(107,122,46,0.2);
   --border-focus: #6B7A2E;
   
   --red: #e03131;
@@ -32,7 +34,7 @@
   --orange: #e8590c;
   --indigo: #4c6ef5;
   
-  --radius: 12px; /* Mềm mại hơn */
+  --radius: 12px; 
   --radius-sm: 8px;
   
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -48,23 +50,24 @@ body {
   min-height: 100vh; 
   line-height: 1.5;
   background-color: var(--bg-page);
-  /* NỀN CARO (Grid Pattern) Công Nghệ & Sạch sẽ */
+  /* NỀN CARO 2 MÀU ĐỀU NHAU */
   background-image: 
-    linear-gradient(rgba(107, 122, 46, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(107, 122, 46, 0.05) 1px, transparent 1px);
+    linear-gradient(45deg, var(--bg-checker) 25%, transparent 25%, transparent 75%, var(--bg-checker) 75%, var(--bg-checker)),
+    linear-gradient(45deg, var(--bg-checker) 25%, transparent 25%, transparent 75%, var(--bg-checker) 75%, var(--bg-checker));
   background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
 }
 
 .wrap { max-width: 1240px; margin: 0 auto; padding: 24px 16px; padding-bottom: 60px; }
 
-/* --- INPUTS & FORMS (Mềm mại, bo viền) --- */
+/* --- INPUTS & FORMS (Gọn gàng) --- */
 input[type=text], input[type=number], input[type=time], input[type=date], 
 input[type=password], textarea, select {
   font-family: var(--font); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
   padding: 8px 12px; background: rgba(255,255,255,0.9); color: var(--text-main); 
   font-size: 13.5px; font-weight: 500; outline: none; transition: 0.3s; width: 100%; height: 36px;
 }
-textarea { height: 70px; resize: vertical; padding: 10px 12px; }
+textarea { height: 60px; resize: vertical; padding: 10px 12px; }
 input:focus, textarea:focus, select:focus { 
   border-color: var(--border-focus); 
   background: #ffffff;
@@ -98,7 +101,7 @@ input:focus, textarea:focus, select:focus {
   border: 1.5px solid transparent; transition: 0.3s; white-space: nowrap;
 }
 .btn:disabled { opacity: 0.6; pointer-events: none; }
-.btn-ol { background: white; border-color: rgba(107,122,46,0.2); color: var(--olive-dark); box-shadow: 0 2px 6px rgba(0,0,0,0.02);}
+.btn-ol { background: white; border-color: rgba(107,122,46,0.3); color: var(--olive-dark); box-shadow: 0 2px 6px rgba(0,0,0,0.02);}
 .btn-ol:hover { background: var(--olive-primary); color: white; border-color: var(--olive-primary); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(107,122,46,0.15);}
 .btn-sub { background: var(--olive-dark); color: white; height: 40px; padding: 0 24px; box-shadow: 0 4px 10px rgba(74,94,28,0.2);}
 .btn-sub:hover { background: var(--olive); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(74,94,28,0.3);}
@@ -128,7 +131,7 @@ input:focus, textarea:focus, select:focus {
 .mc:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(107,122,46,0.1); }
 .mc::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--olive); }
 .mc.cost-card::before { background: var(--orange); } .mc.profit-card::before { background: var(--green); }
-.mc-lbl { font-size: 11.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px;}
+.mc-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px;}
 .mc-val { font-size: 24px; font-weight: 800; color: var(--text-main); line-height: 1.2;}
 .mc-val.red { color: var(--red); } .mc-val.green { color: var(--green); }
 
@@ -141,9 +144,12 @@ input:focus, textarea:focus, select:focus {
 .fcard.editing { border-color: var(--olive); box-shadow: 0 0 0 4px var(--olive-pale), var(--shadow-soft); transform: scale(1.01);}
 .ftitle { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; margin-bottom: 16px; color: var(--olive-dark); padding-bottom: 12px; border-bottom: 1px dashed rgba(107,122,46,0.2);}
 .fchev { margin-left: auto; font-size: 18px; color: var(--text-muted); background: rgba(107,122,46,0.05); padding: 4px; border-radius: 50%;}
-.fgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+/* GRID FORM 2 CỘT */
+.fgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: start;}
 .fg { display: flex; flex-direction: column; gap: 6px; }
 .fg label { font-size: 12.5px; color: var(--text-main); font-weight: 600; }
+
 .fa-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
 .fa { background: var(--olive-pale); border-radius: var(--radius-sm); border: 1px solid rgba(107,122,46,0.15); padding: 14px 16px; font-size: 14px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);}
 .fa b { font-size: 18px; font-weight: 800; color: var(--olive-dark); }
@@ -155,32 +161,32 @@ input:focus, textarea:focus, select:focus {
    BẢNG DỮ LIỆU ĐỘT PHÁ: GIỮ TRỌN CON SỐ, ẨN BỚT CHỮ KHI QUÁ DÀI, CUỘN NGANG
    ========================================================================= */
 .tw { 
-  overflow-x: auto; /* Cho phép cuộn ngang */
+  overflow-x: auto; 
   background: var(--bg-card); backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.8); border-radius: var(--radius); 
-  box-shadow: var(--shadow-soft); padding-bottom: 4px;
+  box-shadow: var(--shadow-soft); padding-bottom: 4px; -webkit-overflow-scrolling: touch;
 }
 .tw::-webkit-scrollbar { height: 8px; }
 .tw::-webkit-scrollbar-thumb { background: rgba(107,122,46,0.3); border-radius: 10px; }
 
 table { 
   width: 100%; border-collapse: collapse; font-size: 13.5px; 
-  table-layout: fixed; /* ÉP CỨNG CHIỀU RỘNG CỘT */
-  min-width: 1100px; /* Bảng phải rộng ít nhất 1100px, nếu màn nhỏ hơn thì sinh ra cuộn ngang */
+  table-layout: fixed; 
+  min-width: 1100px; 
 }
 
-/* KHAI BÁO CHIỀU RỘNG TỪNG CỘT CHO ĐƠN HÀNG (Dữ liệu quan trọng để rộng, chữ để vừa phải) */
-.col-stt { width: 35px; }
-.col-time { width: 55px; }
-.col-size { width: 70px; }
-.col-num { width: 85px; } /* Giá Bánh, Giá PK, Ship, Cộng */
-.col-total { width: 95px; } /* Thành tiền to hơn chút */
-.col-name { width: 120px; }
-.col-phone { width: 95px; }
-.col-acc { width: 110px; }
-.col-addr { width: 140px; }
-.col-note { width: 130px; }
-.col-action { width: 70px; }
+/* Kích thước Cột Đơn hàng */
+.col-stt { width: 40px; }
+.col-time { width: 65px; }
+.col-size { width: 80px; }
+.col-num { width: 95px; } 
+.col-total { width: 105px; } 
+.col-name { width: 130px; }
+.col-phone { width: 100px; }
+.col-acc { width: 120px; }
+.col-addr { width: 150px; }
+.col-note { width: 140px; }
+.col-action { width: 80px; }
 
 th, td { padding: 12px 10px; border-bottom: 1px solid rgba(0,0,0,0.06); vertical-align: middle; }
 th { 
@@ -189,21 +195,19 @@ th {
 }
 td { 
   color: var(--text-main); font-weight: 500;
-  /* Thuộc tính giúp chữ chỉ nằm trên 1 dòng, nếu dài quá thì hiện ... */
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
 }
-/* Hiển thị số nổi bật hơn */
+
+/* Các cột số liệu: HIỂN THỊ 100%, KHÔNG ẨN */
+td.num-align { white-space: nowrap; overflow: visible; text-align: right; }
+th.num-align { text-align: right; }
+
 td.red { color: var(--red); font-weight: 700; }
 td.img-cell { text-align: center; }
 
 tr:hover td { background: rgba(107,122,46,0.04); }
 tr.hi td { background: #fffde7; }
 tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weight: 800; border-bottom: none; border-top: 2px solid rgba(107,122,46,0.15); }
-
-/* Căn lề phải cho cột tiền tệ và số lượng */
-.num-align { text-align: right; }
 
 .abtn { 
   background: white; border: 1px solid rgba(0,0,0,0.08); cursor: pointer; padding: 6px; 
@@ -259,7 +263,7 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
   .hdr-right { justify-content: space-between; width: 100%;}
   .metrics { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .mc { padding: 16px; } .mc-val { font-size: 20px; }
-  .fgrid { grid-template-columns: 1fr; }
+  .fgrid { grid-template-columns: 1fr; } /* Mobile form 1 cột */
   .fa-row { grid-template-columns: 1fr; }
   .fbtns { flex-direction: column;}
   .btn-sub, .btn-cancel { width: 100%; height: 44px; }
@@ -338,7 +342,7 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
     </div>
     <div class="btn-row">
       <button class="btn btn-ol" onclick="onClickXlsx()"><i class="ti ti-download"></i> Tải Excel</button>
-      <button class="btn btn-ol" onclick="refreshCurrentTab()"><i class="ti ti-refresh"></i> Đồng bộ</button>
+      <button class="btn btn-ol" onclick="refreshCurrentTab()"><i class="ti ti-refresh"></i> Làm mới</button>
     </div>
   </div>
 </div>
@@ -353,10 +357,10 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
 
 <div id="tab-orders">
   <div class="metrics">
-    <div class="mc"><div class="mc-lbl">Lượng đơn</div><div class="mc-val" id="mCount">–</div></div>
+    <div class="mc"><div class="mc-lbl">Tổng Đơn</div><div class="mc-val" id="mCount">–</div></div>
     <div class="mc"><div class="mc-lbl">Cốt lõi (Bánh + PK)</div><div class="mc-val" id="mCake">–</div></div>
     <div class="mc"><div class="mc-lbl">Logistic (Ship)</div><div class="mc-val" id="mShip">–</div></div>
-    <div class="mc"><div class="mc-lbl">Tổng Doanh Thu</div><div class="mc-val" id="mTotal" style="color: var(--olive-dark);">–</div></div>
+    <div class="mc"><div class="mc-lbl">Tổng DT ( Bánh + PK )</div><div class="mc-val" id="mTotal" style="color: var(--olive-dark);">–</div></div>
   </div>
   
   <div class="fcard" id="aiCard" style="border-color: rgba(76, 110, 245, 0.4); box-shadow: 0 4px 15px rgba(76,110,245,0.08);">
@@ -387,12 +391,16 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
       <div class="fgrid">
         <div class="fg"><label>Giờ giao</label><input type="time" id="fTime"></div>
         <div class="fg"><label>Kích thước</label><input type="text" id="fSize" placeholder="VD: Size 14cm"></div>
+        
         <div class="fg"><label>Giá bánh (K)</label><input type="number" id="fCake" placeholder="0" oninput="calc()"></div>
         <div class="fg"><label>Giá Phụ kiện (K)</label><input type="number" id="fAcc" placeholder="0" oninput="calc()"></div>
-        <div class="fg" style="grid-column: 1 / -1;"><label>Liệt kê Phụ kiện</label><input type="text" id="fAccDesc" placeholder="Nến, vương miện, mũ sinh nhật..."></div>
+        
+        <div class="fg"><label>Chi tiết Phụ kiện</label><input type="text" id="fAccDesc" placeholder="Nến, vương miện..."></div>
         <div class="fg"><label>Phí vận chuyển (K)</label><input type="number" id="fShip" placeholder="0" oninput="calc()"></div>
+        
         <div class="fg"><label>Tên Khách</label><input type="text" id="fName" placeholder="Tên người nhận"></div>
         <div class="fg"><label>Điện thoại</label><input type="text" id="fPhone" placeholder="09xxxx..."></div>
+        
         <div class="fg" style="grid-column: 1 / -1;"><label>Địa chỉ giao</label><input type="text" id="fAddr" placeholder="Số nhà, đường, phường, quận..."></div>
         <div class="fg" style="grid-column: 1 / -1;"><label>Ghi chú</label><textarea id="fNote" style="height:50px" placeholder="Lưu ý mẫu mã, lời chúc..."></textarea></div>
       </div>
@@ -430,8 +438,8 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
   </div>
   <div class="metrics">
     <div class="mc cost-card"><div class="mc-lbl">Lượng mục chi</div><div class="mc-val" id="cCount">–</div></div>
-    <div class="mc cost-card"><div class="mc-lbl">Nhập Vật tư</div><div class="mc-val red" id="cPurchase">–</div></div>
-    <div class="mc cost-card"><div class="mc-lbl">Marketing (Ads)</div><div class="mc-val red" id="cAd">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Nguyên Vật Liệu ( NVL )</div><div class="mc-val red" id="cPurchase">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Chi phí QC</div><div class="mc-val red" id="cAd">–</div></div>
     <div class="mc cost-card"><div class="mc-lbl">Tổng chi phiên</div><div class="mc-val red" id="cDayTotal">–</div></div>
   </div>
   
@@ -440,9 +448,11 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
     <div id="costBody">
       <div class="fgrid">
         <div class="fg"><label>Đối tác / NCC</label><input type="text" id="cSupplier" placeholder="Tên đơn vị..."></div>
-        <div class="fg"><label>Phân loại</label><input type="text" id="cProduct" placeholder="Mua nguyên liệu, hộp..."></div>
-        <div class="fg"><label>Giá nhập (K)</label><input type="number" id="cPrice" placeholder="0"></div>
-        <div class="fg"><label>Marketing (K)</label><input type="number" id="cAdCost" placeholder="0"></div>
+        <div class="fg"><label>Hạng mục</label><input type="text" id="cProduct" placeholder="Mua nguyên liệu, hộp..."></div>
+        
+        <div class="fg"><label>Giá nhập NVL (K)</label><input type="number" id="cPrice" placeholder="0"></div>
+        <div class="fg"><label>Chi phí QC (K)</label><input type="number" id="cAdCost" placeholder="0"></div>
+        
         <div class="fg" style="grid-column: 1 / -1;"><label>Diễn giải thêm</label><input type="text" id="cNote" placeholder="Ghi chú chi tiết..."></div>
         <div class="fg" style="grid-column: 1 / -1;">
           <label>Chứng từ / Hóa đơn <span style="font-weight: 400; color: #888;">(Lưu Cloud)</span></label>
@@ -477,9 +487,9 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
     <table>
       <colgroup>
         <col style="width: 40px;"><col style="width: 80px;"><col style="width: 140px;"><col style="width: 120px;">
-        <col style="width: 100px;"><col style="width: 100px;"><col style="width: 150px;"><col style="width: 70px;">
+        <col style="width: 120px;"><col style="width: 120px;"><col style="width: 150px;"><col style="width: 70px;">
       </colgroup>
-      <thead><tr><th>#</th><th>Ngày</th><th>Đối Tác/NCC</th><th>Hạng Mục</th><th class="num-align">Giá Nhập</th><th class="num-align">MKT</th><th>Ghi Chú</th><th>Sửa</th></tr></thead>
+      <thead><tr><th>STT</th><th>Ngày</th><th>Đối Tác/NCC</th><th>Hạng Mục</th><th class="num-align">Giá Nhập</th><th class="num-align">Chi phí QC</th><th>Ghi Chú</th><th>Sửa</th></tr></thead>
       <tbody id="costTbody"></tbody><tfoot id="costTfoot"></tfoot>
     </table>
   </div>
@@ -493,23 +503,23 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
       <select id="dashYearSel" onchange="onDashChange()" style="width:auto; font-weight:700; border:none; background:transparent; padding:0 24px 0 0; color: var(--olive-dark); font-size: 15px;"></select>
     </div>
     <div style="display:flex;gap:8px; margin-left: auto;">
-      <button class="btn btn-ol" onclick="loadDash()"><i class="ti ti-refresh"></i> Đồng bộ</button>
+      <button class="btn btn-ol" onclick="loadDash()"><i class="ti ti-refresh"></i> Làm mới</button>
       <button class="btn btn-ol" id="btnDashXlsx" onclick="exportDashExcel()" style="display:none; color:var(--green); border-color: rgba(47,158,68,0.3);"><i class="ti ti-file-spreadsheet"></i> Xuất Tệp</button>
     </div>
   </div>
   
   <div class="dash-section-lbl"><i class="ti ti-trending-up"></i> THỐNG KÊ DOANH THU</div>
   <div class="metrics">
-    <div class="mc"><div class="mc-lbl">Giao dịch thành công</div><div class="mc-val" id="dCount">–</div></div>
-    <div class="mc"><div class="mc-lbl">Lũy kế Doanh thu</div><div class="mc-val" id="dTotal" style="color:var(--olive-dark)">–</div></div>
+    <div class="mc"><div class="mc-lbl">Tổng Đơn</div><div class="mc-val" id="dCount">–</div></div>
+    <div class="mc"><div class="mc-lbl">Tổng DT ( Bánh + PK )</div><div class="mc-val" id="dTotal" style="color:var(--olive-dark)">–</div></div>
     <div class="mc"><div class="mc-lbl">Chu kỳ 1 (Ngày 1-15)</div><div class="mc-val" id="dH1" style="font-size: 18px;">–</div></div>
     <div class="mc"><div class="mc-lbl">Chu kỳ 2 (Ngày 16-31)</div><div class="mc-val" id="dH2" style="font-size: 18px;">–</div></div>
   </div>
   
   <div class="dash-section-lbl" style="color: var(--red);"><i class="ti ti-trending-down"></i> PHÂN TÍCH CHI PHÍ & LỢI NHUẬN</div>
   <div class="metrics">
-    <div class="mc cost-card"><div class="mc-lbl">Ngân sách Vật tư</div><div class="mc-val red" id="dCostPurchase">–</div></div>
-    <div class="mc cost-card"><div class="mc-lbl">Ngân sách Ads/MKT</div><div class="mc-val red" id="dCostAd">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Nguyên Vật Liệu ( NVL )</div><div class="mc-val red" id="dCostPurchase">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Chi phí QC</div><div class="mc-val red" id="dCostAd">–</div></div>
     <div class="mc cost-card"><div class="mc-lbl">Chi phí Cố định</div><div class="mc-val red" id="dCostFixed">–</div></div>
     <div class="mc cost-card"><div class="mc-lbl">Tổng Chi thực tế</div><div class="mc-val red" id="dCostTotal">–</div></div>
     <div class="mc profit-card" style="grid-column: 1 / -1; align-items: center; text-align: center; padding: 24px;"><div class="mc-lbl" style="font-size: 14px;">BIÊN LỢI NHUẬN RÒNG (NET PROFIT)</div><div class="mc-val" id="dProfit" style="font-size: 36px; letter-spacing: -1px;">–</div></div>
@@ -574,7 +584,7 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
 
 <script>
 // =========================================================================
-// JAVASCRIPT LOGIC - GIỮ NGUYÊN 100% CẤU TRÚC, KHÔNG LÀM MẤT TÍNH NĂNG
+// JAVASCRIPT LOGIC - GIỮ NGUYÊN 100% CẤU TRÚC, CHỈ ĐỔI NHÃN TÊN
 // =========================================================================
 
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbw9sWIdwYbnjieLcYJP82nyQUi0BeLnQh1Bw_ImYawIRr2f5T6zW7MhvuGYvPUfVWPvDw/exec';
@@ -638,16 +648,16 @@ async function loadDash(){dashM=parseInt($('dashMonthSel').value);dashY=parseInt
 function buildCostsByDate(allCosts){const cbd={};allCosts.forEach(c=>{const dk=normDate(c.date);if(!dk)return;if(!cbd[dk])cbd[dk]={price:0,adCost:0};cbd[dk].price+=n(c.price);cbd[dk].adCost+=n(c.adCost);});return cbd;}
 async function renderDash(results,allCosts,fixedResult){let totalOrders=0,totalRev=0,h1Rev=0,h2Rev=0;const labels=[],revVals=[],costVals=[];const costsByDate=buildCostsByDate(allCosts);results.forEach(({date,orders})=>{const d=parseInt(date.split('-')[2]),cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0),rev=cake+ship;const dc=costsByDate[normDate(date)]||{price:0,adCost:0};totalOrders+=orders.length;totalRev+=rev;if(d<=15)h1Rev+=rev;else h2Rev+=rev;labels.push(String(d));revVals.push(rev);costVals.push(dc.price+dc.adCost);});const tP=allCosts.reduce((s,c)=>s+n(c.price),0),tA=allCosts.reduce((s,c)=>s+n(c.adCost),0);const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;const totalFixed=fR+fE+fW,totalCost=tP+tA+totalFixed,netProfit=totalRev-totalCost;$('dCount').textContent=totalOrders;$('dTotal').textContent=fmt(totalRev);$('dH1').textContent=fmt(h1Rev);$('dH2').textContent=fmt(h2Rev);$('dCostPurchase').textContent=fmt(tP);$('dCostAd').textContent=fmt(tA);$('dCostFixed').textContent=fmt(totalFixed);$('dCostTotal').textContent=fmt(totalCost);const pEl=$('dProfit');pEl.textContent=fmt(netProfit);pEl.className='mc-val '+(netProfit>=0?'green':'red');await loadChartJS();$('dashLoading').style.display='none';$('dashChart').style.display='block';
 Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-dashChart=new Chart($('dashChart').getContext('2d'),{type:'bar',data:{labels,datasets:[{label:'Thu vào',data:revVals,backgroundColor:'rgba(107, 122, 46, 0.9)',borderColor:'#6B7A2E',borderWidth:0,borderRadius:4, hoverBackgroundColor: '#4A5E1C'},{label:'Chi ra',data:costVals,backgroundColor:'rgba(224, 49, 49, 0.85)',borderColor:'#E03131',borderWidth:0,borderRadius:4, hoverBackgroundColor: '#C92A2A'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{usePointStyle: true, boxWidth: 10}},tooltip:{backgroundColor: 'rgba(25, 25, 25, 0.95)', padding: 12, cornerRadius: 8, callbacks:{label:c=>c.dataset.label+': '+fmt(c.raw)}}},scales:{y:{border: {display: false}, ticks:{callback:v=>(v/1000000).toFixed(1)+'M',font:{weight: 600}, color: '#888'},grid:{color:'rgba(0,0,0,0.05)', drawTicks: false}},x:{border: {display: false}, ticks:{font:{weight: 600}, color: '#888'},grid:{display:false}}}}});const dayRows=results.filter(r=>r.orders.length||costsByDate[normDate(r.date)]);if(!dayRows.length){$('dashTable').innerHTML='<div class="dash-loading" style="padding: 20px;">Lõi phân tích trống.</div>';return;}$('dashTable').innerHTML=`<div class="tw" style="box-shadow:none; border: none;"><table style="min-width:700px;"><thead><tr><th>Tham số Thời gian</th><th>Hóa Đơn</th><th class="num-align">Tổng Thu</th><th class="num-align">Vật Tư</th><th class="num-align">Marketing</th><th class="num-align">Chỉ số Lợi nhuận</th></tr></thead><tbody>${dayRows.map(({date,orders})=>{const d=parseInt(date.split('-')[2]),cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0),rev=cake+ship;const dc=costsByDate[normDate(date)]||{price:0,adCost:0},profit=rev-(dc.price+dc.adCost);return`<tr><td><b>${pad(d)}/${pad(dashM)}/${dashY}</b></td><td>${orders.length}</td><td class="num-align" style="font-weight:700; color:var(--olive-dark);">${fmt(rev)}</td><td class="num-align" style="color:var(--text-muted)">${dc.price?fmt(dc.price):'–'}</td><td class="num-align" style="color:var(--text-muted)">${dc.adCost?fmt(dc.adCost):'–'}</td><td class="num-align" style="${profit>=0?'color:var(--green)':'color:var(--red)'};font-weight:800; font-size: 15px;">${fmt(profit)}</td></tr>`;}).join('')}</tbody><tfoot><tr class="trow"><td colspan="2">TỔNG CHU KỲ</td><td class="num-align" style="font-size:16px">${fmt(totalRev)}</td><td class="num-align" style="font-size:16px">${fmt(tP)}</td><td class="num-align" style="font-size:16px">${fmt(tA)}</td><td class="num-align" style="${netProfit>=0?'color:white':'color:#FFC9C9'}; font-size: 18px;">${fmt(netProfit)}</td></tr></tfoot></table></div><div style="font-size:12.5px;color:var(--text-muted);padding:14px;background:rgba(107,122,46,0.06);border-radius:var(--radius-sm); margin-top:16px; font-weight: 500;">Khoản cấu trừ Cố định tháng (<b>${fmt(totalFixed)}</b>) đã được nhúng vào Biên lợi nhuận tổng.</div>`;}
+dashChart=new Chart($('dashChart').getContext('2d'),{type:'bar',data:{labels,datasets:[{label:'Thu vào',data:revVals,backgroundColor:'rgba(107, 122, 46, 0.9)',borderColor:'#6B7A2E',borderWidth:0,borderRadius:4, hoverBackgroundColor: '#4A5E1C'},{label:'Chi ra',data:costVals,backgroundColor:'rgba(224, 49, 49, 0.85)',borderColor:'#E03131',borderWidth:0,borderRadius:4, hoverBackgroundColor: '#C92A2A'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top',labels:{usePointStyle: true, boxWidth: 10}},tooltip:{backgroundColor: 'rgba(25, 25, 25, 0.95)', padding: 12, cornerRadius: 8, callbacks:{label:c=>c.dataset.label+': '+fmt(c.raw)}}},scales:{y:{border: {display: false}, ticks:{callback:v=>(v/1000000).toFixed(1)+'M',font:{weight: 600}, color: '#888'},grid:{color:'rgba(0,0,0,0.05)', drawTicks: false}},x:{border: {display: false}, ticks:{font:{weight: 600}, color: '#888'},grid:{display:false}}}}});const dayRows=results.filter(r=>r.orders.length||costsByDate[normDate(r.date)]);if(!dayRows.length){$('dashTable').innerHTML='<div class="dash-loading" style="padding: 20px;">Lõi phân tích trống.</div>';return;}$('dashTable').innerHTML=`<div class="tw" style="box-shadow:none; border: none;"><table style="min-width:800px;"><colgroup><col style="width: 120px;"><col style="width: 100px;"><col style="width: 130px;"><col style="width: 130px;"><col style="width: 130px;"><col style="width: 140px;"></colgroup><thead><tr><th>Thời gian</th><th>Tổng Đơn</th><th class="num-align">Tổng DT ( Bánh + PK )</th><th class="num-align">Nguyên Vật Liệu ( NVL )</th><th class="num-align">Chi phí QC</th><th class="num-align">Lợi nhuận Ròng</th></tr></thead><tbody>${dayRows.map(({date,orders})=>{const d=parseInt(date.split('-')[2]),cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0),rev=cake+ship;const dc=costsByDate[normDate(date)]||{price:0,adCost:0},profit=rev-(dc.price+dc.adCost);return`<tr><td><b>${pad(d)}/${pad(dashM)}/${dashY}</b></td><td>${orders.length}</td><td class="num-align" style="font-weight:700; color:var(--olive-dark);">${fmt(rev)}</td><td class="num-align" style="color:var(--text-muted)">${dc.price?fmt(dc.price):'–'}</td><td class="num-align" style="color:var(--text-muted)">${dc.adCost?fmt(dc.adCost):'–'}</td><td class="num-align" style="${profit>=0?'color:var(--green)':'color:var(--red)'};font-weight:800; font-size: 15px;">${fmt(profit)}</td></tr>`;}).join('')}</tbody><tfoot><tr class="trow"><td colspan="2">TỔNG CHU KỲ</td><td class="num-align" style="font-size:16px">${fmt(totalRev)}</td><td class="num-align" style="font-size:16px">${fmt(tP)}</td><td class="num-align" style="font-size:16px">${fmt(tA)}</td><td class="num-align" style="${netProfit>=0?'color:var(--green)':'color:var(--red)'}; font-size: 18px;">${fmt(netProfit)}</td></tr></tfoot></table></div><div style="font-size:12.5px;color:var(--text-muted);padding:14px;background:rgba(107,122,46,0.06);border-radius:var(--radius-sm); margin-top:16px; font-weight: 500;">Khoản cấu trừ Cố định tháng (<b>${fmt(totalFixed)}</b>) đã được hệ thống trừ tự động vào Biên lợi nhuận tổng.</div>`;}
 
-async function exportDashExcel(){await loadExcelJS();if(!dashExportData)return;const{results,allCosts,fixedResult,m,y}=dashExportData;const wb=new ExcelJS.Workbook(),ws=wb.addWorksheet(`Report ${m}_${y}`);const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Segoe UI',bold,color:{argb},size:sz});ws.columns=[{width:28},{width:20},{width:20},{width:20},{width:20},{width:20}];ws.mergeCells('A1:F1');const t=ws.getRow(1).getCell(1);t.value=`BẢNG ĐIỀU KHIỂN & BÁO CÁO TOULOUSE – KỲ ${m}/${y}`;t.font=xn(true,'FFFFFFFF',14);t.fill=xf('FF6B7A2E');t.alignment={horizontal:'center',vertical:'middle'};ws.getRow(1).height=35;const tP=allCosts.reduce((s,c)=>s+n(c.price),0),tA=allCosts.reduce((s,c)=>s+n(c.adCost),0);const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;const totalFixed=fR+fE+fW,totalOrders=results.reduce((s,r)=>s+r.orders.length,0),totalRev=results.reduce((s,r)=>s+r.orders.reduce((ss,o)=>ss+n(o.cakePrice)+n(o.accPrice)+n(o.ship),0),0),netProfit=totalRev-tP-tA-totalFixed;const metrics=[['HẠCH TOÁN DOANH THU','FF4A5E1C'],['Lượng phiên khớp lệnh',totalOrders],['Quy mô Doanh thu lũy kế',fmt(totalRev)],[' ',''],['HẠCH TOÁN CHI PHÍ KÉP','FFE8590C'],['Vật tư nhập',fmt(tP)],['Dòng tiền Quảng cáo',fmt(tA)],['Gánh nặng Định phí',fmt(totalFixed)],['Tổng tiêu sản',fmt(tP+tA+totalFixed)],[' ',''],['EBITDA (Lợi Nhuận Khấu Hao)',fmt(netProfit)]];let ri=2;metrics.forEach(([lbl,val])=>{const row=ws.getRow(ri);row.height=22;if(typeof val==='string'&&val===''&&typeof lbl==='string'&&lbl.trim()===''){ri++;return;}if(lbl==='HẠCH TOÁN DOANH THU'||lbl==='HẠCH TOÁN CHI PHÍ KÉP'||lbl==='EBITDA (Lợi Nhuận Khấu Hao)'){ws.mergeCells(`A${ri}:F${ri}`);const c=row.getCell(1);c.value=lbl;c.font=xn(true,'FFFFFFFF',12);c.fill=xf(lbl==='HẠCH TOÁN CHI PHÍ KÉP'?'FFE8590C':lbl==='EBITDA (Lợi Nhuận Khấu Hao)'?'FF2F9E44':'FF4A5E1C');c.alignment={horizontal:'center'};}else{row.getCell(1).value=lbl;row.getCell(1).font=xn(false,'FF1C1F15');const vc=row.getCell(2);vc.value=val;vc.font=xn(true,lbl.includes('tiêu sản')||lbl.includes('Gánh nặng')||lbl.includes('Vật tư')?'FFE03131':'FF1C1F15', 12);}ri++;});ri++;const dh=ws.getRow(ri);dh.height=22;['Sổ Ghi','Hóa Đơn','Doanh Thu Thực Tế','Chi phí Rời','MKT Tiêu Tốn','Biên Lợi Nhuận'].forEach((h,i)=>{const c=dh.getCell(i+1);c.value=h;c.font=xn(true,'FF1C1F15');c.fill=xf('FFE8EDD6');c.alignment={horizontal:'center'};});ri++;const costsByDate=buildCostsByDate(allCosts);results.filter(r=>r.orders.length||costsByDate[normDate(r.date)]).forEach(({date,orders})=>{const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0),rev=cake+ship;const dc=costsByDate[normDate(date)]||{price:0,adCost:0},profit=rev-(dc.price+dc.adCost);const row=ws.getRow(ri);row.height=18;[date,orders.length,rev,dc.price||'–',dc.adCost||'–',profit].forEach((v,i)=>{const c=row.getCell(i+1);c.value=v;c.font=xn(false,i===5?(profit>=0?'FF2F9E44':'FFE03131'):'FF1C1F15');c.fill=xf('FFFFFFFF');if(i===5||i===2)c.font.bold=true;});ri++;});const tr=ws.getRow(ri);tr.height=26;[`KẾT TOÁN THÁNG ${m}/${y}`,'',totalRev,tP,tA,netProfit].forEach((v,i)=>{const c=tr.getCell(i+1);c.value=v;c.font=xn(true,i>=2?'FFFFFFFF':'FFFFFFFF',12);c.fill=xf('FFB89020');});const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`BCTK_TongHop_${m}_${y}.xlsx`;a.click();URL.revokeObjectURL(url);toast(`Xuất tệp Data thành công.`);}
+async function exportDashExcel(){await loadExcelJS();if(!dashExportData)return;const{results,allCosts,fixedResult,m,y}=dashExportData;const wb=new ExcelJS.Workbook(),ws=wb.addWorksheet(`Report ${m}_${y}`);const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Segoe UI',bold,color:{argb},size:sz});ws.columns=[{width:28},{width:20},{width:20},{width:20},{width:20},{width:20}];ws.mergeCells('A1:F1');const t=ws.getRow(1).getCell(1);t.value=`BẢNG ĐIỀU KHIỂN & BÁO CÁO TOULOUSE – KỲ ${m}/${y}`;t.font=xn(true,'FFFFFFFF',14);t.fill=xf('FF6B7A2E');t.alignment={horizontal:'center',vertical:'middle'};ws.getRow(1).height=35;const tP=allCosts.reduce((s,c)=>s+n(c.price),0),tA=allCosts.reduce((s,c)=>s+n(c.adCost),0);const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;const totalFixed=fR+fE+fW,totalOrders=results.reduce((s,r)=>s+r.orders.length,0),totalRev=results.reduce((s,r)=>s+r.orders.reduce((ss,o)=>ss+n(o.cakePrice)+n(o.accPrice)+n(o.ship),0),0),netProfit=totalRev-tP-tA-totalFixed;const metrics=[['HẠCH TOÁN DOANH THU','FF4A5E1C'],['Tổng Đơn',totalOrders],['Tổng DT ( Bánh + PK )',fmt(totalRev)],[' ',''],['HẠCH TOÁN CHI PHÍ KÉP','FFE8590C'],['Nguyên Vật Liệu ( NVL )',fmt(tP)],['Chi phí QC',fmt(tA)],['Gánh nặng Định phí',fmt(totalFixed)],['Tổng tiêu sản',fmt(tP+tA+totalFixed)],[' ',''],['BIÊN LỢI NHUẬN RÒNG (NET PROFIT)',fmt(netProfit)]];let ri=2;metrics.forEach(([lbl,val])=>{const row=ws.getRow(ri);row.height=22;if(typeof val==='string'&&val===''&&typeof lbl==='string'&&lbl.trim()===''){ri++;return;}if(lbl==='HẠCH TOÁN DOANH THU'||lbl==='HẠCH TOÁN CHI PHÍ KÉP'||lbl==='BIÊN LỢI NHUẬN RÒNG (NET PROFIT)'){ws.mergeCells(`A${ri}:F${ri}`);const c=row.getCell(1);c.value=lbl;c.font=xn(true,'FFFFFFFF',12);c.fill=xf(lbl==='HẠCH TOÁN CHI PHÍ KÉP'?'FFE8590C':lbl==='BIÊN LỢI NHUẬN RÒNG (NET PROFIT)'?'FF2F9E44':'FF4A5E1C');c.alignment={horizontal:'center'};}else{row.getCell(1).value=lbl;row.getCell(1).font=xn(false,'FF1C1F15');const vc=row.getCell(2);vc.value=val;vc.font=xn(true,lbl.includes('tiêu sản')||lbl.includes('Gánh nặng')||lbl.includes('Vật tư')?'FFE03131':'FF1C1F15', 12);}ri++;});ri++;const dh=ws.getRow(ri);dh.height=22;['Thời gian','Tổng Đơn','Tổng DT ( Bánh + PK )','Nguyên Vật Liệu ( NVL )','Chi phí QC','Lợi Nhuận Ròng'].forEach((h,i)=>{const c=dh.getCell(i+1);c.value=h;c.font=xn(true,'FF1C1F15');c.fill=xf('FFE8EDD6');c.alignment={horizontal:'center'};});ri++;const costsByDate=buildCostsByDate(allCosts);results.filter(r=>r.orders.length||costsByDate[normDate(r.date)]).forEach(({date,orders})=>{const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0),rev=cake+ship;const dc=costsByDate[normDate(date)]||{price:0,adCost:0},profit=rev-(dc.price+dc.adCost);const row=ws.getRow(ri);row.height=18;[date,orders.length,rev,dc.price||'–',dc.adCost||'–',profit].forEach((v,i)=>{const c=row.getCell(i+1);c.value=v;c.font=xn(false,i===5?(profit>=0?'FF2F9E44':'FFE03131'):'FF1C1F15');c.fill=xf('FFFFFFFF');if(i===5||i===2)c.font.bold=true;});ri++;});const tr=ws.getRow(ri);tr.height=26;[`KẾT TOÁN THÁNG ${m}/${y}`,'',totalRev,tP,tA,netProfit].forEach((v,i)=>{const c=tr.getCell(i+1);c.value=v;c.font=xn(true,i>=2?'FFFFFFFF':'FFFFFFFF',12);c.fill=xf('FFB89020');});const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`BCTK_TongHop_${m}_${y}.xlsx`;a.click();URL.revokeObjectURL(url);toast(`Xuất tệp Data thành công.`);}
 
 function initReport(){if(!$('rptFrom').value){const d=new Date(),y=d.getFullYear(),m=d.getMonth()+1;$('rptFrom').value=`${y}-${pad(m)}-01`;$('rptTo').value=todayStr();}}
 async function loadReport(){const from=$('rptFrom').value,to=$('rptTo').value;if(!from||!to)return;if(from>to)return;$('rptResult').innerHTML='<div class="dash-loading"><span class="sk"></span> Chờ Node kết xuất...</div>';$('btnRptXlsx').style.display='none';const dates=genDates(from,to);const ymSet=new Set(dates.map(d=>dateToYM(d)));const yms=[...ymSet];try{const allResults=await Promise.all([fetchRange(dates),...yms.map(ym=>api({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]}))),...yms.map(ym=>api({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0})))]);reportData=allResults[0];const costResults=allResults.slice(1,1+yms.length);const fixedResults=allResults.slice(1+yms.length);reportCosts=(costResults.flatMap(r=>r.costs||[])).filter(c=>{const d=normDate(c.date);return d>=from&&d<=to;});reportMonthFixeds={};yms.forEach((ym,i)=>{reportMonthFixeds[ym]=fixedResults[i];});renderReport(from,to);$('btnRptXlsx').style.display='';}catch(e){$('rptResult').innerHTML=`<div class="dash-loading" style="color:var(--red)">⚠️ Vỡ cấu trúc mạng.</div>`;}}
 
 function renderReport(from,to){const costsByDate=buildCostsByDate(reportCosts);let gOrders=0,gCake=0,gShip=0;reportData.forEach(({orders})=>{gOrders+=orders.length;gCake+=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);gShip+=orders.reduce((s,o)=>s+n(o.ship),0);});const totalGross=gCake+gShip,tP=reportCosts.reduce((s,c)=>s+n(c.price),0),tA=reportCosts.reduce((s,c)=>s+n(c.adCost),0);const totalFixed=Object.values(reportMonthFixeds).reduce((s,f)=>s+(f&&f.ok?n(f.rent)+n(f.elec)+n(f.water):0),0);const netProfit=totalGross-tP-tA-totalFixed;const dayRows=reportData.filter(r=>r.orders.length||costsByDate[normDate(r.date)]);const dayTable=dayRows.map(({date,orders})=>{const[y,mo,d]=date.split('-');const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0);const dc=costsByDate[normDate(date)]||{price:0,adCost:0},profit=cake+ship-(dc.price+dc.adCost);return`<tr><td><b>${d}/${mo}/${y}</b></td><td>${orders.length}</td><td class="num-align" style="font-weight:700">${fmt(cake)}</td><td class="num-align" style="color:var(--indigo)">${ship?fmt(ship):'–'}</td><td class="num-align">${dc.price?fmt(dc.price):'–'}</td><td class="num-align">${dc.adCost?fmt(dc.adCost):'–'}</td><td class="num-align" style="${profit>=0?'color:var(--green)':'color:var(--red)'};font-weight:800;font-size:15px;">${fmt(profit)}</td></tr>`;}).join('');const orderRows=reportData.map(({date,orders})=>{if(!orders.length)return'';const[y,mo,d]=date.split('-');const dC=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),dS=orders.reduce((s,o)=>s+n(o.ship),0);return`<tr><td colspan="9" style="background:var(--olive-pale); color:var(--olive-dark); font-weight:800; font-size:12.5px; border-bottom: none;"><i class="ti ti-calendar" style="margin-right:6px;"></i>Sổ Nhập liệu ${d}/${mo}/${y} — [ ${orders.length} Record ]</td></tr>`+orders.map((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);return`<tr><td>${i+1}</td><td><span style="background:#fff;border:1px solid rgba(0,0,0,0.1);padding:2px 4px;border-radius:4px">${esc(o.time)}</span></td><td title="${esc(o.size)}">${esc(o.size)}</td><td class="num-align">${fmt(o.cakePrice)}</td><td class="num-align">${fmt(o.accPrice)}</td><td class="num-align red">${fmt(sum)}</td><td class="num-align">${fmt(o.ship)}</td><td class="num-align red" style="font-size:15px;">${fmt(tot)}</td><td title="${esc(o.name)}"><b>${esc(o.name)}</b></td></tr>`;}).join('')+`<tr><td colspan="5" style="text-align:right; font-weight:600; color:var(--text-muted); border-top: 1px dashed rgba(0,0,0,0.15);">Cộng Khóa Khối:</td><td class="num-align" style="color:var(--olive-dark); font-weight:700; border-top: 1px dashed rgba(0,0,0,0.15);">${fmt(dC)}</td><td class="num-align" style="color:var(--olive-dark); font-weight:700; border-top: 1px dashed rgba(0,0,0,0.15);">${fmt(dS)}</td><td class="num-align" style="color:var(--olive-dark); font-weight:800; font-size: 16px; border-top: 1px dashed rgba(0,0,0,0.15);">${fmt(dC+dS)}</td><td style="border-top: 1px dashed rgba(0,0,0,0.15);"></td></tr>`;}).join('');const costRows=reportCosts.length?reportCosts.map((c,i)=>{const d=normDate(c.date).split('-');return`<tr><td>${i+1}</td><td><b>${d[2]}/${d[1]}/${d[0]}</b></td><td title="${esc(c.supplier)}"><b>${esc(c.supplier)||'–'}</b></td><td title="${esc(c.product)}">${esc(c.product)||'–'}</td><td class="num-align red" style="font-size:15px;">${c.price?fmt(c.price):'–'}</td><td class="num-align" style="font-weight:600">${c.adCost?fmt(c.adCost):'–'}</td><td title="${esc(c.note)}">${esc(c.note)||'–'}</td></tr>`;}).join(''):'<tr><td colspan="7" style="text-align:center; padding: 2rem; color: #aaa;">Data Null</td></tr>';
-$('rptResult').innerHTML=`<div class="rpt-card"><h3><i class="ti ti-brand-google-analytics" style="font-size: 24px;"></i> Hệ Thống Cân Đối Tài Chính (${from} → ${to})</h3><div class="metrics" style="margin-bottom:0"><div class="mc"><div class="mc-lbl">Mật độ giao dịch</div><div class="mc-val hl">${gOrders}</div></div><div class="mc"><div class="mc-lbl">Độ lớn cốt lõi Bánh</div><div class="mc-val hl">${fmt(gCake)}</div></div><div class="mc" style="border-left-color:var(--indigo)"><div class="mc-lbl">Quy mô Logistic</div><div class="mc-val" style="color:var(--indigo)">${fmt(gShip)}</div></div><div class="mc cost-card"><div class="mc-lbl">Sức rò rỉ Vật tư</div><div class="mc-val red">${fmt(tP)}</div></div><div class="mc cost-card"><div class="mc-lbl">Chiến dịch MKT</div><div class="mc-val red">${fmt(tA)}</div></div><div class="mc cost-card"><div class="mc-lbl">Giảm trừ Cố định</div><div class="mc-val red">${fmt(totalFixed)}</div></div><div class="mc profit-card" style="grid-column: 1/-1; flex-direction:row; align-items:center; justify-content:space-between"><div class="mc-lbl" style="font-size:14px">THẶNG DƯ (PROFIT RATIO)</div><div class="mc-val ${netProfit>=0?'green':'red'}" style="font-size: 32px; letter-spacing: -1px;">${fmt(netProfit)}</div></div></div></div><div class="rpt-card"><h3><i class="ti ti-calendar-stats"></i> Trạng thái Hạch toán Kép Ngang</h3><div class="tw" style="box-shadow:none; border:none"><table style="min-width:700px"><colgroup><col style="width: 100px;"><col style="width: 70px;"><col style="width: 110px;"><col style="width: 90px;"><col style="width: 100px;"><col style="width: 100px;"><col style="width: 120px;"></colgroup><thead><tr><th>Bản Ghi</th><th>Lệnh</th><th class="num-align">Bánh Cốt Lõi</th><th class="num-align">Ship</th><th class="num-align">Nguyên Liệu</th><th class="num-align">Ngân sách Ads</th><th class="num-align">Thặng dư</th></tr></thead><tbody>${dayTable}</tbody><tfoot><tr class="trow"><td colspan="2">TỔNG CHUỘI</td><td class="num-align" style="font-size:16px">${fmt(gCake)}</td><td class="num-align" style="color:var(--indigo); font-size:16px">${fmt(gShip)}</td><td class="num-align" style="font-size:16px">${fmt(tP)}</td><td class="num-align" style="font-size:16px">${fmt(tA)}</td><td class="num-align" style="${netProfit>=0?'color:white':'color:#FFC9C9'}; font-size:18px">${fmt(netProfit)}</td></tr></tfoot></table></div>${totalFixed>0?`<div style="font-size:13px;color:var(--text-muted);margin-top:16px;padding:12px 16px;background:rgba(107,122,46,0.06);border-radius:var(--radius-sm);"><i class="ti ti-info-circle" style="vertical-align:middle;margin-right:6px"></i>Lưu ý: Số liệu Thặng dư tổng đã bị khấu hao <b>${fmt(totalFixed)}</b> của Base Cost (Mặt bằng/Điện/Nước).</div>`:''}</div><div class="rpt-card"><h3><i class="ti ti-list-details"></i> Dữ Liệu Thu Lũy Kế</h3><div class="tw" style="box-shadow:none; border:none"><table style="min-width:850px"><colgroup><col class="col-stt"><col class="col-time"><col class="col-size"><col class="col-num"><col class="col-num"><col class="col-num"><col class="col-num"><col class="col-total"><col class="col-name"></colgroup><thead><tr><th>ID</th><th>Frame</th><th>Data X</th><th class="num-align">Param A</th><th class="num-align">Param B</th><th class="num-align">Sum AB</th><th class="num-align">Fee</th><th class="num-align">Total In</th><th>Entity</th></tr></thead><tbody>${gOrders?orderRows:'<tr><td colspan="9" style="text-align:center;">Empty Pointer</td></tr>'}</tbody><tfoot><tr class="trow"><td colspan="5" style="text-align:right">TỔNG XẢ</td><td class="num-align" style="font-size:16px">${fmt(gCake)}</td><td class="num-align" style="font-size:16px">${fmt(gShip)}</td><td class="num-align" style="font-size:18px">${fmt(totalGross)}</td><td></td></tr></tfoot></table></div></div><div class="rpt-card"><h3><i class="ti ti-cash-banknote"></i> Dữ Liệu Chi Lũy Kế</h3><div class="tw" style="box-shadow:none; border:none"><table style="min-width:700px"><colgroup><col style="width: 50px;"><col style="width: 100px;"><col style="width: 150px;"><col style="width: 120px;"><col style="width: 110px;"><col style="width: 110px;"><col style="width: 160px;"></colgroup><thead><tr><th>ID</th><th>Frame</th><th>Vendor</th><th>Class</th><th class="num-align">Value X</th><th class="num-align">Value Y</th><th>Metadata</th></tr></thead><tbody>${costRows}</tbody><tfoot><tr class="trow"><td colspan="4" style="text-align:right">TỔNG TIÊU</td><td class="num-align" style="font-size:16px">${fmt(tP)}</td><td class="num-align" style="font-size:16px">${fmt(tA)}</td><td></td></tr></tfoot></table></div></div>`;}
-async function exportReportExcel(){await loadExcelJS();if(!reportData.length){toast('Không có View để trích xuất!');return;}const from=$('rptFrom').value,to=$('rptTo').value;const btn=$('btnRptXlsx'),orig=btn.innerHTML;btn.innerHTML='<i class="ti ti-loader"></i> Dựng luồng Ghi...';btn.disabled=true;try{const wb=new ExcelJS.Workbook();const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Segoe UI',bold,color:{argb},size:sz});const ws1=wb.addWorksheet('Bảng Cân Đối');ws1.columns=[{width:26},{width:18},{width:22},{width:18},{width:20},{width:20},{width:22}];ws1.mergeCells('A1:G1');const t1h=ws1.getRow(1).getCell(1);t1h.value=`TÀI LIỆU KẾ TOÁN ERP TOULOUSE [ ${from} → ${to} ]`;t1h.font=xn(true,'FFFFFFFF',14);t1h.fill=xf('FF6B7A2E');t1h.alignment={horizontal:'center'};ws1.getRow(1).height=35;const costsByDate=buildCostsByDate(reportCosts);let gOrders2=0,gCake2=0,gShip2=0;reportData.forEach(({orders})=>{gOrders2+=orders.length;gCake2+=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);gShip2+=orders.reduce((s,o)=>s+n(o.ship),0);});const totalGross2=gCake2+gShip2,tP2=reportCosts.reduce((s,c)=>s+n(c.price),0),tA2=reportCosts.reduce((s,c)=>s+n(c.adCost),0),totalFixed2=Object.values(reportMonthFixeds).reduce((s,f)=>s+(f&&f.ok?n(f.rent)+n(f.elec)+n(f.water):0),0),netProfit2=totalGross2-tP2-tA2-totalFixed2;let ri=2;[['Mật độ Lệnh',gOrders2],['Lượng Cốt Lõi',gCake2],['Quy mô Vận Tải',gShip2],['Tiêu hao Cứng',tP2],['Tiêu hao Mềm (Ads)',tA2],['Cấu trừ Chết',totalFixed2],['Tổng Tiêu Sản',tP2+tA2+totalFixed2],['BÁO CÁO THẶNG DƯ KÉP',netProfit2]].forEach(([lbl,val])=>{const row=ws1.getRow(ri);row.height=22;row.getCell(1).value=lbl;row.getCell(1).font=xn(false,'FF1C1F15');const vc=row.getCell(2);vc.value=val;vc.font=xn(true,lbl.includes('THẶNG DƯ')?(netProfit2>=0?'FF2F9E44':'FFE03131'):lbl.includes('Tiêu')||lbl.includes('Cấu trừ')?'FFE03131':'FF1C1F15', 12);if(lbl.includes('THẶNG DƯ')){vc.fill=xf(netProfit2>=0?'FFD1FAE5':'FFFFC9C9'); row.getCell(1).font=xn(true,'FF1C1F15', 12);}if(lbl.includes('Vận Tải'))vc.font=xn(true,'FF4C6EF5',12);ri++;});ri++;const dh=ws1.getRow(ri);dh.height=22;['Ghi Nhanh','Biên lai','Cốt bánh In','Ship In','Vật tư Out','Ads Out','Tỉ lệ Dư'].forEach((h,i)=>{const c=dh.getCell(i+1);c.value=h;c.font=xn(true,'FF1C1F15');c.fill=xf('FFE8EDD6');});ri++;reportData.filter(r=>r.orders.length||costsByDate[normDate(r.date)]).forEach(({date,orders})=>{const cake_=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship_=orders.reduce((s,o)=>s+n(o.ship),0);const dc=costsByDate[normDate(date)]||{price:0,adCost:0},profit_=cake_+ship_-(dc.price+dc.adCost);const row=ws1.getRow(ri);row.height=18;[date,orders.length,cake_,ship_||0,dc.price||0,dc.adCost||0,profit_].forEach((v,i)=>{const c=row.getCell(i+1);c.value=v;c.font=xn(false,i===6?(profit_>=0?'FF2F9E44':'FFE03131'):i===3?'FF4C6EF5':'FF1C1F15');c.fill=xf('FFFFFFFF');if(i===6)c.font.bold=true;});ri++;});const tRow=ws1.getRow(ri);tRow.height=24;['KẾT TOÁN CỤC BỘ','',gCake2,gShip2,tP2,tA2,netProfit2].forEach((v,i)=>{const c=tRow.getCell(i+1);c.value=v;c.font=xn(true,i===3?'FF4C6EF5':i>3?'FFE03131':'FF1C1F15',12);c.fill=xf('FFB89020');});const ws2=wb.addWorksheet('Dump Lệnh');ws2.columns=[{width:6},{width:14},{width:10},{width:14},{width:14},{width:14},{width:18},{width:14},{width:20},{width:22}];ws2.mergeCells('A1:J1');const t2h=ws2.getRow(1).getCell(1);t2h.value=`DUMP LOG LỆNH HỆ THỐNG [ ${from} → ${to} ]`;t2h.font=xn(true,'FFFFFFFF',14);t2h.fill=xf('FF4A5E1C');t2h.alignment={horizontal:'center', vertical:'middle'};ws2.getRow(1).height=35;const h2=['Row ID','Time Code','Khung','Biến Size','Giá X','Giá Y','Vector XY','Data Ship','Kết Giá','Định Danh'];const r2h=ws2.getRow(2);r2h.height=22;h2.forEach((h,i)=>{const c=r2h.getCell(i+1);c.value=h;c.font=xn(true,'FF1C1F15');c.fill=xf('FFE8EDD6');});let ri2=3;reportData.forEach(({date,orders})=>{if(!orders.length)return;const[y,mo,d]=date.split('-');orders.forEach((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);const row=ws2.getRow(ri2);row.height=18;[i+1,`${d}/${mo}/${y}`,o.time,o.size,n(o.cakePrice),n(o.accPrice),sum,n(o.ship),tot,o.name].forEach((v,ci)=>{const c=row.getCell(ci+1);c.value=v;c.font=xn(false,(ci===6||ci===8)?'FFE03131':'FF1C1F15');c.fill=xf('FFFFFFFF');});ri2++;});});const ws3=wb.addWorksheet('Dump Rò rỉ');ws3.columns=[{width:6},{width:14},{width:22},{width:24},{width:16},{width:16},{width:26}];ws3.mergeCells('A1:G1');const t3h=ws3.getRow(1).getCell(1);t3h.value=`DUMP LOG RÒ RỈ DÒNG TIỀN [ ${from} → ${to} ]`;t3h.font=xn(true,'FFFFFFFF',14);t3h.fill=xf('FFE8590C');t3h.alignment={horizontal:'center', vertical:'middle'};ws3.getRow(1).height=35;const h3=['Row ID','Time Code','Point A','Kiểu Dữ Liệu','Byte Out X','Byte Out Y','Log Note'];const r3h=ws3.getRow(2);r3h.height=22;h3.forEach((h,i)=>{const c=r3h.getCell(i+1);c.value=h;c.font=xn(true,'FF1C1F15');c.fill=xf('FFFFE8CC');});reportCosts.forEach((c,i)=>{const d=normDate(c.date).split('-');const row=ws3.getRow(i+3);row.height=18;[i+1,d[2]+'/'+d[1]+'/'+d[0],c.supplier,c.product,n(c.price),n(c.adCost),c.note].forEach((v,ci)=>{const cc=row.getCell(ci+1);cc.value=v;cc.font=xn(false,(ci===4||ci===5)?'FFE03131':'FF1C1F15');cc.fill=xf('FFFFFFFF');});});const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`BCTK_Dump_Deep_${from}_${to}.xlsx`;a.click();URL.revokeObjectURL(url);toast('Mã hóa tệp ERP thành công (3 Trang).');}catch(e){toast('Sập luồng ghi: '+e.message,true);}btn.innerHTML=orig;btn.disabled=false;}
+$('rptResult').innerHTML=`<div class="rpt-card"><h3><i class="ti ti-brand-google-analytics" style="font-size: 24px;"></i> Hệ Thống Cân Đối Tài Chính (${from} → ${to})</h3><div class="metrics" style="margin-bottom:0"><div class="mc"><div class="mc-lbl">Tổng Đơn</div><div class="mc-val hl">${gOrders}</div></div><div class="mc"><div class="mc-lbl">Tổng DT ( Bánh + PK )</div><div class="mc-val hl">${fmt(gCake)}</div></div><div class="mc" style="border-left-color:var(--indigo)"><div class="mc-lbl">Quy mô Logistic (Ship)</div><div class="mc-val" style="color:var(--indigo)">${fmt(gShip)}</div></div><div class="mc cost-card"><div class="mc-lbl">Nguyên Vật Liệu ( NVL )</div><div class="mc-val red">${fmt(tP)}</div></div><div class="mc cost-card"><div class="mc-lbl">Chi phí QC</div><div class="mc-val red">${fmt(tA)}</div></div><div class="mc cost-card"><div class="mc-lbl">Giảm trừ Cố định</div><div class="mc-val red">${fmt(totalFixed)}</div></div><div class="mc profit-card" style="grid-column: 1/-1; flex-direction:row; align-items:center; justify-content:space-between"><div class="mc-lbl" style="font-size:14px">THẶNG DƯ (PROFIT RATIO)</div><div class="mc-val ${netProfit>=0?'green':'red'}" style="font-size: 32px; letter-spacing: -1px;">${fmt(netProfit)}</div></div></div></div><div class="rpt-card"><h3><i class="ti ti-calendar-stats"></i> Trạng thái Hạch toán Kép Ngang</h3><div class="tw" style="box-shadow:none; border:none"><table style="min-width:850px"><colgroup><col style="width: 120px;"><col style="width: 90px;"><col style="width: 140px;"><col style="width: 100px;"><col style="width: 140px;"><col style="width: 110px;"><col style="width: 150px;"></colgroup><thead><tr><th>Bản Ghi Thời Gian</th><th>Tổng Đơn</th><th class="num-align">Tổng DT ( Bánh + PK )</th><th class="num-align">Ship</th><th class="num-align">Nguyên Vật Liệu ( NVL )</th><th class="num-align">Chi phí QC</th><th class="num-align">Thặng dư Ròng</th></tr></thead><tbody>${dayTable}</tbody><tfoot><tr class="trow"><td colspan="2">TỔNG CHUỖI</td><td class="num-align" style="font-size:16px">${fmt(gCake)}</td><td class="num-align" style="color:var(--indigo); font-size:16px">${fmt(gShip)}</td><td class="num-align" style="font-size:16px">${fmt(tP)}</td><td class="num-align" style="font-size:16px">${fmt(tA)}</td><td class="num-align" style="${netProfit>=0?'color:var(--green)':'color:var(--red)'}; font-size:18px">${fmt(netProfit)}</td></tr></tfoot></table></div>${totalFixed>0?`<div style="font-size:13px;color:var(--text-muted);margin-top:16px;padding:12px 16px;background:rgba(107,122,46,0.06);border-radius:var(--radius-sm);"><i class="ti ti-info-circle" style="vertical-align:middle;margin-right:6px"></i>Lưu ý: Số liệu Thặng dư tổng đã bị khấu hao <b>${fmt(totalFixed)}</b> của Base Cost (Mặt bằng/Điện/Nước).</div>`:''}</div><div class="rpt-card"><h3><i class="ti ti-list-details"></i> Dữ Liệu Thu Lũy Kế</h3><div class="tw" style="box-shadow:none; border:none"><table style="min-width:900px"><colgroup><col class="col-stt"><col class="col-time"><col class="col-size"><col class="col-num"><col class="col-num"><col class="col-num"><col class="col-num"><col class="col-total"><col class="col-name"></colgroup><thead><tr><th>ID</th><th>Frame</th><th>Size</th><th class="num-align">Giá Bánh</th><th class="num-align">Giá PK</th><th class="num-align">Tổng Bánh+PK</th><th class="num-align">Ship</th><th class="num-align">Total In</th><th>Entity</th></tr></thead><tbody>${gOrders?orderRows:'<tr><td colspan="9" style="text-align:center;">Empty Pointer</td></tr>'}</tbody><tfoot><tr class="trow"><td colspan="5" style="text-align:right">TỔNG XẢ</td><td class="num-align" style="font-size:16px">${fmt(gCake)}</td><td class="num-align" style="font-size:16px">${fmt(gShip)}</td><td class="num-align" style="font-size:18px">${fmt(totalGross)}</td><td></td></tr></tfoot></table></div></div><div class="rpt-card"><h3><i class="ti ti-cash-banknote"></i> Dữ Liệu Chi Lũy Kế</h3><div class="tw" style="box-shadow:none; border:none"><table style="min-width:750px"><colgroup><col style="width: 50px;"><col style="width: 100px;"><col style="width: 150px;"><col style="width: 120px;"><col style="width: 110px;"><col style="width: 110px;"><col style="width: 160px;"></colgroup><thead><tr><th>ID</th><th>Frame</th><th>Vendor</th><th>Class</th><th class="num-align">NVL Nhập</th><th class="num-align">MKT Ads</th><th>Metadata</th></tr></thead><tbody>${costRows}</tbody><tfoot><tr class="trow"><td colspan="4" style="text-align:right">TỔNG TIÊU</td><td class="num-align" style="font-size:16px">${fmt(tP)}</td><td class="num-align" style="font-size:16px">${fmt(tA)}</td><td></td></tr></tfoot></table></div></div>`;}
+async function exportReportExcel(){await loadExcelJS();if(!reportData.length){toast('Không có View để trích xuất!');return;}const from=$('rptFrom').value,to=$('rptTo').value;const btn=$('btnRptXlsx'),orig=btn.innerHTML;btn.innerHTML='<i class="ti ti-loader"></i> Dựng luồng Ghi...';btn.disabled=true;try{const wb=new ExcelJS.Workbook();const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Segoe UI',bold,color:{argb},size:sz});const ws1=wb.addWorksheet('Bảng Cân Đối');ws1.columns=[{width:26},{width:18},{width:22},{width:18},{width:20},{width:20},{width:22}];ws1.mergeCells('A1:G1');const t1h=ws1.getRow(1).getCell(1);t1h.value=`TÀI LIỆU KẾ TOÁN ERP TOULOUSE [ ${from} → ${to} ]`;t1h.font=xn(true,'FFFFFFFF',14);t1h.fill=xf('FF6B7A2E');t1h.alignment={horizontal:'center'};ws1.getRow(1).height=35;const costsByDate=buildCostsByDate(reportCosts);let gOrders2=0,gCake2=0,gShip2=0;reportData.forEach(({orders})=>{gOrders2+=orders.length;gCake2+=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);gShip2+=orders.reduce((s,o)=>s+n(o.ship),0);});const totalGross2=gCake2+gShip2,tP2=reportCosts.reduce((s,c)=>s+n(c.price),0),tA2=reportCosts.reduce((s,c)=>s+n(c.adCost),0),totalFixed2=Object.values(reportMonthFixeds).reduce((s,f)=>s+(f&&f.ok?n(f.rent)+n(f.elec)+n(f.water):0),0),netProfit2=totalGross2-tP2-tA2-totalFixed2;let ri=2;[['Tổng Đơn',gOrders2],['Tổng DT ( Bánh + PK )',gCake2],['Quy mô Vận Tải',gShip2],['Nguyên Vật Liệu ( NVL )',tP2],['Chi phí QC',tA2],['Cấu trừ Cố định',totalFixed2],['Tổng Tiêu Sản',tP2+tA2+totalFixed2],['BÁO CÁO THẶNG DƯ KÉP',netProfit2]].forEach(([lbl,val])=>{const row=ws1.getRow(ri);row.height=22;row.getCell(1).value=lbl;row.getCell(1).font=xn(false,'FF1C1F15');const vc=row.getCell(2);vc.value=val;vc.font=xn(true,lbl.includes('THẶNG DƯ')?(netProfit2>=0?'FF2F9E44':'FFE03131'):lbl.includes('Tiêu')||lbl.includes('Cấu trừ')?'FFE03131':'FF1C1F15', 12);if(lbl.includes('THẶNG DƯ')){vc.fill=xf(netProfit2>=0?'FFD1FAE5':'FFFFC9C9'); row.getCell(1).font=xn(true,'FF1C1F15', 12);}if(lbl.includes('Vận Tải'))vc.font=xn(true,'FF4C6EF5',12);ri++;});ri++;const dh=ws1.getRow(ri);dh.height=22;['Ghi Nhanh','Tổng Đơn','Tổng DT ( Bánh + PK )','Ship In','Nguyên Vật Liệu ( NVL )','Chi phí QC','Tỉ lệ Dư'].forEach((h,i)=>{const c=dh.getCell(i+1);c.value=h;c.font=xn(true,'FF1C1F15');c.fill=xf('FFE8EDD6');});ri++;reportData.filter(r=>r.orders.length||costsByDate[normDate(r.date)]).forEach(({date,orders})=>{const cake_=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship_=orders.reduce((s,o)=>s+n(o.ship),0);const dc=costsByDate[normDate(date)]||{price:0,adCost:0},profit_=cake_+ship_-(dc.price+dc.adCost);const row=ws1.getRow(ri);row.height=18;[date,orders.length,cake_,ship_||0,dc.price||0,dc.adCost||0,profit_].forEach((v,i)=>{const c=row.getCell(i+1);c.value=v;c.font=xn(false,i===6?(profit_>=0?'FF2F9E44':'FFE03131'):i===3?'FF4C6EF5':'FF1C1F15');c.fill=xf('FFFFFFFF');if(i===6)c.font.bold=true;});ri++;});const tRow=ws1.getRow(ri);tRow.height=24;['KẾT TOÁN CỤC BỘ','',gCake2,gShip2,tP2,tA2,netProfit2].forEach((v,i)=>{const c=tRow.getCell(i+1);c.value=v;c.font=xn(true,i===3?'FF4C6EF5':i>3?'FFE03131':'FF1C1F15',12);c.fill=xf('FFB89020');});const ws2=wb.addWorksheet('Dump Lệnh');ws2.columns=[{width:6},{width:14},{width:10},{width:14},{width:14},{width:14},{width:18},{width:14},{width:20},{width:22}];ws2.mergeCells('A1:J1');const t2h=ws2.getRow(1).getCell(1);t2h.value=`DUMP LOG LỆNH HỆ THỐNG [ ${from} → ${to} ]`;t2h.font=xn(true,'FFFFFFFF',14);t2h.fill=xf('FF4A5E1C');t2h.alignment={horizontal:'center', vertical:'middle'};ws2.getRow(1).height=35;const h2=['Row ID','Time Code','Khung','Biến Size','Giá X','Giá Y','Vector XY','Data Ship','Kết Giá','Định Danh'];const r2h=ws2.getRow(2);r2h.height=22;h2.forEach((h,i)=>{const c=r2h.getCell(i+1);c.value=h;c.font=xn(true,'FF1C1F15');c.fill=xf('FFE8EDD6');});let ri2=3;reportData.forEach(({date,orders})=>{if(!orders.length)return;const[y,mo,d]=date.split('-');orders.forEach((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);const row=ws2.getRow(ri2);row.height=18;[i+1,`${d}/${mo}/${y}`,o.time,o.size,n(o.cakePrice),n(o.accPrice),sum,n(o.ship),tot,o.name].forEach((v,ci)=>{const c=row.getCell(ci+1);c.value=v;c.font=xn(false,(ci===6||ci===8)?'FFE03131':'FF1C1F15');c.fill=xf('FFFFFFFF');});ri2++;});});const ws3=wb.addWorksheet('Dump Rò rỉ');ws3.columns=[{width:6},{width:14},{width:22},{width:24},{width:16},{width:16},{width:26}];ws3.mergeCells('A1:G1');const t3h=ws3.getRow(1).getCell(1);t3h.value=`DUMP LOG RÒ RỈ DÒNG TIỀN [ ${from} → ${to} ]`;t3h.font=xn(true,'FFFFFFFF',14);t3h.fill=xf('FFE8590C');t3h.alignment={horizontal:'center', vertical:'middle'};ws3.getRow(1).height=35;const h3=['Row ID','Time Code','Point A','Kiểu Dữ Liệu','Byte Out X','Byte Out Y','Log Note'];const r3h=ws3.getRow(2);r3h.height=22;h3.forEach((h,i)=>{const c=r3h.getCell(i+1);c.value=h;c.font=xn(true,'FF1C1F15');c.fill=xf('FFFFE8CC');});reportCosts.forEach((c,i)=>{const d=normDate(c.date).split('-');const row=ws3.getRow(i+3);row.height=18;[i+1,d[2]+'/'+d[1]+'/'+d[0],c.supplier,c.product,n(c.price),n(c.adCost),c.note].forEach((v,ci)=>{const cc=row.getCell(ci+1);cc.value=v;cc.font=xn(false,(ci===4||ci===5)?'FFE03131':'FF1C1F15');cc.fill=xf('FFFFFFFF');});});const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`BCTK_Dump_Deep_${from}_${to}.xlsx`;a.click();URL.revokeObjectURL(url);toast('Mã hóa tệp ERP thành công (3 Trang).');}catch(e){toast('Sập luồng ghi: '+e.message,true);}btn.innerHTML=orig;btn.disabled=false;}
 
 const CSKH_SYSTEM=`Bạn là AI quản lý trung tâm dữ liệu Toulouse. Tác phong: Khách quan, lạnh lùng, dứt khoát như một cỗ máy, chuyên môn F&B cao.`;
 let cskhHistory=[],cskhBusy=false;
