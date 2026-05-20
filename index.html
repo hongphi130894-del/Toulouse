@@ -709,7 +709,21 @@ function toast(msg,err=false){clearTimeout(toastT);const t=$('toast');t.textCont
 /* ── API ── */
 async function api(params){const r=await fetch(SCRIPT_URL+'?'+new URLSearchParams(params));if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 async function apiC(params){const k=new URLSearchParams(params).toString();const hit=cGet(k);if(hit)return hit;const r=await api(params);if(r.ok!==false)cSet(k,r);return r;}
-async function fetchRange(dates){return Promise.all(dates.map(d=>apiC({action:'getOrders',date:d}).then(r=>({date:d,orders:r.orders||[]})).catch(()=>({date:d,orders:[]}))));}
+async function fetchRange(dates, onProg){
+  const results=[], missing=[];
+  for(const d of dates){
+    const k=new URLSearchParams({action:'getOrders',date:d}).toString(), hit=cGet(k);
+    if(hit) results.push({date:d,orders:hit.orders||[]}); else missing.push(d);
+  }
+  if(onProg) onProg(results.length, dates.length);
+  for(let i=0;i<missing.length;i+=6){
+    await Promise.all(missing.slice(i,i+6).map(d=>{
+      const k=new URLSearchParams({action:'getOrders',date:d}).toString();
+      return api({action:'getOrders',date:d}).then(r=>{if(r.ok!==false)cSet(k,r);results.push({date:d,orders:r.orders||[]});if(onProg)onProg(results.length,dates.length);}).catch(()=>{results.push({date:d,orders:[]});if(onProg)onProg(results.length,dates.length);});
+    }));
+  }
+  return results.sort((a,b)=>a.date.localeCompare(b.date));
+}
 async function apiPost(body){const r=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body)});if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 
 /* ── AI PARSE ── */
@@ -931,25 +945,20 @@ async function submitCost(){
   const costData={date,supplier:$('cSupplier').value.trim(),product:$('cProduct').value.trim(),price:n($('cPrice').value)*1000,imageUrl,adCost:n($('cAdCost').value)*1000,note:$('cNote').value.trim()};
   const tempId = isEdit ? editCostId : '_tmp_'+Date.now();
 
-  // 1. TỐI ƯU: CẬP NHẬT BẢNG CHI PHÍ NGAY LẬP TỨC
-  if(isEdit){
-     currentCosts = currentCosts.map(x => x.id === editCostId ? {...costData, id: editCostId} : x);
-  } else {
-     currentCosts = [...currentCosts, {...costData, id: tempId}];
-  }
-  _renderCostTable();
-  costImages=[]; cancelCostEdit();
+  if(isEdit) currentCosts = currentCosts.map(x => x.id === editCostId ? {...costData, id: editCostId} : x);
+  else currentCosts = [...currentCosts, {...costData, id: tempId}];
+  _renderCostTable(); costImages=[]; cancelCostEdit();
   toast('Đang đồng bộ chi phí ngầm...');
 
-  // 2. TỐI ƯU: GỌI API NGẦM TRONG BACKGROUND
   api(isEdit ? {action:'updateCost',data:JSON.stringify({id:tempId,cost:costData})} : {action:'addCost',data:JSON.stringify(costData)})
   .then(() => {
-     toast('✓ Đã đồng bộ chi phí thành công!');
+     toast('✓ Đã đồng bộ chi phí!');
+     const [y,m] = date.split('-'); cDel('yearMonth=' + parseInt(m) + '_' + y); // XÓA CACHE THÁNG
      cDel(date); renderCosts();
   })
   .catch(e => {
-     toast('⚠️ Lỗi đồng bộ chi phí: '+e.message, true);
-     cDel(date); renderCosts(); // Tải lại từ server để sửa lỗi hiển thị
+     toast('⚠️ Lỗi đồng bộ: '+e.message, true);
+     cDel(date); renderCosts();
   });
 }
 function startCostEdit(id){requireAuth('boss',()=>{
@@ -968,12 +977,27 @@ function cancelCostEdit(){
 }
 async function delCost(id){requireAuth('boss',async()=>{
   if(!confirm('Xóa mục chi phí này?'))return;const c=currentCosts.find(x=>x.id===id);
-  try{const r=await api({action:'deleteCost',id,date:$('selDate').value});if(!r.ok)throw new Error(r.error);getFileIds(c?.imageUrl).forEach(fId=>apiPost({action:'deleteImage',fileId:fId}).catch(()=>{}));if(editCostId===id)cancelCostEdit();cDel($('selDate').value);await renderCosts();toast('Đã xóa mục chi phí.');}catch(e){toast('⚠️ '+e.message,true);}
+  try{
+    const r=await api({action:'deleteCost',id,date:$('selDate').value});if(!r.ok)throw new Error(r.error);
+    getFileIds(c?.imageUrl).forEach(fId=>apiPost({action:'deleteImage',fileId:fId}).catch(()=>{}));
+    if(editCostId===id)cancelCostEdit();
+    const[y,m]=$('selDate').value.split('-');cDel('yearMonth='+parseInt(m)+'_'+y); // XÓA CACHE THÁNG
+    cDel($('selDate').value);await renderCosts();toast('Đã xóa mục chi phí.');
+  }catch(e){toast('⚠️ '+e.message,true);}
 });}
 $('costtoggle').addEventListener('click',()=>{costFormOpen=!costFormOpen;$('costBody').style.display=costFormOpen?'':'none';$('cchev').style.transform=costFormOpen?'':'rotate(-90deg)';});
 $('fixedToggle').addEventListener('click',()=>{fixedBodyOpen=!fixedBodyOpen;$('fixedBody').style.display=fixedBodyOpen?'':'none';$('fixedChev').style.transform=fixedBodyOpen?'':'rotate(-90deg)';});
 async function loadFixedCosts(){const[y,m]=$('selDate').value.split('-');try{const r=await api({action:'getFixedCosts',yearMonth:parseInt(m)+'_'+y});if(r.ok){$('fRent').value=r.rent?r.rent/1000:'';fImgs.rent=r.rentImg?r.rentImg.split('|').filter(Boolean):[];showFixedImg('rent');$('fElec').value=r.elec?r.elec/1000:'';fImgs.elec=r.elecImg?r.elecImg.split('|').filter(Boolean):[];showFixedImg('elec');$('fWater').value=r.water?r.water/1000:'';fImgs.water=r.waterImg?r.waterImg.split('|').filter(Boolean):[];showFixedImg('water');calcFixed();}}catch(e){}}
-async function saveFixed(){const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;try{await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent.join('|'),elec:n($('fElec').value)*1000,elecImg:fImgs.elec.join('|'),water:n($('fWater').value)*1000,waterImg:fImgs.water.join('|')})});toast('✓ Đã lưu chi phí cố định!');}catch(e){toast('⚠️ '+e.message,true);}$('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;}
+async function saveFixed(){
+  const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;
+  $('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;
+  try{
+    await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent.join('|'),elec:n($('fElec').value)*1000,elecImg:fImgs.elec.join('|'),water:n($('fWater').value)*1000,waterImg:fImgs.water.join('|')})});
+    toast('✓ Đã lưu chi phí cố định!');
+    cDel('yearMonth='+ym); // XÓA CACHE THÁNG
+  }catch(e){toast('⚠️ '+e.message,true);}
+  $('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;
+}
    
 /* ── EXCEL – ORDERS ── */
 function onClickXlsx(){requireAuth('boss',()=>{const t=todayStr();$('xlsxFrom').value=t;$('xlsxTo').value=t;$('xlsxModal').style.display='flex';});}
@@ -1026,15 +1050,37 @@ function onDashChange(){dashM=parseInt($('dashMonthSel').value);dashY=parseInt($
 async function loadDash(){
   dashM=parseInt($('dashMonthSel').value);dashY=parseInt($('dashYearSel').value);
   $('dashLoading').style.display='';$('dashChart').style.display='none';if(dashChart){dashChart.destroy();dashChart=null;}
-  $('dashTable').innerHTML='<div class="dash-loading"><span class="sk"></span> Đang tải...</div>';$('btnDashXlsx').style.display='none';$('btnDashPDF').style.display='none';
+  $('dashTable').innerHTML='<div class="dash-loading"><span class="sk"></span> Đang xử lý... <b id="dashProg" style="color:var(--gold-dark)">0%</b></div>';
+  $('btnDashXlsx').style.display='none';$('btnDashPDF').style.display='none';
   const today=todayStr(),days=daysInMonth(dashY,dashM),dates=[];for(let d=1;d<=days;d++){const ds=`${dashY}-${pad(dashM)}-${pad(d)}`;if(ds<=today)dates.push(ds);}
   if(!dates.length){$('dashLoading').textContent='Tháng này chưa có dữ liệu.';return;}
   const ym=dashM+'_'+dashY;
+  const onProg = (cur, tot) => { const e=$('dashProg'); if(e) e.textContent=Math.round(cur*100/tot)+'%'; };
   try{
-    const[orderResults,costResult,fixedResult]=await Promise.all([fetchRange(dates),api({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]})),api({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0}))]);
+    const orderResults = await fetchRange(dates, onProg);
+    const [costResult, fixedResult] = await Promise.all([
+      apiC({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]})),
+      apiC({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0}))
+    ]);
     dashExportData={results:orderResults,allCosts:costResult.costs||[],fixedResult,m:dashM,y:dashY};
     await renderDash(orderResults,costResult.costs||[],fixedResult);$('btnDashXlsx').style.display='';$('btnDashPDF').style.display='';
   }catch(e){$('dashLoading').textContent='⚠️ Lỗi: '+e.message;}
+}
+
+async function loadReport(){
+  const from=$('rptFrom').value,to=$('rptTo').value;if(!from||!to){toast('Vui lòng chọn ngày!',true);return;}if(from>to){toast('Ngày bắt đầu phải ≤ ngày kết thúc!',true);return;}
+  $('rptResult').innerHTML='<div class="dash-loading" style="padding:4rem"><span class="sk"></span> Đang tổng hợp dữ liệu... <b id="rptProg" style="font-size:18px;color:var(--gold-dark)">0%</b></div>';$('btnRptXlsx').style.display='none';
+  const dates=genDates(from,to);const ymSet=new Set(dates.map(d=>dateToYM(d)));const yms=[...ymSet];
+  const onProg = (cur, tot) => { const e=$('rptProg'); if(e) e.textContent=Math.round(cur*100/tot)+'%'; };
+  try{
+    const orderResults = await fetchRange(dates, onProg);
+    const costResults = await Promise.all(yms.map(ym=>apiC({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]})));
+    const fixedResults = await Promise.all(yms.map(ym=>apiC({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0})));
+    reportData = orderResults;
+    reportCosts = (costResults.flatMap(r=>r.costs||[])).filter(c=>{const d=normDate(c.date);return d>=from&&d<=to;});
+    reportMonthFixeds={};yms.forEach((ym,i)=>{reportMonthFixeds[ym]=fixedResults[i];});
+    renderReport(from,to);$('btnRptXlsx').style.display='';
+  }catch(e){$('rptResult').innerHTML=`<div class="dash-loading">⚠️ ${esc(e.message)}</div>`;}
 }
 function buildCostsByDate(allCosts){const cbd={};allCosts.forEach(c=>{const dk=normDate(c.date);if(!dk)return;if(!cbd[dk])cbd[dk]={price:0,adCost:0};cbd[dk].price+=n(c.price);cbd[dk].adCost+=n(c.adCost);});return cbd;}
 async function renderDash(results,allCosts,fixedResult){
@@ -1100,18 +1146,6 @@ async function exportDashExcel(){
 
 /* ── REPORT ── */
 function initReport(){if(!$('rptFrom').value){const d=new Date(),y=d.getFullYear(),m=d.getMonth()+1;$('rptFrom').value=`${y}-${pad(m)}-01`;$('rptTo').value=todayStr();}}
-async function loadReport(){
-  const from=$('rptFrom').value,to=$('rptTo').value;if(!from||!to){toast('Vui lòng chọn ngày!',true);return;}if(from>to){toast('Ngày bắt đầu phải ≤ ngày kết thúc!',true);return;}
-  $('rptResult').innerHTML='<div class="dash-loading"><span class="sk"></span> Đang tải...</div>';$('btnRptXlsx').style.display='none';
-  const dates=genDates(from,to);const ymSet=new Set(dates.map(d=>dateToYM(d)));const yms=[...ymSet];
-  try{
-    const allResults=await Promise.all([fetchRange(dates),...yms.map(ym=>api({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]}))),...yms.map(ym=>api({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0})))]);
-    reportData=allResults[0];const costResults=allResults.slice(1,1+yms.length);const fixedResults=allResults.slice(1+yms.length);
-    reportCosts=(costResults.flatMap(r=>r.costs||[])).filter(c=>{const d=normDate(c.date);return d>=from&&d<=to;});
-    reportMonthFixeds={};yms.forEach((ym,i)=>{reportMonthFixeds[ym]=fixedResults[i];});
-    renderReport(from,to);$('btnRptXlsx').style.display='';
-  }catch(e){$('rptResult').innerHTML=`<div class="dash-loading">⚠️ ${esc(e.message)}</div>`;}
-}
 function renderReport(from,to){
   const costsByDate=buildCostsByDate(reportCosts);
   let gOrders=0,gCake=0,gShip=0;
