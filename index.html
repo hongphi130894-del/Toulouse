@@ -549,9 +549,9 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
     <div class="ftitle" id="fixedToggle"><i class="ti ti-home"></i><span>Chi phí cố định tháng</span><span id="fixedMonthBadge" style="font-size:11px;background:var(--gold-pale);color:var(--gold-dark);border-radius:10px;padding:2px 8px;font-weight:500;margin-left:4px"></span><i class="ti ti-chevron-down fchev" id="fixedChev"></i></div>
     <div id="fixedBody">
       <div class="form-2col" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
-        <div class="fg"><label>Tiền nhà (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="VD: 3000" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fRentImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('rent')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
-        <div class="fg"><label>Tiền điện (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="VD: 500" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fElecImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('elec')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
-        <div class="fg"><label>Tiền nước (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="VD: 150" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fWaterImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('water')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
+        <div class="fg"><label>Tiền nhà (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="VD: 3000" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
+        <div class="fg"><label>Tiền điện (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="VD: 500" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
+        <div class="fg"><label>Tiền nước (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="VD: 150" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
       </div>
       <div style="margin-top:10px"><div class="fa"><span>Tổng chi phí cố định tháng</span><b id="fixedTotal" style="color:var(--red)">0đ</b></div></div>
       <div class="fbtns"><button class="btn-sub orange" id="fixedSaveBtn" onclick="saveFixed()"><i class="ti ti-device-floppy"></i><span id="fixedBtnTxt">Lưu chi phí cố định</span></button></div>
@@ -803,13 +803,55 @@ function loadCostImages(imageUrl){costImages=[];getFileIds(imageUrl).forEach(fId
 function openImgViewer(src){const ov=document.createElement('div');ov.className='img-viewer';ov.innerHTML=`<img src="${src}" onerror="this.src=''">`;ov.onclick=()=>ov.remove();document.body.appendChild(ov);}
 
 /* ── FIXED COST IMAGES ── */
-let fImgs={rent:null,elec:null,water:null};
+let fImgs={rent:[],elec:[],water:[]};
 const capitalize=s=>s.charAt(0).toUpperCase()+s.slice(1);
-function showFixedImg(type,url){const box=$(`f${capitalize(type)}ImgBox`),link=$(`f${capitalize(type)}ImgLink`);if(url){box.style.display='flex';link.href=url;fImgs[type]=url;}else{box.style.display='none';link.href='#';fImgs[type]=null;}}
-async function uploadFixedImg(type,input){const file=input.files[0];if(!file)return;$('fixedSaveBtn').disabled=true;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang tải ảnh...';try{const b64=await compressImage(file);const base64=b64.split(',')[1],ext=b64.startsWith('data:image/png')?'png':'jpg';const r=await apiPost({action:'uploadImage',base64,ext});if(!r.ok)throw new Error(r.error);if(fImgs[type])apiPost({action:'deleteImage',fileId:getFileId(fImgs[type])}).catch(()=>{});showFixedImg(type,driveFullUrl(r.fileId));toast('✓ Đã tải ảnh lên Drive');}catch(e){toast('⚠️ Lỗi up ảnh: '+e.message,true);}$('fixedSaveBtn').disabled=false;$('fixedBtnTxt').textContent='Lưu chi phí cố định';input.value='';}
-function clearFixedImg(type){if(fImgs[type]){apiPost({action:'deleteImage',fileId:getFileId(fImgs[type])}).catch(()=>{});showFixedImg(type,null);}}
-function calcFixed(){$('fixedTotal').textContent=fmt((n($('fRent').value)+n($('fElec').value)+n($('fWater').value))*1000);}
 
+function showFixedImg(type){
+  const box=$(`f${capitalize(type)}ImgBox`);
+  if(fImgs[type]&&fImgs[type].length){
+    box.style.display='flex';
+    box.innerHTML=fImgs[type].map((u,i)=>`
+      <div class="img-thumb-item">
+        <img src="${driveThumb(getFileId(u),'w200')}" onclick="openImgViewer('${driveView(getFileId(u))}')" onerror="this.src=''" loading="lazy">
+        <button type="button" class="img-thumb-del" onclick="clearFixedImg('${type}',${i})"><i class="ti ti-x"></i></button>
+      </div>`).join('');
+  }else{
+    box.style.display='none';
+    box.innerHTML='';
+  }
+}
+
+async function uploadFixedImg(type,input){
+  const files=Array.from(input.files);
+  if(!files.length)return;
+  $('fixedSaveBtn').disabled=true;
+  $('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang tải...';
+  try{
+    for(const file of files){
+      const b64=await compressImage(file);
+      const base64=b64.split(',')[1],ext=b64.startsWith('data:image/png')?'png':'jpg';
+      const r=await apiPost({action:'uploadImage',base64,ext});
+      if(!r.ok)throw new Error(r.error);
+      fImgs[type].push(driveFullUrl(r.fileId));
+    }
+    showFixedImg(type);
+    toast(`✓ Đã tải ${files.length} ảnh lên Drive`);
+  }catch(e){toast('⚠️ Lỗi up ảnh: '+e.message,true);}
+  $('fixedSaveBtn').disabled=false;
+  $('fixedBtnTxt').textContent='Lưu chi phí cố định';
+  input.value='';
+}
+
+function clearFixedImg(type,index){
+  if(index!==undefined&&fImgs[type][index]){
+    apiPost({action:'deleteImage',fileId:getFileId(fImgs[type][index])}).catch(()=>{});
+    fImgs[type].splice(index,1);
+    showFixedImg(type);
+  }
+}
+
+function calcFixed(){$('fixedTotal').textContent=fmt((n($('fRent').value)+n($('fElec').value)+n($('fWater').value))*1000);}
+   
 /* ── ORDER FORM ── */
 function calc(){const c=n($('fCake').value)*1000,a=n($('fAcc').value)*1000,s=n($('fShip').value)*1000;$('aSum').textContent=fmt(c+a);$('aTot').textContent=fmt(c+a+s);}
 function updateMetrics(orders){const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0);$('mCount').textContent=orders.length;$('mCake').textContent=fmt(cake);$('mShip').textContent=fmt(ship);$('mTotal').textContent=fmt(cake+ship);}
@@ -897,9 +939,9 @@ async function delCost(id){requireAuth('boss',async()=>{
 });}
 $('costtoggle').addEventListener('click',()=>{costFormOpen=!costFormOpen;$('costBody').style.display=costFormOpen?'':'none';$('cchev').style.transform=costFormOpen?'':'rotate(-90deg)';});
 $('fixedToggle').addEventListener('click',()=>{fixedBodyOpen=!fixedBodyOpen;$('fixedBody').style.display=fixedBodyOpen?'':'none';$('fixedChev').style.transform=fixedBodyOpen?'':'rotate(-90deg)';});
-async function loadFixedCosts(){const[y,m]=$('selDate').value.split('-');try{const r=await api({action:'getFixedCosts',yearMonth:parseInt(m)+'_'+y});if(r.ok){$('fRent').value=r.rent?r.rent/1000:'';showFixedImg('rent',r.rentImg);$('fElec').value=r.elec?r.elec/1000:'';showFixedImg('elec',r.elecImg);$('fWater').value=r.water?r.water/1000:'';showFixedImg('water',r.waterImg);calcFixed();}}catch(e){}}
-async function saveFixed(){const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;try{await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent,elec:n($('fElec').value)*1000,elecImg:fImgs.elec,water:n($('fWater').value)*1000,waterImg:fImgs.water})});toast('✓ Đã lưu chi phí cố định!');}catch(e){toast('⚠️ '+e.message,true);}$('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;}
-
+async function loadFixedCosts(){const[y,m]=$('selDate').value.split('-');try{const r=await api({action:'getFixedCosts',yearMonth:parseInt(m)+'_'+y});if(r.ok){$('fRent').value=r.rent?r.rent/1000:'';fImgs.rent=r.rentImg?r.rentImg.split('|').filter(Boolean):[];showFixedImg('rent');$('fElec').value=r.elec?r.elec/1000:'';fImgs.elec=r.elecImg?r.elecImg.split('|').filter(Boolean):[];showFixedImg('elec');$('fWater').value=r.water?r.water/1000:'';fImgs.water=r.waterImg?r.waterImg.split('|').filter(Boolean):[];showFixedImg('water');calcFixed();}}catch(e){}}
+async function saveFixed(){const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;try{await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent.join('|'),elec:n($('fElec').value)*1000,elecImg:fImgs.elec.join('|'),water:n($('fWater').value)*1000,waterImg:fImgs.water.join('|')})});toast('✓ Đã lưu chi phí cố định!');}catch(e){toast('⚠️ '+e.message,true);}$('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;}
+   
 /* ── EXCEL – ORDERS ── */
 function onClickXlsx(){requireAuth('boss',()=>{const t=todayStr();$('xlsxFrom').value=t;$('xlsxTo').value=t;$('xlsxModal').style.display='flex';});}
 async function doExportRange(){
