@@ -384,50 +384,75 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   .chart-card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}.wrap{padding:0}
 }
 /* ══════════════════════════════════════════════════
-   BÀI TEST NEON TECH (CỰC KỲ NỔI BẬT)
+   TECH VIBE - CÂN BẰNG HOÀN HẢO SÁNG / TỐI
 ══════════════════════════════════════════════════ */
 
-/* Ép nền lưới rõ ràng bằng màu Xanh Neon */
-body {
+/* 1. Thanh cuộn (Scrollbar) chung chuẩn Tech UI */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(107, 122, 46, 0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(107, 122, 46, 0.6); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(176, 192, 80, 0.3); }
+
+/* 2. Hiệu ứng Kính & Chuyển động chung */
+.fcard, .mc {
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+/* ═════ GIAO DIỆN SÁNG (LIGHT MODE) - APPLE STYLE ═════ */
+[data-theme="light"] body {
   background-image: 
-    linear-gradient(rgba(0, 255, 200, 0.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 200, 0.2) 1px, transparent 1px) !important;
+    linear-gradient(rgba(107, 122, 46, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107, 122, 46, 0.05) 1px, transparent 1px) !important;
+  background-size: 35px 35px !important;
+}
+/* Bóng nổi 3D, thanh lịch, không phát sáng lố */
+[data-theme="light"] .mc:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 28px rgba(107, 122, 46, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid var(--gold) !important;
+}
+[data-theme="light"] .tab-btn.active {
+  box-shadow: 0 4px 12px rgba(107, 122, 46, 0.15), 0 0 0 1px var(--gold) !important;
+  transform: translateY(-1px);
+}
+[data-theme="light"] input:focus, [data-theme="light"] textarea:focus, [data-theme="light"] select:focus {
+  box-shadow: 0 0 0 3px rgba(107, 122, 46, 0.12) !important;
+}
+
+/* ═════ GIAO DIỆN TỐI (DARK MODE) - CYBER GLOW ═════ */
+[data-theme="dark"] body {
+  background-image: 
+    linear-gradient(rgba(176, 192, 80, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(176, 192, 80, 0.07) 1px, transparent 1px) !important;
   background-size: 40px 40px !important;
 }
-
-/* Các thẻ thông số (Metrics) phát sáng viền Neon */
-.mc {
-  border: 1px solid rgba(0, 255, 200, 0.4) !important;
-  box-shadow: 0 0 15px rgba(0, 255, 200, 0.1) !important;
-  transition: all 0.2s ease !important;
-}
-.mc:hover {
-  border-color: #00ffc8 !important;
-  background: rgba(0, 255, 200, 0.05) !important;
-  box-shadow: 0 0 25px rgba(0, 255, 200, 0.5), inset 0 0 10px rgba(0, 255, 200, 0.2) !important;
+/* Hiệu ứng LED viền sáng rực rỡ nhưng dùng màu nhận diện của tiệm */
+[data-theme="dark"] .mc:hover {
   transform: translateY(-4px) scale(1.02);
+  border-color: var(--gold-dark) !important;
+  background: rgba(176, 192, 80, 0.04) !important;
+  box-shadow: 0 0 25px rgba(176, 192, 80, 0.25), inset 0 0 10px rgba(176, 192, 80, 0.15) !important;
 }
-
-/* Chữ số báo cáo phát sáng như màn hình LED */
-.mc-val {
-  color: #00ffc8 !important;
-  text-shadow: 0 0 15px rgba(0, 255, 200, 0.9) !important;
+/* Thông số báo cáo phát sáng */
+[data-theme="dark"] .mc-val {
+  text-shadow: 0 0 12px rgba(176, 192, 80, 0.5) !important;
 }
-
-/* Tab đang mở nổi bần bật */
-.tab-btn.active {
-  background: rgba(0, 255, 200, 0.1) !important;
-  color: #00ffc8 !important;
-  border: 1px solid #00ffc8 !important;
-  box-shadow: 0 0 20px rgba(0, 255, 200, 0.4) !important;
-  font-weight: bold !important;
-  letter-spacing: 1px;
+[data-theme="dark"] .mc-val.red {
+  text-shadow: 0 0 14px rgba(192, 0, 0, 0.6) !important;
 }
-
-/* Hiệu ứng khi nhấp chuột vào ô Input */
-input:focus, textarea:focus {
-  border-color: #00ffc8 !important;
-  box-shadow: 0 0 0 3px rgba(0, 255, 200, 0.2), 0 0 15px rgba(0, 255, 200, 0.4) !important;
+[data-theme="dark"] .tab-btn.active {
+  background: rgba(176, 192, 80, 0.1) !important;
+  border: 1px solid var(--gold-dark) !important;
+  box-shadow: 0 0 20px rgba(176, 192, 80, 0.3) !important;
+  text-shadow: 0 0 8px rgba(176, 192, 80, 0.4);
+}
+/* Khung nhập liệu phát sáng khi gõ */
+[data-theme="dark"] input:focus, [data-theme="dark"] textarea:focus, [data-theme="dark"] select:focus {
+  border-color: var(--gold-dark) !important;
+  box-shadow: 0 0 0 2px rgba(176, 192, 80, 0.2), 0 0 15px rgba(176, 192, 80, 0.25) !important;
 }
 </style>
 </head>
