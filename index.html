@@ -873,12 +873,31 @@ function getForm(){return{time:$('fTime').value,size:$('fSize').value,cakePrice:
 function setForm(o){$('fTime').value=o.time||'';$('fSize').value=o.size||'';$('fCake').value=o.cakePrice?o.cakePrice/1000:'';$('fAcc').value=o.accPrice?o.accPrice/1000:'';$('fAccDesc').value=o.acc||'';$('fShip').value=o.ship?o.ship/1000:'';$('fName').value=o.name||'';$('fPhone').value=o.phone||'';$('fAddr').value=o.addr||'';$('fNote').value=o.note||'';calc();}
 async function submitOrder(){
   if(isPast($('selDate').value)&&editId===null){toast('Không thể thêm đơn cho ngày đã qua!',true);return;}
-  const date=$('selDate').value,o={...getForm(),date};const isEdit=editId!==null;let tempId=null;
-  if(!isEdit){tempId='_tmp_'+Date.now();currentOrders=[...currentOrders,{...o,id:tempId}];renderTable();updateMetrics(currentOrders);cancelEdit();}
-  $('btnSub').disabled=true;$('btnTxt').textContent='Đang lưu...';
-  try{await api(isEdit?{action:'updateOrder',data:JSON.stringify({id:editId,order:o})}:{action:'addOrder',data:JSON.stringify(o)});toast(isEdit?'✓ Đã cập nhật đơn!':'✓ Đã thêm đơn hàng!');cDel(date);if(isEdit)cancelEdit();await render();}
-  catch(e){if(tempId)currentOrders=currentOrders.filter(x=>x.id!==tempId);renderTable();updateMetrics(currentOrders);toast('⚠️ '+e.message,true);}
-  $('btnSub').disabled=false;$('btnTxt').textContent=isEdit?'Cập nhật đơn':'Thêm đơn';updateFormLock();
+  const date=$('selDate').value, o={...getForm(),date};
+  const isEdit=editId!==null;
+  const tempId = isEdit ? editId : '_tmp_'+Date.now(); // Tạo ID tạm nếu là đơn mới
+
+  // 1. TỐI ƯU: CẬP NHẬT GIAO DIỆN NGAY LẬP TỨC (0s delay)
+  if(isEdit) {
+    currentOrders = currentOrders.map(x => x.id === editId ? {...o, id: editId} : x);
+  } else {
+    currentOrders = [...currentOrders, {...o, id: tempId}];
+  }
+  renderTable(); updateMetrics(currentOrders);
+  cancelEdit(); // Reset form, mở khóa ngay cho người dùng làm việc khác
+  toast('Đang đồng bộ dữ liệu ngầm...');
+
+  // 2. TỐI ƯU: GỬI LÊN GOOGLE SCRIPT MÀ KHÔNG KHÓA GIAO DIỆN
+  api(isEdit ? {action:'updateOrder',data:JSON.stringify({id:tempId,order:o})} : {action:'addOrder',data:JSON.stringify(o)})
+  .then(() => {
+    toast(isEdit ? '✓ Đã đồng bộ đơn sửa!' : '✓ Đã đồng bộ đơn mới!');
+    cDel(date); 
+    render(); // Tải lại ngầm để lấy ID chuẩn từ server (xóa biểu tượng loading)
+  })
+  .catch(e => {
+    toast('⚠️ Lỗi đồng bộ: ' + e.message, true);
+    cDel(date); render(); // Rollback nếu Google Script bị lỗi
+  });
 }
 function startEdit(id){requireAuth('admin',()=>{const o=currentOrders.find(x=>x.id===id);if(!o)return;setForm(o);editId=id;$('fTitle').textContent='Sửa đơn – '+(o.name||'');$('fIcon').className='ti ti-pencil';$('btnTxt').textContent='Cập nhật đơn';$('btnCancel').style.display='';$('fcard').classList.add('editing');$('pastNotice').style.display='none';$('btnSub').disabled=false;if(!formOpen){formOpen=true;$('fbody').style.display='';$('fchev').style.transform='';}$('fcard').scrollIntoView({behavior:'smooth'});render();});}
 function cancelEdit(){editId=null;setForm({});$('fTitle').textContent='Thêm đơn hàng mới';$('fIcon').className='ti ti-plus';$('btnTxt').textContent='Thêm đơn';$('btnCancel').style.display='none';$('fcard').classList.remove('editing');updateFormLock();}
@@ -907,16 +926,31 @@ function _renderCostTable(){
   $('costTfoot').innerHTML=`<tr class="trow"><td colspan="3" style="text-align:right">TỔNG</td><td>${fmt(tP)}</td><td>${fmt(tA)}</td><td colspan="3"></td></tr>`;
 }
 async function submitCost(){
-  const date=$('selDate').value,isEdit=editCostId!==null;
+  const date=$('selDate').value, isEdit=editCostId!==null;
   const imageUrl=getCostImageUrl();
   const costData={date,supplier:$('cSupplier').value.trim(),product:$('cProduct').value.trim(),price:n($('cPrice').value)*1000,imageUrl,adCost:n($('cAdCost').value)*1000,note:$('cNote').value.trim()};
-  $('cBtnTxt').textContent=isEdit?'Đang cập nhật...':'Đang thêm...';$('cBtnSub').disabled=true;
-  try{
-    if(isEdit){await api({action:'updateCost',data:JSON.stringify({id:editCostId,cost:costData})});toast('✓ Đã cập nhật chi phí!');}
-    else{const r=await api({action:'addCost',data:JSON.stringify(costData)});if(!r.ok)throw new Error(r.error||'Lỗi thêm chi phí');toast('✓ Đã thêm chi phí!');}
-    costImages=[];cancelCostEdit();cDel($('selDate').value);await renderCosts();
-  }catch(e){toast('⚠️ '+e.message,true);}
-  $('cBtnTxt').textContent=isEdit?'Cập nhật':'Thêm chi phí';$('cBtnSub').disabled=false;
+  const tempId = isEdit ? editCostId : '_tmp_'+Date.now();
+
+  // 1. TỐI ƯU: CẬP NHẬT BẢNG CHI PHÍ NGAY LẬP TỨC
+  if(isEdit){
+     currentCosts = currentCosts.map(x => x.id === editCostId ? {...costData, id: editCostId} : x);
+  } else {
+     currentCosts = [...currentCosts, {...costData, id: tempId}];
+  }
+  _renderCostTable();
+  costImages=[]; cancelCostEdit();
+  toast('Đang đồng bộ chi phí ngầm...');
+
+  // 2. TỐI ƯU: GỌI API NGẦM TRONG BACKGROUND
+  api(isEdit ? {action:'updateCost',data:JSON.stringify({id:tempId,cost:costData})} : {action:'addCost',data:JSON.stringify(costData)})
+  .then(() => {
+     toast('✓ Đã đồng bộ chi phí thành công!');
+     cDel(date); renderCosts();
+  })
+  .catch(e => {
+     toast('⚠️ Lỗi đồng bộ chi phí: '+e.message, true);
+     cDel(date); renderCosts(); // Tải lại từ server để sửa lỗi hiển thị
+  });
 }
 function startCostEdit(id){requireAuth('boss',()=>{
   const c=currentCosts.find(x=>x.id===id);if(!c)return;
