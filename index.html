@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
 /* =========================================================
-   UI TECH & SOFT - MULTI-IMAGE UPLOAD ENABLED
+   UI MICRO & COMPACT - GỌN GÀNG, TỐI ƯU HIỆN THỊ 100%
 ========================================================= */
 :root {
   --olive: #6B7A2E;
@@ -20,12 +20,12 @@
   
   --bg-page: #f1f3ed;
   --bg-checker: #e9ece4;
-  --bg-card: rgba(255, 255, 255, 0.92); 
+  --bg-card: rgba(255, 255, 255, 0.95); 
   
   --text-main: #2b2e25;
   --text-muted: #6b725c;
   
-  --border: rgba(107,122,46,0.22);
+  --border: rgba(107,122,46,0.25);
   --border-focus: #6B7A2E;
   
   --red: #e03131;
@@ -33,125 +33,115 @@
   --orange: #e8590c;
   --indigo: #4c6ef5;
   
-  --radius: 12px; 
-  --radius-sm: 8px;
+  --radius: 10px; 
+  --radius-sm: 6px;
   
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --shadow-soft: 0 8px 24px rgba(107,122,46,0.06), 0 2px 8px rgba(0,0,0,0.03);
+  --shadow-soft: 0 4px 12px rgba(107,122,46,0.06), 0 1px 4px rgba(0,0,0,0.02);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body { 
-  font-family: var(--font); 
-  color: var(--text-main); 
-  font-size: 13px; 
-  min-height: 100vh; 
-  line-height: 1.5;
-  background-color: var(--bg-page);
+  font-family: var(--font); color: var(--text-main); font-size: 12.5px; 
+  min-height: 100vh; line-height: 1.4; background-color: var(--bg-page);
+  /* CARO 2 MÀU ĐỀU NHAU NHỎ GỌN */
   background-image: 
     linear-gradient(45deg, var(--bg-checker) 25%, transparent 25%, transparent 75%, var(--bg-checker) 75%, var(--bg-checker)),
     linear-gradient(45deg, var(--bg-checker) 25%, transparent 25%, transparent 75%, var(--bg-checker) 75%, var(--bg-checker));
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
+  background-size: 20px 20px; background-position: 0 0, 10px 10px;
 }
 
-.wrap { max-width: 1240px; margin: 0 auto; padding: 24px 16px; padding-bottom: 60px; }
+.wrap { max-width: 1260px; margin: 0 auto; padding: 20px 12px; padding-bottom: 50px; }
 
-/* --- INPUTS & FORMS --- */
+/* --- INPUTS & FORMS (Siêu gọn) --- */
 input[type=text], input[type=number], input[type=time], input[type=date], 
 input[type=password], textarea, select {
-  font-family: var(--font); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-  padding: 8px 12px; background: rgba(255,255,255,0.95); color: var(--text-main); 
-  font-size: 13.5px; font-weight: 500; outline: none; transition: 0.3s; width: 100%; height: 36px;
+  font-family: var(--font); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 6px 10px; background: #fff; color: var(--text-main); 
+  font-size: 13px; font-weight: 500; outline: none; transition: 0.2s; width: 100%; height: 32px;
 }
-textarea { height: 60px; resize: vertical; padding: 10px 12px; }
-input:focus, textarea:focus, select:focus { 
-  border-color: var(--border-focus); background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(107,122,46,0.1); transform: translateY(-1px);
-}
-::placeholder { color: #a5a99c; font-weight: 400; }
+textarea { height: 44px; resize: vertical; padding: 6px 10px; }
+input:focus, textarea:focus, select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(107,122,46,0.1); }
+::placeholder { color: #aaa; font-weight: 400; }
 
 /* --- HEADER FLOATING --- */
 .hdr {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; 
-  gap: 16px; padding: 16px 20px; margin-bottom: 24px; 
-  background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  gap: 12px; padding: 12px 16px; margin-bottom: 20px; 
+  background: var(--bg-card); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   border-radius: var(--radius); box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.6);
 }
-.hdr-brand { display: flex; align-items: center; gap: 14px; }
-.hdr-brand svg { width: 54px; height: 54px; filter: drop-shadow(0 4px 6px rgba(107,122,46,0.15));}
-.hdr h1 { font-size: 20px; font-weight: 700; color: var(--olive-dark); letter-spacing: 0.2px; margin-bottom: 2px;}
-.hdr-brand-text div { font-size: 12px; color: var(--text-muted); font-weight: 500;}
-.hdr-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.date-row { display: flex; align-items: center; gap: 8px; background: rgba(107,122,46,0.06); padding: 4px 6px 4px 14px; border-radius: 30px;}
-.date-row label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
-.date-row input { width: 130px; font-weight: 700; color: var(--olive-dark); border: none; background: transparent; cursor: pointer; padding: 0; box-shadow: none;}
-.date-row input:focus { transform: none; box-shadow: none; background: transparent;}
+.hdr-brand { display: flex; align-items: center; gap: 12px; }
+.hdr-brand svg { width: 44px; height: 44px; filter: drop-shadow(0 2px 4px rgba(107,122,46,0.1));}
+.hdr h1 { font-size: 18px; font-weight: 700; color: var(--olive-dark); letter-spacing: 0.2px; margin-bottom: 2px;}
+.hdr-brand-text div { font-size: 11px; color: var(--text-muted); font-weight: 500;}
+.hdr-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.date-row { display: flex; align-items: center; gap: 6px; background: rgba(107,122,46,0.05); padding: 2px 6px 2px 12px; border-radius: 20px;}
+.date-row label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.date-row input { width: 120px; font-weight: 700; color: var(--olive-dark); border: none; background: transparent; cursor: pointer; padding: 0; box-shadow: none;}
 
 /* Nút bấm (Buttons) */
 .btn {
-  font-family: var(--font); font-size: 13px; font-weight: 600; 
-  padding: 0 16px; height: 34px; border-radius: 30px; cursor: pointer; 
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px; 
-  border: 1.5px solid transparent; transition: 0.3s; white-space: nowrap;
+  font-family: var(--font); font-size: 12.5px; font-weight: 600; 
+  padding: 0 12px; height: 30px; border-radius: 20px; cursor: pointer; 
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px; 
+  border: 1px solid transparent; transition: 0.2s; white-space: nowrap;
 }
 .btn:disabled { opacity: 0.6; pointer-events: none; }
-.btn-ol { background: white; border-color: rgba(107,122,46,0.3); color: var(--olive-dark); box-shadow: 0 2px 6px rgba(0,0,0,0.02);}
-.btn-ol:hover { background: var(--olive-primary); color: white; border-color: var(--olive-primary); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(107,122,46,0.15);}
-.btn-sub { background: var(--olive-dark); color: white; height: 40px; padding: 0 24px; box-shadow: 0 4px 10px rgba(74,94,28,0.2);}
-.btn-sub:hover { background: var(--olive); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(74,94,28,0.3);}
-.btn-cancel { background: transparent; border-color: #d1d5c9; color: var(--text-muted); height: 40px; padding: 0 20px;}
+.btn-ol { background: white; border-color: rgba(107,122,46,0.3); color: var(--olive-dark); box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+.btn-ol:hover { background: var(--olive-primary); color: white; border-color: var(--olive-primary); transform: translateY(-1px);}
+.btn-sub { background: var(--olive-dark); color: white; height: 36px; padding: 0 20px; box-shadow: 0 2px 6px rgba(74,94,28,0.2);}
+.btn-sub:hover { background: var(--olive); transform: translateY(-1px);}
+.btn-cancel { background: transparent; border-color: #d1d5c9; color: var(--text-muted); height: 36px; padding: 0 16px;}
 .btn-cancel:hover { background: white; color: var(--text-main); border-color: #b5baab;}
 
-/* --- TABS BUBBLES --- */
-.tabs { display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px;}
+/* --- TABS --- */
+.tabs { display: flex; gap: 6px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px;}
 .tabs::-webkit-scrollbar { display: none; }
 .tab-btn {
-  font-family: var(--font); font-size: 14px; padding: 10px 20px; border: none; 
+  font-family: var(--font); font-size: 13px; padding: 8px 16px; border: none; 
   background: var(--bg-card); cursor: pointer; color: var(--text-muted); font-weight: 600; 
-  transition: 0.3s; display: flex; align-items: center; gap: 8px; white-space: nowrap;
-  border-radius: 30px; box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.8);
+  transition: 0.2s; display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  border-radius: 20px; box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.8);
 }
-.tab-btn.active { background: var(--olive-dark); color: white; box-shadow: 0 6px 15px rgba(74,94,28,0.25); }
-.tab-btn:hover:not(.active) { color: var(--olive-dark); transform: translateY(-2px); }
+.tab-btn.active { background: var(--olive-dark); color: white; }
+.tab-btn:hover:not(.active) { color: var(--olive-dark); transform: translateY(-1px); }
 
 /* --- METRICS GLASS CARDS --- */
-.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
 .mc {
-  background: var(--bg-card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border-radius: var(--radius); padding: 16px 20px; 
+  background: var(--bg-card); border-radius: var(--radius); padding: 12px 16px; 
   border: 1px solid rgba(255,255,255,0.8); box-shadow: var(--shadow-soft);
-  position: relative; overflow: hidden; transition: 0.3s;
+  position: relative; overflow: hidden; transition: 0.2s;
 }
-.mc:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(107,122,46,0.1); }
+.mc:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(107,122,46,0.1); }
 .mc::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--olive); }
 .mc.cost-card::before { background: var(--orange); } .mc.profit-card::before { background: var(--green); }
-.mc-lbl { font-size: 11.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px;}
-.mc-val { font-size: 24px; font-weight: 800; color: var(--text-main); line-height: 1.2;}
+.mc-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;}
+.mc-val { font-size: 20px; font-weight: 800; color: var(--text-main); line-height: 1.2;}
 .mc-val.red { color: var(--red); } .mc-val.green { color: var(--green); }
 
 /* --- FORMS GLASSMORPHISM --- */
 .fcard { 
-  background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.9); border-radius: var(--radius); 
-  padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow-soft); transition: 0.3s;
+  background: var(--bg-card); border: 1px solid rgba(255,255,255,0.9); border-radius: var(--radius); 
+  padding: 16px; margin-bottom: 20px; box-shadow: var(--shadow-soft); transition: 0.2s;
 }
-.fcard.editing { border-color: var(--olive); box-shadow: 0 0 0 4px var(--olive-pale), var(--shadow-soft); transform: scale(1.01);}
-.ftitle { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; margin-bottom: 16px; color: var(--olive-dark); padding-bottom: 12px; border-bottom: 1px dashed rgba(107,122,46,0.2);}
-.fchev { margin-left: auto; font-size: 18px; color: var(--text-muted); background: rgba(107,122,46,0.05); padding: 4px; border-radius: 50%;}
+.fcard.editing { border-color: var(--olive); box-shadow: 0 0 0 3px var(--olive-pale), var(--shadow-soft); }
+.ftitle { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; margin-bottom: 12px; color: var(--olive-dark); padding-bottom: 8px; border-bottom: 1px dashed rgba(107,122,46,0.2);}
+.fchev { margin-left: auto; font-size: 16px; color: var(--text-muted); }
 
-/* GRID FORM CỐ ĐỊNH 4 CỘT */
+/* GRID FORM CỐ ĐỊNH 4 CỘT, SIÊU GỌN */
 .fgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: start;}
 .fg { display: flex; flex-direction: column; gap: 4px; }
 .fg label { font-size: 11.5px; color: var(--text-main); font-weight: 600; }
 
-.fa-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
-.fa { background: var(--olive-pale); border-radius: var(--radius-sm); border: 1px solid rgba(107,122,46,0.15); padding: 14px 16px; font-size: 14px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);}
-.fa b { font-size: 18px; font-weight: 800; color: var(--olive-dark); }
-.fbtns { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; }
-.btn-sub.orange { background: var(--orange); box-shadow: 0 4px 10px rgba(232,89,12,0.2);} .btn-sub.orange:hover { background: #d9480f;}
-.btn-sub.ai { background: var(--indigo); box-shadow: 0 4px 10px rgba(76,110,245,0.2);} .btn-sub.ai:hover{ background: #3b5bdb;}
+.fa-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 12px; }
+.fa { background: var(--olive-pale); border-radius: var(--radius-sm); border: 1px solid rgba(107,122,46,0.15); padding: 10px 14px; font-size: 13px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; }
+.fa b { font-size: 16px; font-weight: 800; color: var(--olive-dark); }
+.fbtns { display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end; }
+.btn-sub.orange { background: var(--orange); } .btn-sub.orange:hover { background: #d9480f;}
+.btn-sub.ai { background: var(--indigo); } .btn-sub.ai:hover{ background: #3b5bdb;}
 
 /* STYLE ẢNH NHIỀU FILE MỚI */
 .img-thumb-wrap { position: relative; display: inline-block; margin-right: 8px; margin-bottom: 8px; }
@@ -163,89 +153,122 @@ input:focus, textarea:focus, select:focus {
 }
 .del-img-btn:hover { transform: scale(1.1); background: #c92a2a; }
 
-/* BẢNG DỮ LIỆU CUỘN NGANG MƯỢT */
+/* =========================================================================
+   BẢNG DỮ LIỆU ĐỘT PHÁ: SỐ HIỂN THỊ FULL 100%, CHỮ CÓ THỂ RÚT GỌN
+   ========================================================================= */
 .tw { 
-  overflow-x: auto; background: var(--bg-card); backdrop-filter: blur(10px);
+  overflow-x: auto; background: var(--bg-card); 
   border: 1px solid rgba(255,255,255,0.8); border-radius: var(--radius); 
-  box-shadow: var(--shadow-soft); padding-bottom: 4px; -webkit-overflow-scrolling: touch;
+  box-shadow: var(--shadow-soft); padding-bottom: 2px; -webkit-overflow-scrolling: touch;
 }
-.tw::-webkit-scrollbar { height: 8px; }
-.tw::-webkit-scrollbar-thumb { background: rgba(107,122,46,0.3); border-radius: 10px; }
+.tw::-webkit-scrollbar { height: 6px; }
+.tw::-webkit-scrollbar-thumb { background: rgba(107,122,46,0.25); border-radius: 10px; }
 
-table { width: 100%; border-collapse: collapse; font-size: 13.5px; table-layout: fixed; min-width: 1150px; }
-.col-stt { width: 45px; } .col-time { width: 65px; } .col-size { width: 80px; } .col-num { width: 110px; } .col-total { width: 120px; } .col-name { width: 140px; } .col-phone { width: 100px; } .col-acc { width: 120px; } .col-addr { width: 150px; } .col-note { width: 140px; } .col-action { width: 85px; }
-th, td { padding: 12px 10px; border-bottom: 1px solid rgba(0,0,0,0.06); vertical-align: middle; }
-th { background: transparent; color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 11.5px; letter-spacing: 0.5px; border-bottom: 2px solid rgba(107,122,46,0.15); }
-td { color: var(--text-main); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+table { 
+  width: 100%; border-collapse: collapse; font-size: 12.5px; 
+  table-layout: fixed; min-width: 1100px; 
+}
+
+/* Kích thước Cột Đơn hàng Tối ưu */
+.col-stt { width: 35px; }
+.col-time { width: 60px; }
+.col-size { width: 75px; }
+.col-num { width: 90px; } 
+.col-total { width: 95px; } 
+.col-name { width: 130px; }
+.col-phone { width: 90px; }
+.col-acc { width: 110px; }
+.col-addr { width: 140px; }
+.col-note { width: 120px; }
+.col-action { width: 75px; }
+
+th, td { padding: 8px 8px; border-bottom: 1px solid rgba(0,0,0,0.05); vertical-align: middle; }
+th { 
+  background: transparent; color: var(--text-muted); font-weight: 700; text-transform: uppercase; 
+  font-size: 10.5px; letter-spacing: 0.3px; border-bottom: 2px solid rgba(107,122,46,0.15); 
+}
+td { 
+  color: var(--text-main); font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+}
+
+/* Các cột số liệu: CĂN PHẢI, HIỂN THỊ FULL */
 td.num-align { white-space: nowrap; overflow: visible; text-align: right; }
 th.num-align { text-align: right; }
+
 td.red { color: var(--red); font-weight: 700; }
-td.img-cell { text-align: left; overflow: visible; white-space: normal;}
+td.img-cell { text-align: center; }
+
 tr:hover td { background: rgba(107,122,46,0.04); }
 tr.hi td { background: #fffde7; }
-tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weight: 800; border-bottom: none; border-top: 2px solid rgba(107,122,46,0.15); }
+tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weight: 700; border-bottom: none; border-top: 2px solid rgba(107,122,46,0.15); }
 
-.abtn { background: white; border: 1px solid rgba(0,0,0,0.08); cursor: pointer; padding: 6px; color: var(--text-muted); font-size: 15px; border-radius: 6px; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; margin-right: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+.abtn { 
+  background: white; border: 1px solid rgba(0,0,0,0.08); cursor: pointer; padding: 4px; 
+  color: var(--text-muted); font-size: 14px; border-radius: 4px; transition: 0.2s; 
+  display: inline-flex; align-items: center; justify-content: center; margin-right: 4px;
+}
 .abtn.e:hover { color: white; background: var(--olive); border-color: var(--olive); }
 .abtn.d:hover { color: white; background: var(--red); border-color: var(--red); }
 
 /* --- MODALS --- */
 .modal-overlay { position: fixed; inset: 0; background: rgba(34,34,34,0.6); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(4px);}
-.modal-box { background: var(--bg-card); border-radius: var(--radius); padding: 28px; width: min(420px, 100%); max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.5);}
-.modal-box h3 { font-size: 18px; color: var(--olive-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; font-weight: 800;}
-.modal-box p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px; }
-.modal-btns { display: flex; gap: 12px; margin-top: 24px; }
-.modal-btns button { flex: 1; height: 44px; font-size: 14px;}
+.modal-box { background: var(--bg-card); border-radius: var(--radius); padding: 24px; width: min(380px, 100%); max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.5);}
+.modal-box h3 { font-size: 16px; color: var(--olive-dark); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-weight: 700;}
+.modal-box p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px; }
+.modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+.modal-btns button { flex: 1; height: 38px; font-size: 13px;}
 
-.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px); background: #222; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 600; opacity: 0; transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000; box-shadow: 0 10px 20px rgba(0,0,0,0.2); text-align: center;}
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: #222; color: #fff; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 600; opacity: 0; transition: 0.4s; z-index: 10000; box-shadow: 0 8px 16px rgba(0,0,0,0.2); text-align: center;}
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); } .toast.err { background: var(--red); }
 
-.img-upload-area { border: 2px dashed rgba(107,122,46,0.25); border-radius: var(--radius-sm); padding: 24px; text-align: center; cursor: pointer; background: rgba(107,122,46,0.02); transition: 0.3s; }
+.img-upload-area { border: 1.5px dashed rgba(107,122,46,0.25); border-radius: var(--radius-sm); padding: 16px; text-align: center; cursor: pointer; background: rgba(107,122,46,0.02); transition: 0.2s; }
 .img-upload-area:hover { background: var(--olive-pale); border-color: var(--olive); }
-.img-thumb { max-height: 48px; max-width: 65px; border-radius: 6px; cursor: zoom-in; border: 1px solid var(--border); object-fit: cover; background: #fff;}
-.sk { display:inline-block; width:18px; height:18px; border:3px solid rgba(0,0,0,.08); border-top-color:var(--olive); border-radius:50%; animation:spin .8s linear infinite; vertical-align:middle; margin-right:8px; }
+.img-thumb { max-height: 36px; max-width: 50px; border-radius: 4px; cursor: zoom-in; border: 1px solid var(--border); object-fit: cover;}
+.sk { display:inline-block; width:14px; height:14px; border:2px solid rgba(0,0,0,.08); border-top-color:var(--olive); border-radius:50%; animation:spin .8s linear infinite; vertical-align:middle; margin-right:6px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* CHAT AI WIDGET */
-.chat-wrap { display: flex; flex-direction: column; height: 550px; background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.8); box-shadow: var(--shadow-soft); overflow: hidden;}
-.chat-hdr { padding: 16px 20px; background: linear-gradient(135deg, var(--indigo), #3b5bdb); color: white; display: flex; align-items: center; gap: 12px; }
-.chat-av.ai { width: 36px; height: 36px; background: rgba(255,255,255,0.2); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.chat-msgs { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; background: rgba(255,255,255,0.4);}
-.chat-msg { display: flex; gap: 10px; align-items: flex-end; } .chat-msg.user { flex-direction: row-reverse; }
-.chat-bubble { max-width: 80%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.04);}
+/* CHAT CSKH WIDGET */
+.chat-wrap { display: flex; flex-direction: column; height: 500px; background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.8); box-shadow: var(--shadow-soft); overflow: hidden;}
+.chat-hdr { padding: 12px 16px; background: linear-gradient(135deg, var(--indigo), #3b5bdb); color: white; display: flex; align-items: center; gap: 10px; }
+.chat-av.ai { width: 32px; height: 32px; background: rgba(255,255,255,0.2); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.chat-msgs { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: rgba(255,255,255,0.4);}
+.chat-msg { display: flex; gap: 8px; align-items: flex-end; } .chat-msg.user { flex-direction: row-reverse; }
+.chat-bubble { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; box-shadow: 0 2px 4px rgba(0,0,0,0.04);}
 .chat-msg.user .chat-bubble { background: var(--indigo); color: white; border-bottom-right-radius: 4px; }
 .chat-msg.ai .chat-bubble { background: white; color: var(--text-main); border-bottom-left-radius: 4px; border: 1px solid rgba(0,0,0,0.06);}
-.chat-chips { padding: 12px 16px; background: white; border-top: 1px solid rgba(0,0,0,0.06); display: flex; gap: 8px; overflow-x: auto;}
-.chip { padding: 8px 14px; background: var(--bg-page); border: none; border-radius: 20px; font-size: 12.5px; font-weight: 600; cursor: pointer; white-space: nowrap; color: var(--text-muted); transition: 0.2s;}
+.chat-chips { padding: 10px 12px; background: white; border-top: 1px solid rgba(0,0,0,0.06); display: flex; gap: 6px; overflow-x: auto;}
+.chip { padding: 6px 12px; background: var(--bg-page); border: none; border-radius: 20px; font-size: 11.5px; font-weight: 600; cursor: pointer; white-space: nowrap; color: var(--text-muted); transition: 0.2s;}
 .chip:hover { background: var(--indigo); color: white; }
-.chat-input-row { padding: 16px; background: white; border-top: 1px solid rgba(0,0,0,0.06); display: flex; gap: 10px; }
-.chat-input { flex: 1; height: 42px; border-radius: 21px; background: var(--bg-page); border: none; padding: 0 16px; font-size: 14px;}
-.chat-send { background: var(--indigo); color: white; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 18px; box-shadow: 0 4px 10px rgba(76,110,245,0.3);}
+.chat-input-row { padding: 12px; background: white; border-top: 1px solid rgba(0,0,0,0.06); display: flex; gap: 8px; }
+.chat-input { flex: 1; height: 36px; border-radius: 18px; background: var(--bg-page); border: none; padding: 0 14px; font-size: 13px;}
+.chat-send { background: var(--indigo); color: white; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px;}
 
 /* DASHBOARD & REPORT */
-.dash-ctrl, .rpt-controls { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;}
-.chart-card, .rpt-card { background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow-soft); }
-.dash-section-lbl { font-size: 13px; font-weight: 800; color: var(--text-muted); margin: 24px 0 16px; text-transform: uppercase; letter-spacing: 1px;}
-.dash-loading { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; font-weight: 500;}
+.dash-ctrl, .rpt-controls { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;}
+.chart-card, .rpt-card { background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; box-shadow: var(--shadow-soft); }
+.dash-section-lbl { font-size: 11.5px; font-weight: 800; color: var(--text-muted); margin: 20px 0 12px; text-transform: uppercase; letter-spacing: 0.5px;}
+.dash-loading { text-align: center; padding: 30px; color: var(--text-muted); font-size: 13px; font-weight: 500;}
 
 /* MOBILE TWEAKS */
 @media(max-width: 768px) {
-  .wrap { padding: 16px 10px 80px; }
-  .hdr { flex-direction: column; align-items: stretch; gap: 16px; padding: 16px; }
+  .wrap { padding: 12px 8px 80px; }
+  .hdr { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px; }
   .hdr-right { justify-content: space-between; width: 100%;}
-  .metrics { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px;}
-  .mc { padding: 14px; } .mc-val { font-size: 18px; }
+  .metrics { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px;}
+  .mc { padding: 12px; } .mc-val { font-size: 18px; }
   
   /* ĐẢM BẢO FGRID 2 CỘT TRÊN MOBILE ĐỂ FORM GỌN GÀNG */
   .fgrid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px;}
+  /* Các ô cần full chiều ngang trên mobile */
   .fg[style*="span 2"], .fg[style*="1 / -1"] { grid-column: 1 / -1 !important; }
   
   .fa-row { grid-template-columns: 1fr; gap: 8px;}
   .fbtns { flex-direction: column;}
-  .btn-sub, .btn-cancel { width: 100%; height: 44px; }
+  .btn-sub, .btn-cancel { width: 100%; height: 40px; }
   #clockSvg { display: none; }
   
-  .fcard, .chart-card, .rpt-card { padding: 16px; margin-bottom: 16px;}
+  .fcard, .chart-card, .rpt-card { padding: 12px; margin-bottom: 16px;}
 }
 
 @media print { .hdr, .tabs, .btn-row, .dash-ctrl, .btn-ol, #tab-orders, #tab-costs, #tab-report, .rpt-card:first-child { display: none !important; } #tab-dashboard { display: block !important; } body { background: #fff; } .chart-card { border: 1px solid #ccc; padding: 0; box-shadow: none;} .wrap { padding: 0; max-width: 100%;} }
@@ -257,7 +280,7 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
 
 <div id="pwModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
-    <h3><i class="ti ti-shield-lock" style="font-size: 22px;"></i> Yêu cầu xác thực</h3>
+    <h3><i class="ti ti-shield-lock" style="font-size: 20px;"></i> Yêu cầu xác thực</h3>
     <p id="pwDesc">Bạn cần nhập mật khẩu quản trị viên để thao tác.</p>
     <input type="password" id="pwInput" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter')pwConfirm()">
     <div class="modal-btns">
@@ -269,8 +292,8 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
 
 <div id="xlsxModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
-    <h3><i class="ti ti-file-spreadsheet" style="font-size: 22px; color: var(--green);"></i> Trích xuất Đơn hàng</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px; margin-bottom: 16px; margin-top: 16px;">
+    <h3><i class="ti ti-file-spreadsheet" style="font-size: 20px; color: var(--green);"></i> Trích xuất Đơn hàng</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px; margin-bottom: 12px; margin-top: 12px;">
       <div class="fg"><label>Từ ngày</label><input type="date" id="xlsxFrom"></div>
       <div class="fg"><label>Đến ngày</label><input type="date" id="xlsxTo"></div>
     </div>
@@ -283,8 +306,8 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
 
 <div id="costXlsxModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
-    <h3><i class="ti ti-file-invoice" style="font-size: 22px; color: var(--orange);"></i> Trích xuất Chi phí</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px; margin-bottom: 16px; margin-top: 16px;">
+    <h3><i class="ti ti-file-invoice" style="font-size: 20px; color: var(--orange);"></i> Trích xuất Chi phí</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px; margin-bottom: 12px; margin-top: 12px;">
       <div class="fg"><label>Từ ngày</label><input type="date" id="cxlsxFrom"></div>
       <div class="fg"><label>Đến ngày</label><input type="date" id="cxlsxTo"></div>
     </div>
@@ -361,7 +384,7 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
   </div>
 
   <div class="fcard" id="fcard">
-    <div class="ftitle" id="ftoggle"><i class="ti ti-circle-plus" style="font-size: 22px;"></i><span id="fTitle">Khởi tạo Đơn hàng</span><i class="ti ti-chevron-down fchev" id="fchev"></i></div>
+    <div class="ftitle" id="ftoggle"><i class="ti ti-circle-plus" style="font-size: 18px;"></i><span id="fTitle">Khởi tạo Đơn hàng</span><i class="ti ti-chevron-down fchev" id="fchev"></i></div>
     <div id="fbody">
       <div id="pastNotice" class="past-notice" style="display:none; background:#FFF3CD; color:#E67700; padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:12px; font-weight:600; border: 1px solid #FFE066;"><i class="ti ti-lock"></i> Hệ thống đã khóa sổ ngày cũ. Không thể thêm mới.</div>
       
@@ -421,7 +444,7 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
   </div>
   
   <div class="fcard" id="costCard">
-    <div class="ftitle" id="costtoggle"><i class="ti ti-wallet" style="font-size: 22px;"></i><span id="cTitle">Ghi nhận Chi phí</span><i class="ti ti-chevron-down fchev" id="cchev"></i></div>
+    <div class="ftitle" id="costtoggle"><i class="ti ti-wallet" style="font-size: 18px;"></i><span id="cTitle">Ghi nhận Chi phí</span><i class="ti ti-chevron-down fchev" id="cchev"></i></div>
     <div id="costBody">
       <div class="fgrid" style="grid-template-columns: repeat(4, 1fr);">
         <div class="fg" style="grid-column: span 2;"><label>Đối tác / NCC</label><input type="text" id="cSupplier" placeholder="Tên đơn vị..."></div>
@@ -434,7 +457,7 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
         <div class="fg" style="grid-column: 1 / -1;">
           <label>Chứng từ / Hóa đơn <span style="font-weight: 400; color: #888;">(Lưu Cloud đa tệp)</span></label>
           <label for="cImageFile" class="img-upload-area">
-            <div id="cImgDropContent" style="color: var(--olive-dark); font-weight: 600;"><i class="ti ti-camera-plus" style="font-size:24px; vertical-align: middle; margin-right: 4px;"></i> Bấm để tải ảnh lên hệ thống</div>
+            <div id="cImgDropContent" style="color: var(--olive-dark); font-weight: 600;"><i class="ti ti-camera-plus" style="font-size:20px; vertical-align: middle; margin-right: 4px;"></i> Bấm để tải ảnh lên hệ thống</div>
             <div id="cImgPreview" style="display:none; text-align: left; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px;">
               <div id="cImgList" style="display:flex; flex-wrap: wrap; gap: 8px;"></div>
             </div>
@@ -450,14 +473,14 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
   </div>
 
   <div class="fcard">
-    <div class="ftitle" id="fixedToggle"><i class="ti ti-building-store" style="font-size: 22px;"></i><span>Định phí Hàng Tháng</span> <span id="fixedMonthBadge" style="font-size:12px; background:var(--olive-dark); color:#fff; padding:2px 8px; border-radius:12px; margin-left: 8px;"></span><i class="ti ti-chevron-down fchev" id="fixedChev"></i></div>
+    <div class="ftitle" id="fixedToggle"><i class="ti ti-building-store" style="font-size: 18px;"></i><span>Định phí Hàng Tháng</span> <span id="fixedMonthBadge" style="font-size:11px; background:var(--olive-dark); color:#fff; padding:2px 8px; border-radius:12px; margin-left: 8px;"></span><i class="ti ti-chevron-down fchev" id="fixedChev"></i></div>
     <div id="fixedBody">
       <div class="fgrid" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="fg"><label>Mặt bằng (K)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:36px; height:36px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:18px;"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" style="display:none;font-size:12px;margin-top:4px; font-weight:600;"><a id="fRentImgLink" href="#" target="_blank" style="color:var(--indigo);"><i class="ti ti-link"></i> Xem File</a> <span style="cursor:pointer; color:var(--red); margin-left:12px;" onclick="clearFixedImg('rent')">Xóa</span></div></div>
-        <div class="fg"><label>Điện năng (K)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:36px; height:36px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:18px;"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" style="display:none;font-size:12px;margin-top:4px; font-weight:600;"><a id="fElecImgLink" href="#" target="_blank" style="color:var(--indigo);"><i class="ti ti-link"></i> Xem File</a> <span style="cursor:pointer; color:var(--red); margin-left:12px;" onclick="clearFixedImg('elec')">Xóa</span></div></div>
-        <div class="fg"><label>Nước sạch (K)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:36px; height:36px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:18px;"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" style="display:none;font-size:12px;margin-top:4px; font-weight:600;"><a id="fWaterImgLink" href="#" target="_blank" style="color:var(--indigo);"><i class="ti ti-link"></i> Xem File</a> <span style="cursor:pointer; color:var(--red); margin-left:12px;" onclick="clearFixedImg('water')">Xóa</span></div></div>
+        <div class="fg"><label>Mặt bằng (K)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:32px; height:32px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:16px;"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" style="display:none;font-size:11px;margin-top:4px; font-weight:600;"><a id="fRentImgLink" href="#" target="_blank" style="color:var(--indigo);"><i class="ti ti-link"></i> Xem File</a> <span style="cursor:pointer; color:var(--red); margin-left:8px;" onclick="clearFixedImg('rent')">Xóa</span></div></div>
+        <div class="fg"><label>Điện năng (K)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:32px; height:32px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:16px;"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" style="display:none;font-size:11px;margin-top:4px; font-weight:600;"><a id="fElecImgLink" href="#" target="_blank" style="color:var(--indigo);"><i class="ti ti-link"></i> Xem File</a> <span style="cursor:pointer; color:var(--red); margin-left:8px;" onclick="clearFixedImg('elec')">Xóa</span></div></div>
+        <div class="fg"><label>Nước sạch (K)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:32px; height:32px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:16px;"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" style="display:none;font-size:11px;margin-top:4px; font-weight:600;"><a id="fWaterImgLink" href="#" target="_blank" style="color:var(--indigo);"><i class="ti ti-link"></i> Xem File</a> <span style="cursor:pointer; color:var(--red); margin-left:8px;" onclick="clearFixedImg('water')">Xóa</span></div></div>
       </div>
-      <div style="margin-top:20px; font-size:14px; font-weight:600; padding: 12px 16px; background: #FFF5F5; border: 1px dashed #FFC9C9; border-radius: var(--radius-sm); display: inline-block;">Dự kiến tổng định phí: <span id="fixedTotal" style="color:var(--red); font-size: 18px; font-weight: 800;">0đ</span></div>
+      <div style="margin-top:16px; font-size:13px; font-weight:600; padding: 10px 14px; background: #FFF5F5; border: 1px dashed #FFC9C9; border-radius: var(--radius-sm); display: inline-block;">Dự kiến tổng định phí: <span id="fixedTotal" style="color:var(--red); font-size: 16px; font-weight: 800;">0đ</span></div>
       <div class="fbtns"><button class="btn btn-sub orange" id="fixedSaveBtn" onclick="saveFixed()">Cập nhật định phí</button></div>
     </div>
   </div>
@@ -465,20 +488,20 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
   <div class="tw">
     <table>
       <colgroup>
-        <col style="width: 45px;"><col style="width: 80px;"><col style="width: 140px;"><col style="width: 140px;"><col style="width: 120px;"><col style="width: 110px;"><col style="width: 150px;"><col style="width: 120px;">
+        <col style="width: 45px;"><col style="width: 80px;"><col style="width: 140px;"><col style="width: 140px;"><col style="width: 120px;"><col style="width: 110px;"><col style="width: 150px;"><col style="width: 80px;">
       </colgroup>
-      <thead><tr><th>STT</th><th>Ngày</th><th>Đối Tác/NCC</th><th>Hạng Mục</th><th class="num-align">Nguyên Vật Liệu ( NVL )</th><th class="num-align">Chi phí QC</th><th>Ghi Chú</th><th>Hóa đơn & Thao tác</th></tr></thead>
+      <thead><tr><th>STT</th><th>Ngày</th><th>Đối Tác/NCC</th><th>Hạng Mục</th><th class="num-align">Nguyên Vật Liệu ( NVL )</th><th class="num-align">Chi phí QC</th><th>Ghi Chú</th><th>Thao tác</th></tr></thead>
       <tbody id="costTbody"></tbody><tfoot id="costTfoot"></tfoot>
     </table>
   </div>
 </div>
 
 <div id="tab-dashboard" style="display:none">
-  <div class="dash-ctrl" style="background: var(--bg-card); padding: 12px 20px; border-radius: 30px; box-shadow: var(--shadow-soft);">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <i class="ti ti-calendar-event" style="color: var(--olive); font-size: 20px;"></i>
-      <select id="dashMonthSel" onchange="onDashChange()" style="width:auto; font-weight:700; border:none; background:transparent; padding:0 24px 0 0; color: var(--olive-dark); font-size: 15px;"></select>
-      <select id="dashYearSel" onchange="onDashChange()" style="width:auto; font-weight:700; border:none; background:transparent; padding:0 24px 0 0; color: var(--olive-dark); font-size: 15px;"></select>
+  <div class="dash-ctrl" style="background: var(--bg-card); padding: 10px 16px; border-radius: 30px; box-shadow: var(--shadow-soft);">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <i class="ti ti-calendar-event" style="color: var(--olive); font-size: 18px;"></i>
+      <select id="dashMonthSel" onchange="onDashChange()" style="width:auto; font-weight:700; border:none; background:transparent; padding:0 20px 0 0; color: var(--olive-dark); font-size: 14px;"></select>
+      <select id="dashYearSel" onchange="onDashChange()" style="width:auto; font-weight:700; border:none; background:transparent; padding:0 20px 0 0; color: var(--olive-dark); font-size: 14px;"></select>
     </div>
     <div style="display:flex;gap:8px; margin-left: auto;">
       <button class="btn btn-ol" onclick="loadDash()"><i class="ti ti-refresh"></i> Làm mới</button>
@@ -491,8 +514,8 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
     <div class="mc"><div class="mc-lbl">Tổng Đơn</div><div class="mc-val" id="dCount">–</div></div>
     <div class="mc"><div class="mc-lbl">DThu ( Bánh + PK )</div><div class="mc-val" id="dTotalCake">–</div></div>
     <div class="mc"><div class="mc-lbl">Tổng DT ( All )</div><div class="mc-val" id="dTotal" style="color:var(--olive-dark)">–</div></div>
-    <div class="mc"><div class="mc-lbl">Nửa đầu (1-15)</div><div class="mc-val" id="dH1" style="font-size: 18px;">–</div></div>
-    <div class="mc"><div class="mc-lbl">Nửa cuối (16-31)</div><div class="mc-val" id="dH2" style="font-size: 18px;">–</div></div>
+    <div class="mc"><div class="mc-lbl">Nửa đầu (1-15)</div><div class="mc-val" id="dH1" style="font-size: 16px;">–</div></div>
+    <div class="mc"><div class="mc-lbl">Nửa cuối (16-31)</div><div class="mc-val" id="dH2" style="font-size: 16px;">–</div></div>
   </div>
   
   <div class="dash-section-lbl" style="color: var(--red);"><i class="ti ti-trending-down"></i> PHÂN TÍCH CHI PHÍ & LỢI NHUẬN</div>
@@ -501,24 +524,24 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
     <div class="mc cost-card"><div class="mc-lbl">Chi phí QC</div><div class="mc-val red" id="dCostAd">–</div></div>
     <div class="mc cost-card"><div class="mc-lbl">Chi phí Cố định</div><div class="mc-val red" id="dCostFixed">–</div></div>
     <div class="mc cost-card"><div class="mc-lbl">Tổng Chi thực tế</div><div class="mc-val red" id="dCostTotal">–</div></div>
-    <div class="mc profit-card" style="grid-column: 1 / -1; align-items: center; text-align: center; padding: 24px;"><div class="mc-lbl" style="font-size: 14px;">BIÊN LỢI NHUẬN RÒNG (NET PROFIT)</div><div class="mc-val" id="dProfit" style="font-size: 36px; letter-spacing: -1px;">–</div></div>
+    <div class="mc profit-card" style="grid-column: 1 / -1; align-items: center; text-align: center; padding: 20px;"><div class="mc-lbl" style="font-size: 13px;">BIÊN LỢI NHUẬN RÒNG (NET PROFIT)</div><div class="mc-val" id="dProfit" style="font-size: 32px; letter-spacing: -1px;">–</div></div>
   </div>
   
   <div class="chart-card">
-    <h3 style="font-size: 15px; margin-bottom: 16px;"><i class="ti ti-chart-area-line"></i> Tương quan Thu - Chi</h3>
-    <div id="dashLoading" class="dash-loading"><span class="sk"></span> Phân tích Data Center...</div>
-    <canvas id="dashChart" style="display:none; max-height:280px;"></canvas>
+    <h3 style="font-size: 14px; margin-bottom: 12px;"><i class="ti ti-chart-area-line"></i> Tương quan Thu - Chi</h3>
+    <div id="dashLoading" class="dash-loading"><span class="sk"></span> Phân tích Data...</div>
+    <canvas id="dashChart" style="display:none; max-height:260px;"></canvas>
   </div>
   
   <div class="chart-card" style="padding: 0; overflow: hidden;">
-    <h3 style="font-size: 15px; margin: 20px 20px 12px;"><i class="ti ti-calendar-stats"></i> Hạch toán theo ngày</h3>
+    <h3 style="font-size: 14px; margin: 16px 16px 8px;"><i class="ti ti-calendar-stats"></i> Hạch toán theo ngày</h3>
     <div id="dashTable"></div>
   </div>
 </div>
 
 <div id="tab-report" style="display:none">
   <div class="fcard">
-    <div class="ftitle"><i class="ti ti-file-analytics" style="font-size: 22px;"></i> Trích xuất Dữ liệu Kế toán</div>
+    <div class="ftitle"><i class="ti ti-file-analytics" style="font-size: 20px;"></i> Trích xuất Dữ liệu Kế toán</div>
     <div class="fgrid" style="grid-template-columns: 1fr 1fr; align-items: end;">
       <div class="fg"><label>Chu kỳ Từ ngày</label><input type="date" id="rptFrom"></div>
       <div class="fg"><label>Đến hết ngày</label><input type="date" id="rptTo"></div>
@@ -534,10 +557,10 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
     <div class="chat-hdr">
       <div class="chat-av ai" style="background: rgba(255,255,255,0.25);"><i class="ti ti-headset"></i></div>
       <div style="flex:1;">
-        <div style="font-size:16px; font-weight:700;">Chuyên gia CSKH</div>
-        <div style="font-size:12px; font-weight:500; color:rgba(255,255,255,0.8); display: flex; align-items: center; gap: 4px;"><span style="width:8px; height:8px; background: #69db7c; border-radius: 50%;"></span> Trực tuyến</div>
+        <div style="font-size:15px; font-weight:700;">Chuyên gia CSKH</div>
+        <div style="font-size:11.5px; font-weight:500; color:rgba(255,255,255,0.8); display: flex; align-items: center; gap: 4px;"><span style="width:6px; height:6px; background: #69db7c; border-radius: 50%;"></span> Sẵn sàng hỗ trợ</div>
       </div>
-      <button class="btn btn-cancel" style="height: 32px; font-size: 12px; padding: 0 12px; color: white; border-color: rgba(255,255,255,0.3); background: rgba(0,0,0,0.1);" onclick="clearCSKH()"><i class="ti ti-broom"></i> Dọn bộ nhớ</button>
+      <button class="btn btn-cancel" style="height: 28px; font-size: 11.5px; padding: 0 10px; color: white; border-color: rgba(255,255,255,0.3); background: rgba(0,0,0,0.1);" onclick="clearCSKH()"><i class="ti ti-broom"></i> Dọn tin nhắn</button>
     </div>
     <div class="chat-chips">
       <button class="chip" onclick="chipSend('Viết mẫu xin lỗi và đền bù cho khách vì ship làm hỏng form bánh')">🍰 Bánh hỏng do ship</button>
@@ -558,7 +581,7 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
     </div>
     <div class="chat-input-row">
       <input type="text" class="chat-input" id="cskhInput" placeholder="Nhập câu hỏi của bạn..." onkeydown="if(event.key==='Enter')sendCSKH()">
-      <button class="chat-send" id="cskhSend" onclick="sendCSKH()"><i class="ti ti-send-2"></i></button>
+      <button class="chat-send" id="cskhSend" onclick="sendCSKH()"><i class="ti ti-send"></i></button>
     </div>
   </div>
 </div>
@@ -566,14 +589,13 @@ tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weigh
 
 <script>
 // =========================================================================
-// JAVASCRIPT LOGIC - MULTI-IMAGE UPLOAD ENGINE & CORRECT PROFIT FORMULA
+// JAVASCRIPT LOGIC - ĐÃ CẬP NHẬT LẠI ID BUTTON ĐỂ FIX LỖI TẢI ẢNH VÀ ĐÚNG CÔNG THỨC LỢI NHUẬN
 // =========================================================================
 
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbw9sWIdwYbnjieLcYJP82nyQUi0BeLnQh1Bw_ImYawIRr2f5T6zW7MhvuGYvPUfVWPvDw/exec';
 const $=id=>document.getElementById(id);const n=v=>Number(v||0);const fmt=v=>n(v).toLocaleString('vi-VN')+'đ';const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');const pad=v=>String(v).padStart(2,'0');const daysInMonth=(y,m)=>new Date(y,m,0).getDate();const MONTHS=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
 let _xlLoaded=false,_chLoaded=false;function loadExcelJS(){if(_xlLoaded)return Promise.resolve();return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js';s.onload=()=>{_xlLoaded=true;res();};s.onerror=rej;document.head.appendChild(s);});}function loadChartJS(){if(_chLoaded)return Promise.resolve();return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';s.onload=()=>{_chLoaded=true;res();};s.onerror=rej;document.head.appendChild(s);});}
 const _MC=new Map(),TTL=5*60*1000,CP='tlse_';const cGet=k=>{const m=_MC.get(k);if(m&&Date.now()-m.t<TTL)return m.d;try{const raw=localStorage.getItem(CP+k);if(!raw)return null;const p=JSON.parse(raw);if(Date.now()-p.t>TTL){localStorage.removeItem(CP+k);return null;}_MC.set(k,p);return p.d;}catch(e){return null;}};const cSet=(k,d)=>{const e={d,t:Date.now()};_MC.set(k,e);try{localStorage.setItem(CP+k,JSON.stringify(e));}catch(e){}};const cDel=pat=>{_MC.forEach((_,k)=>{if(k.includes(pat))_MC.delete(k);});try{Object.keys(localStorage).filter(k=>k.startsWith(CP)&&k.includes(pat)).forEach(k=>localStorage.removeItem(k));}catch(e){}};
-
 let editId=null,currentOrders=[],formOpen=true,editCostId=null,currentCosts=[],costFormOpen=true,fixedBodyOpen=true,pwCallback=null,pwLevel=null,authedAdmin=false,authedBoss=false,dashY=new Date().getFullYear(),dashM=new Date().getMonth()+1,dashChart=null,dashExportData=null,reportData=[],reportCosts=[],reportMonthFixeds={},currentTab='orders',aiOpen=true;
 
 /* Biến lưu trữ Đa Hình Ảnh cho mục Quản lý Chi phí */
@@ -595,9 +617,8 @@ function requireAuth(level,cb){if(level==='admin'&&authedAdmin){cb();return;}if(
 async function pwConfirm(){const val=$('pwInput').value.trim();if(!val)return;const btn=$('pwConfirmBtn'),orig=btn.innerHTML;btn.disabled=true;btn.innerHTML='...';$('pwInput').disabled=true;try{const r=await apiPost({action:'verifyPassword',level:pwLevel,pw:val});if(r.ok){$('pwModal').style.display='none';if(pwLevel==='admin')authedAdmin=true;else authedBoss=true;if(pwCallback)pwCallback();pwCallback=null;}else{$('pwInput').style.borderColor='var(--red)';$('pwInput').value='';toast('Sai khóa bảo mật!',true);setTimeout(()=>$('pwInput').style.borderColor='',1500);$('pwInput').focus();}}catch(e){toast('Lỗi rớt mạng.',true);}btn.disabled=false;btn.innerHTML=orig;$('pwInput').disabled=false;}
 function pwCancel(){$('pwModal').style.display='none';pwCallback=null;}
 
-async function api(params){const r=await fetch(SCRIPT_URL+'?'+newSearchParams(params));if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
-function newSearchParams(p) { return new URLSearchParams(p); }
-async function apiC(params){const k=newSearchParams(params).toString();const hit=cGet(k);if(hit)return hit;const r=await api(params);if(r.ok!==false)cSet(k,r);return r;}
+async function api(params){const r=await fetch(SCRIPT_URL+'?'+new URLSearchParams(params));if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
+async function apiC(params){const k=new URLSearchParams(params).toString();const hit=cGet(k);if(hit)return hit;const r=await api(params);if(r.ok!==false)cSet(k,r);return r;}
 async function fetchRange(dates){return Promise.all(dates.map(d=>apiC({action:'getOrders',date:d}).then(r=>({date:d,orders:r.orders||[]})).catch(()=>({date:d,orders:[]}))));}
 async function apiPost(body){const r=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body)});if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 let toastT;function toast(msg,err=false){clearTimeout(toastT);const t=$('toast');t.textContent=msg;t.className='toast show'+(err?' err':'');toastT=setTimeout(()=>t.classList.remove('show'),err?3500:2500);}
@@ -607,7 +628,7 @@ async function compressImage(file){return new Promise(resolve=>{const img=new Im
 /* --- MULTI IMAGE UPLOAD LOGIC --- */
 async function onImageSelected(input){
   const files=input.files;if(!files.length)return;
-  $('cBtnSub').disabled=true;$('cBtnTxt').textContent=`Đang up ${files.length} ảnh...`;
+  $('cBtnSub').disabled=true;$('cBtnSub').innerHTML=`Đang up ${files.length} ảnh...`;
   $('cImgPreview').style.display='flex';$('cImgDropContent').style.display='none';
   for(let i=0;i<files.length;i++){
     try{
@@ -618,7 +639,7 @@ async function onImageSelected(input){
       pendingUploadedFiles.push(r.fileId);
       renderCostImagePreviews();
     }catch(e){toast(`Lỗi ảnh ${i+1}: ${e.message}`,true);}
-  }$('cBtnSub').disabled=false;$('cBtnTxt').textContent=editCostId?'Cập nhật chi tiết':'Lưu dòng chi';input.value='';
+  }$('cBtnSub').disabled=false;$('cBtnSub').innerHTML=editCostId?'Cập nhật chi tiết':'<i class="ti ti-device-floppy"></i> Lưu dòng chi';input.value='';
 }
 function renderCostImagePreviews(){
   const container=$('cImgList');container.innerHTML='';
@@ -626,10 +647,10 @@ function renderCostImagePreviews(){
     $('cImgPreview').style.display='none';$('cImgDropContent').style.display='block';return;
   }$('cImgPreview').style.display='flex';$('cImgDropContent').style.display='none';
   currentEditFileIds.forEach(id=>{
-    container.innerHTML+=`<div class="img-thumb-wrap"><img src="${driveThumb(id)}" class="img-thumb" onclick="openImgViewer('${driveView(id)}')"><button type="button" class="del-img-btn" onclick="removeCostImage('${id}', true)">×</button></div>`;
+    container.innerHTML+=`<div class="img-thumb-wrap" style="margin-bottom:0;"><img src="${driveThumb(id)}" class="img-thumb" style="max-height:40px;max-width:55px;" onclick="openImgViewer('${driveView(id)}')"><button type="button" class="del-img-btn" style="width:16px;height:16px;font-size:10px;top:-4px;right:-4px;" onclick="removeCostImage('${id}', true)">×</button></div>`;
   });
   pendingUploadedFiles.forEach(id=>{
-    container.innerHTML+=`<div class="img-thumb-wrap"><img src="${driveThumb(id)}" class="img-thumb" style="border-color:var(--green)" onclick="openImgViewer('${driveView(id)}')"><button type="button" class="del-img-btn" onclick="removeCostImage('${id}', false)">×</button></div>`;
+    container.innerHTML+=`<div class="img-thumb-wrap" style="margin-bottom:0;"><img src="${driveThumb(id)}" class="img-thumb" style="max-height:40px;max-width:55px;border-color:var(--green)" onclick="openImgViewer('${driveView(id)}')"><button type="button" class="del-img-btn" style="width:16px;height:16px;font-size:10px;top:-4px;right:-4px;" onclick="removeCostImage('${id}', false)">×</button></div>`;
   });
 }
 function removeCostImage(id, isExisting){
@@ -644,7 +665,47 @@ function clearCostImage(){
 function openImgViewer(src){const ov=document.createElement('div');ov.className='modal-overlay';ov.innerHTML=`<img src="${src}" style="max-width:90vw;max-height:90vh;border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" onerror="this.src=''">`;ov.onclick=()=>ov.remove();document.body.appendChild(ov);}
 function calc(){const c=n($('fCake').value)*1000,a=n($('fAcc').value)*1000,s=n($('fShip').value)*1000;$('aSum').textContent=fmt(c+a);$('aTot').textContent=fmt(c+a+s);}
 
-let fImgs={rent:null,elec:null,water:null};function showFixedImg(type,url){const box=$(`f${capitalize(type)}ImgBox`),link=$(`f${capitalize(type)}ImgLink`);if(url){box.style.display='flex';link.href=url;fImgs[type]=url;}else{box.style.display='none';link.href='#';fImgs[type]=null;}}async function uploadFixedImg(type,input){const file=input.files[0];if(!file)return;$('fixedSaveBtn').disabled=true;$('fixedSaveBtn').innerHTML='Vui lòng đợi...';try{const b64=await compressImage(file);const base64=b64.split(',')[1],ext=b64.startsWith('data:image/png')?'png':'jpg';const r=await apiPost({action:'uploadImage',base64,ext});if(!r.ok)throw new Error(r.error);if(fImgs[type])apiPost({action:'deleteImage',fileId:getFileId(fImgs[type])}).catch(()=>{});showFixedImg(type,driveFullUrl(r.fileId));toast('Ghi nhận file.');}catch(e){toast('Lỗi: '+e.message,true);}$('fixedSaveBtn').disabled=false;$('fixedSaveBtn').innerHTML='Cập nhật định phí';input.value='';}function clearFixedImg(type){if(fImgs[type]){apiPost({action:'deleteImage',fileId:getFileId(fImgs[type])}).catch(()=>{});showFixedImg(type,null);}}function calcFixed(){$('fixedTotal').textContent=fmt((n($('fRent').value)+n($('fElec').value)+n($('fWater').value))*1000);}
+let fImgs={rent:[],elec:[],water:[]};
+function renderFixedImgs(type) {
+    const box = $(`f${capitalize(type)}ImgBox`);
+    box.innerHTML = '';
+    if(fImgs[type].length === 0) {
+        box.style.display = 'none'; return;
+    }
+    box.style.display = 'flex';
+    fImgs[type].forEach(url => {
+        const id = getFileId(url);
+        box.innerHTML += `<div class="img-thumb-wrap" style="margin-bottom:0;"><img src="${driveThumb(id)}" class="img-thumb" style="max-height:30px;max-width:40px;" onclick="openImgViewer('${driveView(id)}')"><button type="button" class="del-img-btn" style="width:16px;height:16px;font-size:10px;top:-4px;right:-4px;" onclick="removeFixedImg('${type}', '${id}')">×</button></div>`;
+    });
+}
+async function uploadFixedImg(type, input) {
+    const files = input.files;
+    if (!files.length) return;
+    $('fixedSaveBtn').disabled = true;
+    $('fixedSaveBtn').innerHTML = 'Đang tải ảnh...';
+    for(let i=0; i<files.length; i++) {
+        try {
+            const b64 = await compressImage(files[i]);
+            const base64 = b64.split(',')[1];
+            const ext = b64.startsWith('data:image/png') ? 'png' : 'jpg';
+            const r = await apiPost({action:'uploadImage', base64, ext});
+            if (!r.ok) throw new Error(r.error);
+            fImgs[type].push(driveFullUrl(r.fileId));
+            renderFixedImgs(type);
+        } catch(e) {
+            toast('Lỗi up ảnh: ' + e.message, true);
+        }
+    }
+    $('fixedSaveBtn').disabled = false;
+    $('fixedSaveBtn').innerHTML = 'Cập nhật định phí';
+    input.value = '';
+}
+function removeFixedImg(type, idToRemove) {
+    fImgs[type] = fImgs[type].filter(url => getFileId(url) !== idToRemove);
+    apiPost({action:'deleteImage', fileId:idToRemove}).catch(()=>{});
+    renderFixedImgs(type);
+}
+function calcFixed(){$('fixedTotal').textContent=fmt((n($('fRent').value)+n($('fElec').value)+n($('fWater').value))*1000);}
 
 function updateMetrics(orders){const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0);$('mCount').textContent=orders.length;$('mCake').textContent=fmt(cake);$('mShip').textContent=fmt(ship);$('mTotal').textContent=fmt(cake+ship);}function updateFormLock(){const locked=isPast($('selDate').value)&&editId===null;$('pastNotice').style.display=locked?'block':'none';$('btnSub').disabled=locked;}
 
@@ -663,9 +724,7 @@ $('btnSub').addEventListener('click', async function(){
   $('btnSub').disabled=false;$('btnTxt').textContent=isEdit?'Cập nhật sửa đổi':'Lưu đơn hàng';updateFormLock();
 });
 
-function startEdit(id){requireAuth('admin',()=>{const o=currentOrders.find(x=>x.id===id);if(!o)return;setForm(o);editId=id;$('fTitle').innerHTML='Chế độ Sửa: '+(o.name||'Đơn');$('btnTxt').textContent='Cập nhật sửa đổi';$('btnCancel').style.display='';$('fcard').classList.add('editing');$('pastNotice').style.display='none';$('btnSub').disabled=false;if(!formOpen){formOpen=true;$('fbody').style.display='';$('fchev').style.transform='';}$('fcard').scrollIntoView({behavior:'smooth'});render();});}
-function cancelEdit(){editId=null;setForm({});$('fTitle').innerHTML='<i class="ti ti-circle-plus" style="font-size: 22px;"></i> Khởi tạo Đơn hàng';$('btnTxt').textContent='Lưu đơn hàng';$('btnCancel').style.display='none';$('fcard').classList.remove('editing');updateFormLock();}
-async function delOrder(id){requireAuth('admin',async()=>{if(!confirm('Gỡ bỏ hoàn toàn chứng từ này?'))return;try{const r=await api({action:'deleteOrder',id,date:$('selDate').value});if(!r.ok)throw new Error(r.error);cDel($('selDate').value);if(editId===id)cancelEdit();await render();toast('Vùng nhớ đã dọn dẹp.');}catch(e){toast('Lỗi hủy: '+e.message,true);}});}
+function startEdit(id){requireAuth('admin',()=>{const o=currentOrders.find(x=>x.id===id);if(!o)return;setForm(o);editId=id;$('fTitle').innerHTML='Chế độ Sửa: '+(o.name||'Đơn');$('btnTxt').textContent='Cập nhật sửa đổi';$('btnCancel').style.display='';$('fcard').classList.add('editing');$('pastNotice').style.display='none';$('btnSub').disabled=false;if(!formOpen){formOpen=true;$('fbody').style.display='';$('fchev').style.transform='';}$('fcard').scrollIntoView({behavior:'smooth'});render();});}function cancelEdit(){editId=null;setForm({});$('fTitle').innerHTML='<i class="ti ti-circle-plus" style="font-size: 22px;"></i> Khởi tạo Đơn hàng';$('btnTxt').textContent='Lưu đơn hàng';$('btnCancel').style.display='none';$('fcard').classList.remove('editing');updateFormLock();}async function delOrder(id){requireAuth('admin',async()=>{if(!confirm('Gỡ bỏ hoàn toàn chứng từ này?'))return;try{const r=await api({action:'deleteOrder',id,date:$('selDate').value});if(!r.ok)throw new Error(r.error);cDel($('selDate').value);if(editId===id)cancelEdit();await render();toast('Vùng nhớ đã dọn dẹp.');}catch(e){toast('Lỗi hủy: '+e.message,true);}});}
 $('ftoggle').addEventListener('click',()=>{formOpen=!formOpen;$('fbody').style.display=formOpen?'':'none';$('fchev').style.transform=formOpen?'':'rotate(-90deg)';});
 
 async function renderCosts(){const date=$('selDate').value;const[y,m]=[date.split('-')[0],date.split('-')[1]];$('fixedMonthBadge').textContent=`Kỳ ${parseInt(m)}/${y}`;const pKey={action:'getCosts',date};const cached=cGet(new URLSearchParams(pKey).toString());if(cached){currentCosts=cached.costs||[];_renderCostTable();api(pKey).then(r=>{if(!r.ok)return;cSet(new URLSearchParams(pKey).toString(),r);currentCosts=r.costs||[];_renderCostTable();}).catch(()=>{});loadFixedCosts();return;}$('costTbody').innerHTML=`<tr><td colspan="8" style="text-align:center; padding: 2rem; color:#999"><span class="sk"></span> Nạp chuỗi dữ liệu...</td></tr>`;$('costTfoot').innerHTML='';try{const r=await api(pKey);if(!r.ok)throw new Error(r.error);cSet(new URLSearchParams(pKey).toString(),r);currentCosts=r.costs||[];_renderCostTable();}catch(e){$('costTbody').innerHTML=`<tr><td colspan="8" style="text-align:center; color: var(--red); padding: 1rem;">⚠️ Không truy xuất được Dữ liệu Chi phí</td></tr>`;toast('Lỗi: '+e.message,true);}loadFixedCosts();}
@@ -696,13 +755,12 @@ function cancelCostEdit(){pendingUploadedFiles.forEach(id=>apiPost({action:'dele
 async function delCost(id){requireAuth('boss',async()=>{if(!confirm('Cảnh báo: Bỏ qua dòng tiền này?'))return;const c=currentCosts.find(x=>x.id===id);try{const r=await api({action:'deleteCost',id,date:$('selDate').value});if(!r.ok)throw new Error(r.error);const fIds=getFileIds(c?.imageUrl);fIds.forEach(fId=>apiPost({action:'deleteImage',fileId:fId}).catch(()=>{}));if(editCostId===id)cancelCostEdit();cDel($('selDate').value);await renderCosts();toast('Đã dọn dẹp Database.');}catch(e){toast('Lỗi hủy: '+e.message,true);}});}
 $('costtoggle').addEventListener('click',()=>{costFormOpen=!costFormOpen;$('costBody').style.display=costFormOpen?'':'none';$('cchev').style.transform=costFormOpen?'':'rotate(-90deg)';});$('fixedToggle').addEventListener('click',()=>{fixedBodyOpen=!fixedBodyOpen;$('fixedBody').style.display=fixedBodyOpen?'':'none';$('fixedChev').style.transform=fixedBodyOpen?'':'rotate(-90deg)';});
 
-async function loadFixedCosts(){const[y,m]=$('selDate').value.split('-');try{const r=await api({action:'getFixedCosts',yearMonth:parseInt(m)+'_'+y});if(r.ok){$('fRent').value=r.rent?r.rent/1000:'';showFixedImg('rent',r.rentImg);$('fElec').value=r.elec?r.elec/1000:'';showFixedImg('elec',r.elecImg);$('fWater').value=r.water?r.water/1000:'';showFixedImg('water',r.waterImg);calcFixed();}}catch(e){}}
-async function saveFixed(){const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;$('fixedSaveBtn').disabled=true;$('fixedSaveBtn').innerHTML='...';try{await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent,elec:n($('fElec').value)*1000,elecImg:fImgs.elec,water:n($('fWater').value)*1000,waterImg:fImgs.water})});toast('Biểu mẫu định phí đã xác lập!');}catch(e){toast('Báo lỗi: '+e.message,true);}$('fixedSaveBtn').disabled=false;$('fixedSaveBtn').innerHTML='Cập nhật định phí';}
+async function loadFixedCosts(){const[y,m]=$('selDate').value.split('-');try{const r=await api({action:'getFixedCosts',yearMonth:parseInt(m)+'_'+y});if(r.ok){$('fRent').value=r.rent?r.rent/1000:'';fImgs.rent=r.rentImg?r.rentImg.split(',').filter(Boolean):[];renderFixedImgs('rent');$('fElec').value=r.elec?r.elec/1000:'';fImgs.elec=r.elecImg?r.elecImg.split(',').filter(Boolean):[];renderFixedImgs('elec');$('fWater').value=r.water?r.water/1000:'';fImgs.water=r.waterImg?r.waterImg.split(',').filter(Boolean):[];renderFixedImgs('water');calcFixed();}}catch(e){}}
+async function saveFixed(){const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;$('fixedSaveBtn').disabled=true;$('fixedSaveBtn').innerHTML='...';try{await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent.join(','),elec:n($('fElec').value)*1000,elecImg:fImgs.elec.join(','),water:n($('fWater').value)*1000,waterImg:fImgs.water.join(',')})});toast('Biểu mẫu định phí đã xác lập!');}catch(e){toast('Báo lỗi: '+e.message,true);}$('fixedSaveBtn').disabled=false;$('fixedSaveBtn').innerHTML='Cập nhật định phí';}
 
 function onClickXlsx(){requireAuth('boss',()=>{const t=todayStr();$('xlsxFrom').value=t;$('xlsxTo').value=t;$('xlsxModal').style.display='flex';});}
 async function doExportRange(){await loadExcelJS();const from=$('xlsxFrom').value,to=$('xlsxTo').value;if(!from||!to)return;if(from>to){toast('Thời gian trích xuất ảo',true);return;}$('xlsxBtn').innerHTML='Tải về Client...';$('xlsxBtn').disabled=true;try{const results=await fetchRange(genDates(from,to));await buildExcel(results,from===to?from:`${from}→${to}`,from===to?`Toulouse_BaoCao_${from}.xlsx`:`Toulouse_BaoCao_${from}_${to}.xlsx`);$('xlsxModal').style.display='none';}catch(e){toast('Lỗi tạo tệp: '+e.message,true);}$('xlsxBtn').innerHTML='Tải File Excel';$('xlsxBtn').disabled=false;}
 async function buildExcel(results,titleLabel,filename){const hasAny=results.some(r=>r.orders.length);if(!hasAny){toast('Data rỗng trong kỳ!',true);return;}const wb=new ExcelJS.Workbook(),ws=wb.addWorksheet('Bảng kê Đơn hàng');ws.columns=[{width:6},{width:12},{width:10},{width:12},{width:13},{width:13},{width:18},{width:16},{width:13},{width:17},{width:18},{width:14},{width:24},{width:20}];const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Segoe UI',bold,color:{argb},size:sz});const xal=(h='center',v='middle')=>({horizontal:h,vertical:v});ws.mergeCells('A1:N1');const r1=ws.getRow(1);r1.height=30;const t1=r1.getCell(1);t1.value=`BẢNG KÊ ĐƠN HÀNG TOULOUSE – [ ${titleLabel} ]`;t1.font=xn(true,'FFFFFFFF',14);t1.fill=xf('FF6B7A2E');t1.alignment=xal();const hdrs=['STT','Ngày','Giờ giao','Size bánh','Giá bánh','Giá PK','Phụ kiện','DThu (Bánh+PK)','Giá ship','Tổng DT (All)','Tên khách','SĐT','Địa chỉ','Ghi chú'];const r2=ws.getRow(2);r2.height=22;hdrs.forEach((h,i)=>{const c=r2.getCell(i+1);c.value=h;c.font=xn(true,'FF4A5E1C');c.fill=xf('FFE8EDD6');c.alignment=xal();});let ri=3,gCake=0,gShip=0;results.forEach(({date,orders})=>{if(!orders.length)return;const[y,mo,d]=date.split('-');const dC=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),dS=orders.reduce((s,o)=>s+n(o.ship),0);gCake+=dC;gShip+=dS;ws.mergeCells(`A${ri}:N${ri}`);const dhr=ws.getRow(ri);dhr.height=20;const dhc=dhr.getCell(1);dhc.value=`Dữ liệu ngày ${d}/${mo}/${y}  (${orders.length} giao dịch)`;dhc.font=xn(true,'FF1C1F15',11);dhc.fill=xf('FFFAF8F2');dhc.alignment={horizontal:'left',vertical:'middle'};ri++;orders.forEach((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);const rr=ws.getRow(ri);rr.height=18;[i+1,`${d}/${mo}/${y}`,o.time||'',o.size||'',n(o.cakePrice),n(o.accPrice),o.acc||'',sum,n(o.ship),tot,o.name||'',o.phone||'',o.addr||'',o.note||''].forEach((v,ci)=>{const cc=rr.getCell(ci+1);cc.value=v;cc.font=xn(false,(ci===7||ci===9)?'FFE03131':'FF1C1F15');cc.fill=xf('FFFFFFFF');});ri++;});const sr=ws.getRow(ri);sr.height=18;const sv=Array(14).fill('');sv[6]=`Phát sinh ${d}/${mo}:`;sv[7]=dC;sv[8]=dS;sv[9]=dC+dS;sv.forEach((v,ci)=>{const cc=sr.getCell(ci+1);cc.value=v;cc.font=xn(true,'FF6B7A2E',11);cc.fill=xf('FFFAF8F2');if(ci===6)cc.alignment={horizontal:'right'};});ri++;});const gr=ws.getRow(ri);gr.height=26;const gv=Array(14).fill('');gv[6]='LŨY KẾ:';gv[7]=gCake;gv[8]=gShip;gv[9]=gCake+gShip;gv.forEach((v,ci)=>{const cc=gr.getCell(ci+1);cc.value=v;cc.font=xn(true,'FFFFFFFF',12);cc.fill=xf('FFB89020');if(ci===6)cc.alignment={horizontal:'right'};});const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);toast(`Báo cáo sẵn sàng tại máy bộ.`);}
-
 function onClickCostXlsx(){const t=todayStr();$('cxlsxFrom').value=t;$('cxlsxTo').value=t;$('costXlsxModal').style.display='flex';}
 async function doExportCostRange(){await loadExcelJS();const from=$('cxlsxFrom').value,to=$('cxlsxTo').value;if(!from||!to)return;if(from>to)return;$('cxlsxBtn').innerHTML='Rendering...';$('cxlsxBtn').disabled=true;try{const dates=genDates(from,to);const results=await Promise.all(dates.map(d=>api({action:'getCosts',date:d}).then(r=>({date:d,costs:r.costs||[]})).catch(()=>({date:d,costs:[]}))));await buildCostExcel(results,from===to?from:`${from}→${to}`,from===to?`Toulouse_SoChi_${from}.xlsx`:`Toulouse_SoChi_${from}_${to}.xlsx`);$('costXlsxModal').style.display='none';}catch(e){toast('Ngoại lệ: '+e.message,true);}$('cxlsxBtn').innerHTML='Tải File Excel';$('cxlsxBtn').disabled=false;}
 async function fetchDriveImgBase64(fileId){if(!fileId)return null;try{const r=await fetch(driveView(fileId),{mode:'cors'});if(!r.ok)return null;const blob=await r.blob();return await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(blob);});}catch(e){return null;}}
