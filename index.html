@@ -421,9 +421,33 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
 [data-theme="light"] input:focus, [data-theme="light"] textarea:focus, [data-theme="light"] select:focus {
   box-shadow: 0 0 0 3px rgba(107, 122, 46, 0.12) !important;
 }
+/* ══ THANH TIẾN ĐỘ (PROGRESS BAR) ══ */
+.gl-prog-wrap {
+  position: fixed; top: 0; left: 0; width: 100%; height: 3.5px;
+  background: rgba(107, 122, 46, 0.15); z-index: 9999;
+  display: none; opacity: 0; transition: opacity 0.3s ease;
+}
+.gl-prog-bar {
+  height: 100%; width: 0%; background: var(--gold-dark);
+  transition: width 0.2s ease;
+  box-shadow: 0 0 10px rgba(107, 122, 46, 0.5);
+}
+.gl-prog-txt {
+  position: absolute; top: 6px; right: 10px;
+  font-size: 11px; font-weight: 700; color: var(--gold-dark);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.9);
+}
+[data-theme="dark"] .gl-prog-txt {
+  color: var(--gold); text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+}   
 </style>
 </head>
 <body>
+<div id="glProgWrap" class="gl-prog-wrap">
+  <div id="glProgBar" class="gl-prog-bar"></div>
+  <div id="glProgTxt" class="gl-prog-txt">0%</div>
+</div>   
 <div class="wrap">
 <div id="toast" class="toast"></div>
 
@@ -729,6 +753,67 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
 
 </div><!-- /.wrap -->
 <script>
+/* ══ TRÌNH QUẢN LÝ THANH TIẾN ĐỘ TOÀN CỤC ══ */
+let _reqCount = 0, _progInt = null, _progVal = 0;
+
+function startGlobalProgress() {
+  _reqCount++;
+  if(_reqCount > 1) return; // Nếu đang có tiến trình chạy rồi thì bỏ qua
+
+  const wrap = $('glProgWrap'), bar = $('glProgBar'), txt = $('glProgTxt');
+  if(!wrap) return;
+  clearInterval(_progInt);
+  
+  wrap.style.display = 'block';
+  void wrap.offsetWidth; // Ép trình duyệt render lại (reflow)
+  wrap.style.opacity = '1';
+  
+  _progVal = 10; // Bắt đầu ở 10%
+  bar.style.width = _progVal + '%';
+  txt.textContent = _progVal + '%';
+
+  _progInt = setInterval(() => {
+    // Tăng chậm dần và tiệm cận mức 90%
+    if(_progVal < 90) _progVal += Math.max(0.5, (95 - _progVal) * 0.1);
+    const intVal = Math.round(_progVal);
+    bar.style.width = intVal + '%';
+    txt.textContent = intVal + '%';
+  }, 250);
+}
+
+function endGlobalProgress() {
+  _reqCount = Math.max(0, _reqCount - 1);
+  if(_reqCount > 0) return; // Đợi các lệnh fetch khác xong hẳn mới đóng
+
+  const wrap = $('glProgWrap'), bar = $('glProgBar'), txt = $('glProgTxt');
+  if(!wrap) return;
+  clearInterval(_progInt);
+  
+  bar.style.width = '100%';
+  txt.textContent = '100%';
+  
+  // Đợi 400ms để người dùng kịp nhìn thấy số 100% rồi mới làm mờ
+  setTimeout(() => {
+    wrap.style.opacity = '0';
+    setTimeout(() => {
+       if(_reqCount === 0) {
+         wrap.style.display = 'none';
+         bar.style.width = '0%';
+       }
+    }, 300);
+  }, 400); 
+}
+
+// ══ ĐÁNH CHẶN (INTERCEPT) LỆNH FETCH TOÀN CỤC ══
+const originalFetch = window.fetch;
+window.fetch = async function(...args) {
+  startGlobalProgress();
+  try {
+    return await originalFetch.apply(this, args);
+  } finally {
+    endGlobalProgress();
+  }
+};   
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbw9sWIdwYbnjieLcYJP82nyQUi0BeLnQh1Bw_ImYawIRr2f5T6zW7MhvuGYvPUfVWPvDw/exec';
 const $=id=>document.getElementById(id);
 const n=v=>Number(v||0);
