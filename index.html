@@ -344,6 +344,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
 <div class="wrap">
 <div id="toast" class="toast"></div>
 
+<!-- PASSWORD MODAL -->
 <div id="pwModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
     <h3><i class="ti ti-lock"></i> Xác nhận mật khẩu</h3>
@@ -356,6 +357,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   </div>
 </div>
 
+<!-- EXCEL MODAL – ĐƠN -->
 <div id="xlsxModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
     <h3><i class="ti ti-file-spreadsheet"></i> Xuất Excel đơn hàng</h3>
@@ -371,6 +373,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   </div>
 </div>
 
+<!-- EXCEL MODAL – CHI PHÍ -->
 <div id="costXlsxModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
     <h3><i class="ti ti-file-spreadsheet"></i> Xuất Excel chi phí</h3>
@@ -386,6 +389,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   </div>
 </div>
 
+<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-brand">
     <svg width="62" height="62" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -428,6 +432,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   </div>
 </div>
 
+<!-- TABS -->
 <div class="tabs">
   <button class="tab-btn active" id="tab-orders-btn" onclick="showTab('orders')"><i class="ti ti-clipboard-list"></i> Đơn hàng</button>
   <button class="tab-btn" id="tab-costs-btn" onclick="showTab('costs')"><i class="ti ti-coins"></i> Chi phí</button>
@@ -436,6 +441,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   <button class="tab-btn" id="tab-cskh-btn" onclick="showTab('cskh')"><i class="ti ti-headset"></i> CSKH</button>
 </div>
 
+<!-- ═══════════ TAB: ĐƠN HÀNG ═══════════ -->
 <div id="tab-orders">
   <div class="metrics">
     <div class="mc"><div class="mc-lbl">Số đơn</div><div class="mc-val hl" id="mCount">–</div></div>
@@ -444,6 +450,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
     <div class="mc"><div class="mc-lbl">Tổng doanh thu</div><div class="mc-val hl" id="mTotal">–</div></div>
   </div>
 
+  <!-- AI CARD -->
   <div class="fcard" id="aiCard">
     <div class="ftitle" id="aiToggle"><i class="ti ti-robot" style="color:var(--indigo)"></i><span>Nhập đơn từ chat AI</span><span class="ai-badge">AI</span><i class="ti ti-chevron-down fchev" id="aiChev"></i></div>
     <div id="aiBody">
@@ -462,6 +469,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
     </div>
   </div>
 
+  <!-- ORDER FORM – 2 cột -->
   <div class="fcard" id="fcard">
     <div class="ftitle" id="ftoggle"><i class="ti ti-plus" id="fIcon"></i><span id="fTitle">Thêm đơn hàng mới</span><i class="ti ti-chevron-down fchev" id="fchev"></i></div>
     <div id="fbody">
@@ -498,6 +506,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   </div>
 </div>
 
+<!-- ═══════════ TAB: CHI PHÍ ═══════════ -->
 <div id="tab-costs" style="display:none">
   <div style="display:flex;justify-content:flex-end;margin-bottom:.75rem">
     <button class="btn btn-ol" onclick="onClickCostXlsx()"><i class="ti ti-download"></i> <span>Tải Excel chi phí</span></button>
@@ -509,6 +518,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
     <div class="mc cost-card"><div class="mc-lbl">Tổng chi ngày</div><div class="mc-val red" id="cDayTotal">–</div></div>
   </div>
 
+  <!-- COST FORM -->
   <div class="fcard" id="costCard">
     <div class="ftitle" id="costtoggle"><i class="ti ti-plus" id="cIcon"></i><span id="cTitle">Thêm chi phí mới</span><i class="ti ti-chevron-down fchev" id="cchev"></i></div>
     <div id="costBody">
@@ -534,13 +544,14 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
     </div>
   </div>
 
+  <!-- FIXED COSTS -->
   <div class="fcard">
     <div class="ftitle" id="fixedToggle"><i class="ti ti-home"></i><span>Chi phí cố định tháng</span><span id="fixedMonthBadge" style="font-size:11px;background:var(--gold-pale);color:var(--gold-dark);border-radius:10px;padding:2px 8px;font-weight:500;margin-left:4px"></span><i class="ti ti-chevron-down fchev" id="fixedChev"></i></div>
     <div id="fixedBody">
       <div class="form-2col" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
-        <div class="fg"><label>Tiền nhà (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="VD: 3000" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
-        <div class="fg"><label>Tiền điện (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="VD: 500" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
-        <div class="fg"><label>Tiền nước (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="VD: 150" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
+        <div class="fg"><label>Tiền nhà (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="VD: 3000" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fRentImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('rent')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
+        <div class="fg"><label>Tiền điện (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="VD: 500" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fElecImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('elec')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
+        <div class="fg"><label>Tiền nước (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="VD: 150" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fWaterImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('water')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
       </div>
       <div style="margin-top:10px"><div class="fa"><span>Tổng chi phí cố định tháng</span><b id="fixedTotal" style="color:var(--red)">0đ</b></div></div>
       <div class="fbtns"><button class="btn-sub orange" id="fixedSaveBtn" onclick="saveFixed()"><i class="ti ti-device-floppy"></i><span id="fixedBtnTxt">Lưu chi phí cố định</span></button></div>
@@ -556,6 +567,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   </div>
 </div>
 
+<!-- ═══════════ TAB: DASHBOARD ═══════════ -->
 <div id="tab-dashboard" style="display:none">
   <div class="dash-ctrl">
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
@@ -589,6 +601,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   <div class="chart-card"><h3>Chi tiết từng ngày</h3><div id="dashTable"><div class="dash-loading">Chọn tháng và nhấn tải lại...</div></div></div>
 </div>
 
+<!-- ═══════════ TAB: BÁO CÁO ═══════════ -->
 <div id="tab-report" style="display:none">
   <div class="rpt-card">
     <h3><i class="ti ti-calendar-stats"></i> Báo cáo tổng hợp Thu – Chi</h3>
@@ -602,6 +615,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   <div id="rptResult"></div>
 </div>
 
+<!-- ═══════════ TAB: CSKH ═══════════ -->
 <div id="tab-cskh" style="display:none">
   <div class="chat-wrap">
     <div class="chat-hdr">
@@ -630,7 +644,8 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   </div>
 </div>
 
-</div><script>
+</div><!-- /.wrap -->
+<script>
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbw9sWIdwYbnjieLcYJP82nyQUi0BeLnQh1Bw_ImYawIRr2f5T6zW7MhvuGYvPUfVWPvDw/exec';
 const $=id=>document.getElementById(id);
 const n=v=>Number(v||0);
@@ -788,53 +803,11 @@ function loadCostImages(imageUrl){costImages=[];getFileIds(imageUrl).forEach(fId
 function openImgViewer(src){const ov=document.createElement('div');ov.className='img-viewer';ov.innerHTML=`<img src="${src}" onerror="this.src=''">`;ov.onclick=()=>ov.remove();document.body.appendChild(ov);}
 
 /* ── FIXED COST IMAGES ── */
-let fImgs={rent:[],elec:[],water:[]};
+let fImgs={rent:null,elec:null,water:null};
 const capitalize=s=>s.charAt(0).toUpperCase()+s.slice(1);
-
-function showFixedImg(type){
-  const box=$(`f${capitalize(type)}ImgBox`);
-  if(fImgs[type]&&fImgs[type].length){
-    box.style.display='flex';
-    box.innerHTML=fImgs[type].map((u,i)=>`
-      <div class="img-thumb-item">
-        <img src="${driveThumb(getFileId(u),'w200')}" onclick="openImgViewer('${driveView(getFileId(u))}')" onerror="this.src=''" loading="lazy">
-        <button type="button" class="img-thumb-del" onclick="clearFixedImg('${type}',${i})"><i class="ti ti-x"></i></button>
-      </div>`).join('');
-  }else{
-    box.style.display='none';
-    box.innerHTML='';
-  }
-}
-
-async function uploadFixedImg(type,input){
-  const files=Array.from(input.files);
-  if(!files.length)return;
-  $('fixedSaveBtn').disabled=true;
-  $('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang tải ảnh...';
-  try{
-    for(const file of files){
-      const b64=await compressImage(file);
-      const base64=b64.split(',')[1],ext=b64.startsWith('data:image/png')?'png':'jpg';
-      const r=await apiPost({action:'uploadImage',base64,ext});
-      if(!r.ok)throw new Error(r.error);
-      fImgs[type].push(driveFullUrl(r.fileId));
-    }
-    showFixedImg(type);
-    toast(`✓ Đã tải ${files.length} ảnh lên Drive`);
-  }catch(e){toast('⚠️ Lỗi up ảnh: '+e.message,true);}
-  $('fixedSaveBtn').disabled=false;
-  $('fixedBtnTxt').textContent='Lưu chi phí cố định';
-  input.value='';
-}
-
-function clearFixedImg(type,index){
-  if(index!==undefined&&fImgs[type][index]){
-    apiPost({action:'deleteImage',fileId:getFileId(fImgs[type][index])}).catch(()=>{});
-    fImgs[type].splice(index,1);
-    showFixedImg(type);
-  }
-}
-
+function showFixedImg(type,url){const box=$(`f${capitalize(type)}ImgBox`),link=$(`f${capitalize(type)}ImgLink`);if(url){box.style.display='flex';link.href=url;fImgs[type]=url;}else{box.style.display='none';link.href='#';fImgs[type]=null;}}
+async function uploadFixedImg(type,input){const file=input.files[0];if(!file)return;$('fixedSaveBtn').disabled=true;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang tải ảnh...';try{const b64=await compressImage(file);const base64=b64.split(',')[1],ext=b64.startsWith('data:image/png')?'png':'jpg';const r=await apiPost({action:'uploadImage',base64,ext});if(!r.ok)throw new Error(r.error);if(fImgs[type])apiPost({action:'deleteImage',fileId:getFileId(fImgs[type])}).catch(()=>{});showFixedImg(type,driveFullUrl(r.fileId));toast('✓ Đã tải ảnh lên Drive');}catch(e){toast('⚠️ Lỗi up ảnh: '+e.message,true);}$('fixedSaveBtn').disabled=false;$('fixedBtnTxt').textContent='Lưu chi phí cố định';input.value='';}
+function clearFixedImg(type){if(fImgs[type]){apiPost({action:'deleteImage',fileId:getFileId(fImgs[type])}).catch(()=>{});showFixedImg(type,null);}}
 function calcFixed(){$('fixedTotal').textContent=fmt((n($('fRent').value)+n($('fElec').value)+n($('fWater').value))*1000);}
 
 /* ── ORDER FORM ── */
@@ -908,7 +881,7 @@ function startCostEdit(id){requireAuth('boss',()=>{
   const c=currentCosts.find(x=>x.id===id);if(!c)return;
   $('cSupplier').value=c.supplier||'';$('cProduct').value=c.product||'';$('cPrice').value=c.price?c.price/1000:'';$('cAdCost').value=c.adCost?c.adCost/1000:'';$('cNote').value=c.note||'';
   editCostId=id;loadCostImages(c.imageUrl);
-  $('cTitle').textContent='Sửa chi phí – '+(c.supplier||c.product||'');$('cIcon').className='ti ti-plus';$('cBtnTxt').textContent='Cập nhật';$('cBtnCancel').style.display='';$('costCard').classList.add('editing');
+  $('cTitle').textContent='Sửa chi phí – '+(c.supplier||c.product||'');$('cIcon').className='ti ti-pencil';$('cBtnTxt').textContent='Cập nhật';$('cBtnCancel').style.display='';$('costCard').classList.add('editing');
   if(!costFormOpen){costFormOpen=true;$('costBody').style.display='';$('cchev').style.transform='';}
   $('costCard').scrollIntoView({behavior:'smooth'});renderCosts();
 });}
@@ -924,8 +897,8 @@ async function delCost(id){requireAuth('boss',async()=>{
 });}
 $('costtoggle').addEventListener('click',()=>{costFormOpen=!costFormOpen;$('costBody').style.display=costFormOpen?'':'none';$('cchev').style.transform=costFormOpen?'':'rotate(-90deg)';});
 $('fixedToggle').addEventListener('click',()=>{fixedBodyOpen=!fixedBodyOpen;$('fixedBody').style.display=fixedBodyOpen?'':'none';$('fixedChev').style.transform=fixedBodyOpen?'':'rotate(-90deg)';});
-async function loadFixedCosts(){const[y,m]=$('selDate').value.split('-');try{const r=await api({action:'getFixedCosts',yearMonth:parseInt(m)+'_'+y});if(r.ok){$('fRent').value=r.rent?r.rent/1000:'';fImgs.rent=r.rentImg?r.rentImg.split('|').filter(Boolean):[];showFixedImg('rent');$('fElec').value=r.elec?r.elec/1000:'';fImgs.elec=r.elecImg?r.elecImg.split('|').filter(Boolean):[];showFixedImg('elec');$('fWater').value=r.water?r.water/1000:'';fImgs.water=r.waterImg?r.waterImg.split('|').filter(Boolean):[];showFixedImg('water');calcFixed();}}catch(e){}}
-async function saveFixed(){const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;try{await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent.join('|'),elec:n($('fElec').value)*1000,elecImg:fImgs.elec.join('|'),water:n($('fWater').value)*1000,waterImg:fImgs.water.join('|')})});toast('✓ Đã lưu chi phí cố định!');}catch(e){toast('⚠️ '+e.message,true);}$('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;}
+async function loadFixedCosts(){const[y,m]=$('selDate').value.split('-');try{const r=await api({action:'getFixedCosts',yearMonth:parseInt(m)+'_'+y});if(r.ok){$('fRent').value=r.rent?r.rent/1000:'';showFixedImg('rent',r.rentImg);$('fElec').value=r.elec?r.elec/1000:'';showFixedImg('elec',r.elecImg);$('fWater').value=r.water?r.water/1000:'';showFixedImg('water',r.waterImg);calcFixed();}}catch(e){}}
+async function saveFixed(){const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;try{await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent,elec:n($('fElec').value)*1000,elecImg:fImgs.elec,water:n($('fWater').value)*1000,waterImg:fImgs.water})});toast('✓ Đã lưu chi phí cố định!');}catch(e){toast('⚠️ '+e.message,true);}$('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;}
 
 /* ── EXCEL – ORDERS ── */
 function onClickXlsx(){requireAuth('boss',()=>{const t=todayStr();$('xlsxFrom').value=t;$('xlsxTo').value=t;$('xlsxModal').style.display='flex';});}
@@ -1057,7 +1030,7 @@ async function loadReport(){
   $('rptResult').innerHTML='<div class="dash-loading"><span class="sk"></span> Đang tải...</div>';$('btnRptXlsx').style.display='none';
   const dates=genDates(from,to);const ymSet=new Set(dates.map(d=>dateToYM(d)));const yms=[...ymSet];
   try{
-    const allResults=await Promise.all([fetchRange(dates),...yms.map(ym=>api({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]})),...yms.map(ym=>api({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0})))]);
+    const allResults=await Promise.all([fetchRange(dates),...yms.map(ym=>api({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]}))),...yms.map(ym=>api({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0})))]);
     reportData=allResults[0];const costResults=allResults.slice(1,1+yms.length);const fixedResults=allResults.slice(1+yms.length);
     reportCosts=(costResults.flatMap(r=>r.costs||[])).filter(c=>{const d=normDate(c.date);return d>=from&&d<=to;});
     reportMonthFixeds={};yms.forEach((ym,i)=>{reportMonthFixeds[ym]=fixedResults[i];});
@@ -1152,7 +1125,7 @@ function showTyping(){const box=$('cskhMsgs');const div=document.createElement('
 function hideTyping(){const t=$('cskhTyping');if(t)t.remove();}
 async function sendCSKH(){if(cskhBusy)return;const inp=$('cskhInput');const text=inp.value.trim();if(!text)return;inp.value='';inp.style.height='40px';$('cskhSend').disabled=true;cskhBusy=true;appendMsg('user',text);cskhHistory.push({role:'user',parts:[{text}]});showTyping();try{const res=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'chatCSKH',systemPrompt:CSKH_SYSTEM,history:cskhHistory})});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();if(!data.ok)throw new Error(data.error||'Lỗi phản hồi');hideTyping();const reply=data.reply;cskhHistory.push({role:'model',parts:[{text:reply}]});appendMsg('ai',reply);}catch(e){hideTyping();appendMsg('ai','⚠️ Lỗi kết nối: '+e.message);}$('cskhSend').disabled=false;cskhBusy=false;$('cskhInput').focus();}
 function chipSend(text){$('cskhInput').value=text;sendCSKH();}
-function clearCSKH(){if(!confirm('Xóa toàn bộ lịch sử cuộc trò chuyện?'))return;cskhHistory=[];$('cskhMsgs').innerHTML=`<div class="chat-msg ai"><div class="chat-av ai"><i class="ti ti-robot"></i></div><div class="chat-bubble">Xin chào! Tôi là chuyên gia CSKH với hơn 20 năm kinh nghiệm trong ngành bánh ngọt và F&amp;B cao cấp. 🎂<br><br>Tôi có thể giúp bạn:<br>• Xử lý khiếu nại, phàn nàn của khách<br>• Soạn mẫu tin nhắn phản hồi chuyên nghiệp<br>• Chiến lược giữ chân &amp; phát triển tệp khách<br><br>Bạn đang gặp tình huống nào cần hỗ trợ?</div></div>`;}
+function clearCSKH(){if(!confirm('Xóa toàn bộ lịch sử cuộc trò chuyện?'))return;cskhHistory=[];$('cskhMsgs').innerHTML=`<div class="chat-msg ai"><div class="chat-av ai"><i class="ti ti-robot"></i></div><div class="chat-bubble">Cuộc trò chuyện mới bắt đầu. Bạn cần tư vấn gì? 😊</div></div>`;}
 
 /* ── CLOCK ── */
 function initClock(){const svg=$('clockSvg');if(!svg)return;const hH=$('hHand');for(let i=0;i<12;i++){const rad=(i*30-90)*Math.PI/180,isMaj=i%3===0,r1=isMaj?15.5:17;const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',23+r1*Math.cos(rad));line.setAttribute('y1',23+r1*Math.sin(rad));line.setAttribute('x2',23+19.5*Math.cos(rad));line.setAttribute('y2',23+19.5*Math.sin(rad));line.setAttribute('stroke',isMaj?'#2E1A08':'#B89020');line.setAttribute('stroke-width',isMaj?'2':'1');line.setAttribute('stroke-linecap','round');svg.insertBefore(line,hH);}updateClock();setInterval(updateClock,1000);}
