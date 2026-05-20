@@ -1,1651 +1,1154 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Toulouse – Quản lý đơn hàng</title>
-<link rel="preconnect" href="https://script.google.com">
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
-/* =========================================================
-   UI MICRO & COMPACT - GỌN GÀNG, TỐI ƯU HIỆN THỊ 100%
-   BẢN MASTER CHUẨN KẾ TOÁN
-========================================================= */
-:root {
-  --olive: #6B7A2E;
-  --olive-dark: #4A5E1C;
-  --olive-light: #e8edd6;
-  --olive-pale: #f9fbf4;
-  --gold: #B89020;
-  
-  --bg-page: #f1f3ed;
-  --bg-checker: #e9ece4;
-  --bg-card: rgba(255, 255, 255, 0.95); 
-  
-  --text-main: #2b2e25;
-  --text-muted: #6b725c;
-  
-  --border: rgba(107,122,46,0.25);
-  --border-focus: #6B7A2E;
-  
-  --red: #e03131;
-  --green: #2f9e44;
-  --orange: #e8590c;
-  --indigo: #4c6ef5;
-  
-  --radius: 10px; 
-  --radius-sm: 6px;
-  
-  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --shadow-soft: 0 4px 12px rgba(107,122,46,0.06), 0 1px 4px rgba(0,0,0,0.02);
+/* ══════════════════════════════════════════════════
+   CSS VARIABLES – Light / Dark
+══════════════════════════════════════════════════ */
+:root{
+  --gold:#6B7A2E;--gold-dark:#4A5E1C;--gold-light:#e8edd6;--gold-pale:#f2f5e8;
+  --red:#C00000;--green:#15803D;--orange:#E67E22;--indigo:#5B5EA6;
+  --ct:#1a1a0e;--cm:#6b7240;--cb:#ecf0e2;--cc:#ffffff;
+  --bd:rgba(107,122,46,.14);--bd2:rgba(107,122,46,.24);
+  --dark:#1a1a0e;--dark2:#2d3a10;
+  --th-bg:#2d3a10;--th-color:#F5EDD4;
+  --btn-bg:#1a1a0e;--btn-color:#e8edd6;
+  --card-bg:linear-gradient(145deg,#ffffff 0%,#f6faea 100%);
+  --mc-bg:linear-gradient(145deg,#ffffff 0%,#eef4d8 100%);
+  --hdr-bg:linear-gradient(160deg,#f7faf0 0%,#e6edcc 100%);
+  --tab-bg:#edf1de;--dot:rgba(107,122,46,.1);
+  --rmd:10px;--rlg:14px;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+  --sh-sm:0 1px 3px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.8);
+  --sh:0 3px 10px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.8),0 0 0 .5px rgba(107,122,46,.1);
+  --sh-lg:0 8px 24px rgba(0,0,0,.10),0 2px 8px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.75),0 0 0 .5px rgba(107,122,46,.12);
+  --sh-xl:0 20px 60px rgba(0,0,0,.15),0 8px 20px rgba(0,0,0,.1);
+}
+[data-theme="dark"]{
+  --gold:#8a9c3a;--gold-dark:#b0c050;--gold-light:#242a12;--gold-pale:#1b2110;
+  --ct:#dde5b0;--cm:#8fa04f;--cb:#0c0e07;--cc:#161909;
+  --bd:rgba(107,122,46,.2);--bd2:rgba(107,122,46,.3);
+  --dark:#dde5b0;--dark2:#a8c040;
+  --th-bg:#222e0d;--th-color:#d0de8a;
+  --btn-bg:#2c3814;--btn-color:#d4e090;
+  --card-bg:linear-gradient(145deg,#1a1f0c 0%,#141809 100%);
+  --mc-bg:linear-gradient(145deg,#1e240f 0%,#171c0a 100%);
+  --hdr-bg:linear-gradient(160deg,#171c09 0%,#0f1307 100%);
+  --tab-bg:#131709;--dot:rgba(107,122,46,.07);
+  --sh-sm:0 1px 3px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04);
+  --sh:0 3px 10px rgba(0,0,0,.35),0 1px 3px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.04),0 0 0 .5px rgba(107,122,46,.18);
+  --sh-lg:0 8px 24px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03),0 0 0 .5px rgba(107,122,46,.2);
+  --sh-xl:0 20px 60px rgba(0,0,0,.6),0 8px 20px rgba(0,0,0,.4);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body { 
-  font-family: var(--font); color: var(--text-main); font-size: 12.5px; 
-  min-height: 100vh; line-height: 1.4; background-color: var(--bg-page);
-  background-image: 
-    linear-gradient(45deg, var(--bg-checker) 25%, transparent 25%, transparent 75%, var(--bg-checker) 75%, var(--bg-checker)),
-    linear-gradient(45deg, var(--bg-checker) 25%, transparent 25%, transparent 75%, var(--bg-checker) 75%, var(--bg-checker));
-  background-size: 20px 20px; background-position: 0 0, 10px 10px;
+/* ══════════════════════════════════════════════════ BASE */
+*{box-sizing:border-box;margin:0;padding:0}
+html{transition:background-color .3s,color .3s}
+body{
+  font-family:var(--font);background-color:var(--cb);
+  background-image:radial-gradient(circle,var(--dot) 1px,transparent 1px);
+  background-size:22px 22px;color:var(--ct);min-height:100vh;
+  transition:background-color .3s,color .3s;
 }
+.wrap{max-width:1140px;margin:0 auto;padding:0 1.25rem 4rem}
 
-.wrap { max-width: 1260px; margin: 0 auto; padding: 20px 12px; padding-bottom: 50px; }
-
-/* --- INPUTS & FORMS --- */
-input[type=text], input[type=number], input[type=time], input[type=date], 
-input[type=password], textarea, select {
-  font-family: var(--font); border: 1px solid var(--border); border-radius: var(--radius-sm);
-  padding: 6px 10px; background: #fff; color: var(--text-main); 
-  font-size: 13px; font-weight: 500; outline: none; transition: 0.2s; width: 100%; height: 32px;
+/* ══════════════════════════════════════════════════ INPUTS */
+input[type=text],input[type=number],input[type=time],input[type=date],
+input[type=password],textarea,select{
+  font-family:var(--font);border:1.5px solid var(--bd2);border-radius:var(--rmd);
+  padding:9px 12px;background:var(--cc);color:var(--ct);font-size:13px;
+  outline:none;transition:border-color .18s,box-shadow .18s;
+  width:100%;-webkit-appearance:none;appearance:none;
 }
-textarea { height: 44px; resize: vertical; padding: 6px 10px; }
-input:focus, textarea:focus, select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(107,122,46,0.1); }
-::placeholder { color: #aaa; font-weight: 400; }
+input:focus,textarea:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(107,122,46,.14)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7A2E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
 
-/* --- HEADER FLOATING --- */
-.hdr {
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; 
-  gap: 12px; padding: 12px 16px; margin-bottom: 20px; 
-  background: var(--bg-card); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border-radius: var(--radius); box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.6);
+/* ══════════════════════════════════════════════════ HEADER */
+.hdr{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  padding:1.25rem 1.375rem 1.125rem;margin:0 -1.25rem .875rem;
+  background:var(--hdr-bg);border-bottom:1.5px solid var(--bd2);
+  position:relative;box-shadow:var(--sh-lg);
 }
-.hdr-brand { display: flex; align-items: center; gap: 12px; }
-.hdr-brand svg { width: 44px; height: 44px; filter: drop-shadow(0 2px 4px rgba(107,122,46,0.1));}
-.hdr h1 { font-size: 18px; font-weight: 700; color: var(--olive-dark); letter-spacing: 0.2px; margin-bottom: 2px;}
-.hdr-brand-text div { font-size: 11px; color: var(--text-muted); font-weight: 500;}
-.hdr-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.date-row { display: flex; align-items: center; gap: 6px; background: rgba(107,122,46,0.05); padding: 2px 6px 2px 12px; border-radius: 20px;}
-.date-row label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-.date-row input { width: 120px; font-weight: 700; color: var(--olive-dark); border: none; background: transparent; cursor: pointer; padding: 0; box-shadow: none;}
+.hdr::after{content:'';position:absolute;bottom:-2px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,rgba(184,160,32,.65) 35%,rgba(184,160,32,.65) 65%,transparent)}
+.hdr-brand{display:flex;align-items:center;gap:14px;min-width:0}
+.hdr h1{font-size:clamp(16px,3.5vw,22px);font-weight:600;color:var(--dark);font-family:var(--serif);font-style:italic;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-sub{font-size:11px;color:var(--cm);margin-top:3px;white-space:nowrap}
+.hdr-right{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex-shrink:0}
+.date-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.date-row input{width:auto;max-width:150px}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 
-/* Nút bấm */
-.btn {
-  font-family: var(--font); font-size: 12.5px; font-weight: 600; 
-  padding: 0 12px; height: 30px; border-radius: 20px; cursor: pointer; 
-  display: inline-flex; align-items: center; justify-content: center; gap: 4px; 
-  border: 1px solid transparent; transition: 0.2s; white-space: nowrap;
+/* ══════════════════════════════════════════════════ BUTTONS */
+.btn{font-family:var(--font);font-size:12px;font-weight:500;padding:7px 14px;border-radius:20px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:all .18s;border:none}
+.btn:disabled{opacity:.5;pointer-events:none}
+.btn-ol{background:var(--cc);border:1.5px solid var(--bd2);color:var(--dark);box-shadow:var(--sh-sm)}
+.btn-ol:hover{background:var(--gold-pale);border-color:var(--gold);color:var(--gold-dark);transform:translateY(-1px);box-shadow:var(--sh)}
+.btn-ol:active{transform:translateY(0);box-shadow:var(--sh-sm)}
+.theme-btn{font-family:var(--font);font-size:12px;font-weight:500;padding:7px 14px;border-radius:20px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .2s;background:var(--gold-pale);border:1.5px solid var(--bd2);color:var(--gold-dark);box-shadow:var(--sh-sm)}
+.theme-btn:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:var(--sh)}
+
+/* ══════════════════════════════════════════════════ TABS – Pill */
+.tabs{
+  display:flex;background:var(--tab-bg);border-radius:30px;padding:4px;
+  border:1.5px solid var(--bd);margin-bottom:1.25rem;
+  flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:2px;
+  box-shadow:var(--sh);
 }
-.btn:disabled { opacity: 0.6; pointer-events: none; }
-.btn-ol { background: white; border-color: rgba(107,122,46,0.3); color: var(--olive-dark); box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
-.btn-ol:hover { background: var(--olive-primary); color: white; border-color: var(--olive-primary); transform: translateY(-1px);}
-.btn-sub { background: var(--olive-dark); color: white; height: 36px; padding: 0 20px; box-shadow: 0 2px 6px rgba(74,94,28,0.2);}
-.btn-sub:hover { background: var(--olive); transform: translateY(-1px);}
-.btn-cancel { background: transparent; border-color: #d1d5c9; color: var(--text-muted); height: 36px; padding: 0 16px;}
-.btn-cancel:hover { background: white; color: var(--text-main); border-color: #b5baab;}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{font-family:var(--font);font-size:13px;padding:8px 15px;border:none;background:none;cursor:pointer;color:var(--cm);border-radius:24px;transition:all .2s;display:flex;align-items:center;gap:5px;font-weight:500;flex-shrink:0;white-space:nowrap}
+.tab-btn.active{background:var(--cc);color:var(--gold-dark);font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.07)}
+.tab-btn:hover:not(.active){background:rgba(107,122,46,.08);color:var(--dark)}
 
-/* --- TABS --- */
-.tabs { display: flex; gap: 6px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px;}
-.tabs::-webkit-scrollbar { display: none; }
-.tab-btn {
-  font-family: var(--font); font-size: 13px; padding: 8px 16px; border: none; 
-  background: var(--bg-card); cursor: pointer; color: var(--text-muted); font-weight: 600; 
-  transition: 0.2s; display: flex; align-items: center; gap: 6px; white-space: nowrap;
-  border-radius: 20px; box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.8);
+/* ══════════════════════════════════════════════════ METRIC CARDS – 3D Tile */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;margin-bottom:1.25rem}
+.mc{
+  background:var(--mc-bg);border-radius:13px;padding:.9rem 1rem;
+  position:relative;overflow:hidden;
+  border:1px solid var(--bd);border-top:1px solid rgba(255,255,255,.75);
+  box-shadow:0 5px 14px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.85);
+  transition:transform .2s,box-shadow .2s;cursor:default;
 }
-.tab-btn.active { background: var(--olive-dark); color: white; }
-.tab-btn:hover:not(.active) { color: var(--olive-dark); transform: translateY(-1px); }
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,.16),transparent);pointer-events:none;border-radius:13px 13px 0 0}
+.mc::after{content:'';position:absolute;left:0;top:18%;bottom:18%;width:3.5px;background:linear-gradient(180deg,transparent,var(--gold),transparent);border-radius:0 4px 4px 0}
+.mc:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.1),0 3px 8px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.85)}
+.mc.cost-card::after{background:linear-gradient(180deg,transparent,var(--orange),transparent)}
+.mc.profit-card::after{background:linear-gradient(180deg,transparent,var(--green),transparent)}
+.mc.ship-card::after{background:linear-gradient(180deg,transparent,var(--indigo),transparent)}
+.mc-lbl{font-size:9.5px;color:var(--cm);margin-bottom:4px;text-transform:uppercase;letter-spacing:.8px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:6px}
+.mc-val{font-size:clamp(14px,3.2vw,21px);font-weight:700;color:var(--ct);word-break:break-all;padding-left:6px}
+.mc-val.hl{color:var(--dark)}.mc-val.red{color:var(--red)}.mc-val.green{color:var(--green)}
 
-/* --- METRICS GLASS CARDS --- */
-.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
-.mc {
-  background: var(--bg-card); border-radius: var(--radius); padding: 12px 16px; 
-  border: 1px solid rgba(255,255,255,0.8); box-shadow: var(--shadow-soft);
-  position: relative; overflow: hidden; transition: 0.2s;
+/* ══════════════════════════════════════════════════ FORM CARDS */
+.fcard{
+  background:var(--card-bg);border:1.5px solid var(--bd);
+  border-top:1.5px solid rgba(255,255,255,.7);
+  border-radius:var(--rlg);padding:1.125rem;margin-bottom:1.125rem;
+  scroll-margin-top:16px;box-shadow:var(--sh);transition:border-color .2s,box-shadow .2s;
 }
-.mc:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(107,122,46,0.1); }
-.mc::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--olive); }
-.mc.cost-card::before { background: var(--orange); } .mc.profit-card::before { background: var(--green); }
-.mc-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px;}
-.mc-val { font-size: 20px; font-weight: 800; color: var(--text-main); line-height: 1.2;}
-.mc-val.red { color: var(--red); } .mc-val.green { color: var(--green); }
+.fcard.editing{border:2px solid var(--gold);box-shadow:0 0 0 4px rgba(107,122,46,.12),var(--sh)}
+.ftitle{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;padding-bottom:.75rem;border-bottom:1px solid var(--bd);margin-bottom:.75rem;color:var(--dark);letter-spacing:.15px}
+.fchev{margin-left:auto;font-size:15px;transition:transform .22s;color:var(--cm)}
 
-/* --- FORMS GLASSMORPHISM --- */
-.fcard { 
-  background: var(--bg-card); border: 1px solid rgba(255,255,255,0.9); border-radius: var(--radius); 
-  padding: 16px; margin-bottom: 20px; box-shadow: var(--shadow-soft); transition: 0.2s;
+/* ══════════════════════════════════════════════════ ORDER FORM – 2 Columns */
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg label{font-size:10.5px;color:var(--gold-dark);font-weight:700;text-transform:uppercase;letter-spacing:.7px}
+.fg textarea{height:56px;resize:none}
+.form-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-2col .col-full{grid-column:1/-1}
+.fa-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.fa{background:var(--gold-pale);border-radius:var(--rmd);border:1px solid var(--bd);padding:9px 14px;font-size:13px;color:var(--cm);display:flex;justify-content:space-between;align-items:center;gap:8px;box-shadow:inset 0 2px 4px rgba(0,0,0,.04)}
+.fa span{white-space:nowrap;font-size:12px}.fa b{font-weight:700;color:var(--dark);white-space:nowrap}
+.fbtns{display:flex;gap:8px;margin-top:.875rem}
+
+/* ══════════════════════════════════════════════════ SUBMIT BUTTONS – 3D */
+.btn-sub{
+  flex:1;background:var(--btn-bg);color:var(--btn-color);border:none;border-radius:10px;
+  padding:11px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  letter-spacing:.25px;min-height:44px;
+  box-shadow:0 4px 0 rgba(0,0,0,.28),0 2px 8px rgba(0,0,0,.15);
+  position:relative;top:0;transition:all .15s;
 }
-.fcard.editing { border-color: var(--olive); box-shadow: 0 0 0 3px var(--olive-pale), var(--shadow-soft); }
-.ftitle { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; margin-bottom: 12px; color: var(--olive-dark); padding-bottom: 8px; border-bottom: 1px dashed rgba(107,122,46,0.2);}
-.fchev { margin-left: auto; font-size: 16px; color: var(--text-muted); }
+.btn-sub:hover{top:-2px;box-shadow:0 6px 0 rgba(0,0,0,.28),0 4px 14px rgba(0,0,0,.18)}
+.btn-sub:active{top:3px;box-shadow:0 1px 0 rgba(0,0,0,.28);transition:none}
+.btn-sub:disabled{opacity:.6;pointer-events:none;box-shadow:none;top:0}
+.btn-sub.orange{background:#B86020;box-shadow:0 4px 0 rgba(100,42,5,.55),0 2px 8px rgba(0,0,0,.15)}
+.btn-sub.orange:hover{background:#963D10}
+.btn-sub.ai{background:var(--indigo);box-shadow:0 4px 0 rgba(50,52,120,.55),0 2px 8px rgba(0,0,0,.15)}
+.btn-sub.ai:hover{background:#3a3d7e}
+.btn-cancel{background:none;border:1.5px solid var(--bd2);color:var(--cm);border-radius:10px;padding:11px 16px;font-size:13px;cursor:pointer;font-family:var(--font);transition:all .18s;min-height:44px}
+.btn-cancel:hover{background:var(--gold-pale);border-color:var(--gold)}
 
-/* GRID FORM CỐ ĐỊNH 4 CỘT, SIÊU GỌN */
-.fgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: start;}
-.fg { display: flex; flex-direction: column; gap: 4px; }
-.fg label { font-size: 11.5px; color: var(--text-main); font-weight: 600; }
+/* ══════════════════════════════════════════════════ TABLE */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--rlg);border:1.5px solid var(--bd);background:var(--cc);box-shadow:var(--sh)}
+table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+th{background:var(--th-bg);color:var(--th-color);padding:9px 8px;text-align:left;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;letter-spacing:.3px}
+td{padding:8px 8px;border-bottom:.5px solid rgba(107,122,46,.08);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ct)}
+td.red{color:var(--red);font-weight:500}
+td.img-cell{overflow:visible;white-space:normal;vertical-align:middle;text-align:center}
+tr.hi td{background:rgba(107,122,46,.07)}
+tr:not(.trow):not(.hi):hover td{background:var(--gold-pale)}
+tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-bottom:none}
+[data-theme="dark"] tr.trow td{background:rgba(107,82,20,.25);color:#f0c060}
+.es{text-align:center;padding:2.5rem 1rem;color:var(--cm);font-size:13px}
+.abtn{background:none;border:none;cursor:pointer;padding:4px;color:var(--cm);font-size:15px;line-height:1;border-radius:7px;transition:all .15s;min-width:28px;min-height:28px;display:inline-flex;align-items:center;justify-content:center}
+.abtn.e:hover{color:var(--gold-dark);background:var(--gold-pale)}
+.abtn.d:hover{color:var(--red);background:rgba(192,0,0,.08)}
 
-.fa-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 12px; }
-.fa { background: var(--olive-pale); border-radius: var(--radius-sm); border: 1px solid rgba(107,122,46,0.15); padding: 10px 14px; font-size: 13px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; }
-.fa b { font-size: 16px; font-weight: 800; color: var(--olive-dark); }
-.fbtns { display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end; }
-.btn-sub.orange { background: var(--orange); } .btn-sub.orange:hover { background: #d9480f;}
-.btn-sub.ai { background: var(--indigo); } .btn-sub.ai:hover{ background: #3b5bdb;}
+/* ══════════════════════════════════════════════════ SPINNERS */
+.sk{display:inline-block;width:14px;height:14px;border:2px solid rgba(107,122,46,.2);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+.spinner{display:inline-block;width:11px;height:11px;border:2px solid rgba(255,255,255,.3);border-top-color:rgba(255,255,255,.9);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* STYLE ẢNH NHIỀU FILE MỚI */
-.img-thumb-wrap { position: relative; display: inline-block; margin-right: 8px; margin-bottom: 8px; }
-.del-img-btn { 
-  position: absolute; top: -6px; right: -6px; background: var(--red); color: white; 
-  border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; 
-  font-size: 12px; font-weight: bold; display: flex; align-items: center; justify-content: center; 
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3); padding-bottom: 2px; z-index: 10;
+/* ══════════════════════════════════════════════════ TOAST */
+.toast{position:fixed;bottom:1.25rem;right:1.25rem;background:var(--btn-bg);color:var(--btn-color);padding:11px 18px;border-radius:20px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:1001;max-width:min(320px,calc(100vw - 2rem));line-height:1.5;box-shadow:var(--sh-xl);transform:translateY(8px)}
+.toast.show{opacity:1;transform:translateY(0)}.toast.err{background:#7A1808;color:#FFE8E4}
+
+/* ══════════════════════════════════════════════════ MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,12,5,.55);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);padding:1rem}
+.modal-box{background:var(--cc);border-radius:18px;padding:1.625rem;width:min(420px,100%);max-height:calc(100svh - 2rem);overflow-y:auto;box-shadow:var(--sh-xl);border:1.5px solid var(--bd);animation:fadeUp .22s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.modal-box h3{font-size:16px;color:var(--dark);margin-bottom:.4rem;display:flex;align-items:center;gap:8px;font-family:var(--serif);font-weight:600}
+.modal-box p{font-size:12px;color:var(--cm);margin-bottom:.875rem}
+.modal-btns{display:flex;gap:8px;margin-top:1.375rem}
+.modal-btns button{flex:1;padding:11px;border-radius:10px;font-family:var(--font);font-size:13px;cursor:pointer;transition:all .18s;min-height:44px}
+.m-cancel{background:none;border:1.5px solid var(--bd2);color:var(--cm)}.m-cancel:hover{background:var(--gold-pale);border-color:var(--gold)}
+.m-confirm{background:var(--btn-bg);color:var(--btn-color);border:none;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:500;box-shadow:0 3px 0 rgba(0,0,0,.2)}.m-confirm:hover{transform:translateY(-1px);box-shadow:0 5px 0 rgba(0,0,0,.2)}.m-confirm:disabled{opacity:.6;pointer-events:none}
+.pw-err{border-color:var(--red)!important;box-shadow:0 0 0 3px rgba(160,48,32,.15)!important}
+
+/* ══════════════════════════════════════════════════ NOTICES */
+.past-notice{background:#FEF8E7;border:1px solid #D4A820;border-radius:10px;padding:10px 14px;font-size:13px;color:#7A5800;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+[data-theme="dark"] .past-notice{background:rgba(212,168,32,.1);border-color:rgba(212,168,32,.3);color:#e0c060}
+.ai-ok{background:var(--gold-pale);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--dark);line-height:1.9}
+.ai-err{background:#FBF0EE;border:1px solid var(--red);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--red)}
+[data-theme="dark"] .ai-err{background:rgba(192,0,0,.1);border-color:rgba(192,0,0,.4)}
+.ai-badge{font-size:10px;background:#e8eaf6;color:#3949ab;border-radius:10px;padding:2px 7px;font-weight:700;margin-left:2px}
+[data-theme="dark"] .ai-badge{background:rgba(91,94,166,.25);color:#9ca3f0}
+
+/* ══════════════════════════════════════════════════ MULTI IMAGE UPLOAD */
+.img-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px}
+.img-thumb-item{position:relative;display:inline-flex}
+.img-thumb-item img{width:72px;height:72px;object-fit:cover;border-radius:8px;cursor:zoom-in;border:1.5px solid var(--bd2);display:block;transition:transform .18s;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.img-thumb-item img:hover{transform:scale(1.05)}
+.img-thumb-del{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;border:2px solid var(--cc);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:transform .15s;padding:0;line-height:1}
+.img-thumb-del:hover{transform:scale(1.15)}
+.img-add-btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--cm);border:1.5px dashed var(--bd2);border-radius:8px;padding:0 14px;height:72px;cursor:pointer;transition:all .18s;background:var(--gold-pale);white-space:nowrap;font-family:var(--font);font-weight:500}
+.img-add-btn:hover{background:var(--gold-light);border-color:var(--gold);color:var(--gold-dark)}
+/* Legacy single (fixed costs) */
+.img-upload-area{border:1.5px dashed var(--bd2);border-radius:var(--rmd);padding:14px;text-align:center;cursor:pointer;background:var(--gold-pale);transition:all .2s;display:block}
+.img-upload-area:hover{background:var(--gold-light);border-color:var(--gold)}
+.img-thumb{max-height:44px;max-width:66px;border-radius:4px;vertical-align:middle;cursor:zoom-in;border:.5px solid var(--bd);margin:1px}
+.img-viewer{position:fixed;inset:0;background:rgba(10,12,5,.92);display:flex;align-items:center;justify-content:center;z-index:2000;cursor:zoom-out}
+.img-viewer img{max-width:92vw;max-height:92vh;border-radius:10px}
+
+/* ══════════════════════════════════════════════════ DASHBOARD */
+.dash-ctrl{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.125rem;flex-wrap:wrap;gap:8px}
+.chart-card{background:var(--card-bg);border-radius:var(--rlg);border:1.5px solid var(--bd);padding:1.125rem;margin-bottom:1.125rem;box-shadow:var(--sh)}
+.chart-card h3{font-size:10px;color:var(--cm);margin-bottom:.875rem;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.dash-tbl{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+.dash-tbl th{background:var(--th-bg);color:var(--th-color);padding:8px 9px;text-align:left;font-weight:500;white-space:nowrap;font-size:11px;letter-spacing:.3px}
+.dash-tbl td{padding:7px 9px;border-bottom:.5px solid rgba(107,122,46,.08);white-space:nowrap;color:var(--ct)}
+.dash-tbl tr:hover td{background:var(--gold-pale)}
+.dash-tbl .total-row td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700}
+[data-theme="dark"] .dash-tbl .total-row td{background:rgba(107,82,20,.25);color:#f0c060}
+.dash-loading{text-align:center;padding:2rem;color:var(--cm);font-size:13px}
+.dash-section-lbl{font-size:10px;font-weight:700;color:var(--gold-dark);letter-spacing:1.2px;text-transform:uppercase;margin:1rem 0 .5rem;display:flex;align-items:center;gap:8px}
+.dash-section-lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--bd2),transparent)}
+
+/* ══════════════════════════════════════════════════ REPORT */
+.rpt-card{background:var(--card-bg);border-radius:var(--rlg);border:1.5px solid var(--bd);padding:1.125rem;margin-bottom:1.125rem;box-shadow:var(--sh)}
+.rpt-card h3{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:.875rem;display:flex;align-items:center;gap:8px;font-family:var(--serif)}
+.rpt-controls{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap}
+.rpt-fg{display:flex;flex-direction:column;gap:4px;min-width:130px}
+.rpt-fg label{font-size:10.5px;color:var(--gold-dark);font-weight:700;text-transform:uppercase;letter-spacing:.7px}
+.day-hdr-row td{background:rgba(107,122,46,.06);color:var(--gold-dark);font-weight:600;font-size:12px;border-bottom:none;overflow:visible;white-space:normal}
+[data-theme="dark"] .day-hdr-row td{background:rgba(107,122,46,.13)}
+.day-sub-row td{background:rgba(107,122,46,.02);color:var(--cm);font-size:11px;font-style:italic}
+.grand-row td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700}
+[data-theme="dark"] .grand-row td{background:rgba(107,82,20,.25);color:#f0c060}
+.rpt-sum-tbl{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+.rpt-sum-tbl th{background:var(--th-bg);color:var(--th-color);padding:8px 9px;white-space:nowrap;font-weight:500;font-size:11px;letter-spacing:.3px}
+.rpt-sum-tbl td{padding:7px 9px;border-bottom:.5px solid rgba(107,122,46,.07);white-space:nowrap;overflow:visible;color:var(--ct)}
+.rpt-sum-tbl .total-row td{background:rgba(240,226,180,.3);font-weight:700;color:#8B2C00}
+[data-theme="dark"] .rpt-sum-tbl .total-row td{background:rgba(107,82,20,.25);color:#f0c060}
+
+/* ══════════════════════════════════════════════════ CSKH CHAT */
+.chat-wrap{display:flex;flex-direction:column;height:min(560px,calc(100svh - 160px));background:var(--cc);border-radius:var(--rlg);border:1.5px solid var(--bd);overflow:hidden;box-shadow:var(--sh)}
+.chat-hdr{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;background:var(--th-bg)}
+.chat-hdr-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0}
+.chat-hdr-info{flex:1;min-width:0}
+.chat-hdr-name{font-size:13px;font-weight:600;color:#F5EDD4;font-family:var(--serif);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-hdr-sub{font-size:10px;color:rgba(245,237,212,.55);display:flex;align-items:center;gap:5px;margin-top:2px}
+.chat-hdr-sub::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;flex-shrink:0;box-shadow:0 0 4px #4ade80}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.chat-msgs::-webkit-scrollbar{width:4px}.chat-msgs::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:4px}
+.chat-msg{display:flex;gap:8px;align-items:flex-end;animation:msgIn .2s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.chat-av.ai{background:var(--th-bg);color:#F5EDD4}.chat-av.user{background:var(--gold);color:#fff}
+.chat-bubble{max-width:82%;padding:9px 13px;font-size:13px;line-height:1.65;word-break:break-word;white-space:normal}
+.chat-bubble br{display:block;content:'';margin-top:2px}.chat-bubble b{font-weight:700}
+.chat-bubble hr.md-hr{border:none;border-top:.5px solid rgba(0,0,0,.1);margin:8px 0}
+.chat-bubble .md-li{display:flex;gap:6px;margin:2px 0}.chat-bubble .md-li span:first-child{flex-shrink:0;opacity:.7}
+.chat-msg.ai .chat-bubble{background:var(--cc);border:1px solid var(--bd);color:var(--ct);border-radius:14px 14px 14px 3px;box-shadow:var(--sh-sm)}
+.chat-msg.user .chat-bubble{background:var(--th-bg);color:#F5EDD4;border-radius:14px 14px 3px 14px}
+.chat-chips{padding:8px 12px;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);display:flex;gap:5px;flex-wrap:wrap;background:var(--gold-pale)}
+.chip{font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid var(--bd);background:var(--cc);color:var(--dark);cursor:pointer;transition:all .15s;white-space:nowrap;font-weight:500}
+.chip:hover{background:var(--gold-light);border-color:var(--gold);color:var(--gold-dark)}
+.chat-input-row{display:flex;gap:8px;padding:10px 12px;background:var(--cc);align-items:flex-end;border-top:1px solid var(--bd)}
+.chat-input{flex:1;resize:none;height:40px;max-height:110px;border-radius:20px;padding:9px 14px;font-size:13px;line-height:1.45;overflow-y:auto}
+.chat-send{width:40px;height:40px;border-radius:50%;background:var(--th-bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#F5EDD4;flex-shrink:0;transition:all .18s;font-size:16px}
+.chat-send:hover{background:var(--gold-dark)}.chat-send:disabled{opacity:.45;pointer-events:none}
+.typing{display:flex;gap:4px;padding:10px 14px;align-items:center}
+.dot{width:7px;height:7px;background:var(--cm);border-radius:50%;animation:blink 1.3s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+.chat-clear{background:none;border:1px solid rgba(245,237,212,.25);color:rgba(245,237,212,.6);border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.chat-clear:hover{background:rgba(255,255,255,.1);color:#F5EDD4}
+
+/* ══════════════════════════════════════════════════ MISC */
+#clockSvg{flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(26,14,6,.1))}
+#aiCard{border-left:3.5px solid var(--indigo)}
+
+/* ══════════════════════════════════════════════════ RESPONSIVE */
+@media(max-width:768px){.wrap{padding:0 1rem 3rem}.hdr{margin:0 -1rem}.metrics{grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:8px}}
+@media(max-width:600px){
+  .wrap{padding:0 .75rem 3rem}.hdr{padding:.875rem .875rem .75rem;margin:0 -.75rem;flex-direction:column;align-items:stretch;gap:8px}
+  .hdr-brand>svg{width:52px!important;height:52px!important}.hdr h1{font-size:17px}
+  .hdr-right{flex-direction:row;justify-content:space-between;align-items:center}
+  .date-row input{max-width:130px}#clockSvg{display:none}
+  .tab-btn{padding:7px 10px;font-size:12px;gap:4px}
+  .metrics{grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:1rem}
+  .mc{padding:.625rem .75rem;border-radius:10px}.mc-lbl{font-size:9px}.mc-val{font-size:clamp(13px,4.2vw,18px)}
+  .fcard{padding:.875rem .75rem;margin-bottom:1rem;border-radius:12px}
+  .ftitle{font-size:12.5px;padding-bottom:.625rem;margin-bottom:.625rem}
+  .fa-row{grid-template-columns:1fr;gap:7px}
+  .fbtns{gap:6px;margin-top:.625rem}
+  .btn-sub{font-size:12.5px;padding:9px 8px;min-height:42px}
+  .btn-cancel{font-size:12.5px;padding:9px 10px;min-height:42px}
+  .btn-row .btn,.theme-btn{padding:7px 9px;font-size:11.5px}
+  .toast{left:.75rem;right:.75rem;max-width:none;font-size:12.5px;padding:10px 14px;text-align:center}
+  .modal-box{padding:1.25rem 1rem;border-radius:14px}.modal-box h3{font-size:15px}
+  .modal-btns button{padding:10px;font-size:12.5px}
+  .rpt-card{padding:.875rem .75rem}.rpt-card h3{font-size:13px}
+  .rpt-controls{flex-direction:column;align-items:stretch;gap:8px}.rpt-fg{min-width:0;width:100%}
+  .chat-wrap{height:min(520px,calc(100svh - 140px))}.chat-hdr{padding:10px 12px}
+  .chat-chips{padding:7px 10px;gap:4px}.chip{font-size:10.5px;padding:4px 9px}
+  .chat-bubble{font-size:12.5px;max-width:86%;padding:8px 12px}
+  .chat-msgs{padding:12px}.chat-input-row{padding:8px 10px;gap:6px}
+  td,th{font-size:11px;padding:6px 6px}
+  .img-thumb-item img{width:60px;height:60px}.img-add-btn{height:60px;font-size:11px;padding:0 10px}
 }
-.del-img-btn:hover { transform: scale(1.1); background: #c92a2a; }
-
-/* BẢNG DỮ LIỆU CUỘN NGANG */
-.tw { 
-  overflow-x: auto; background: var(--bg-card); 
-  border: 1px solid rgba(255,255,255,0.8); border-radius: var(--radius); 
-  box-shadow: var(--shadow-soft); padding-bottom: 2px; -webkit-overflow-scrolling: touch;
+@media(max-width:400px){
+  .metrics{grid-template-columns:repeat(2,1fr)}.mc-val{font-size:13px}
+  .form-2col{grid-template-columns:1fr}
+  .tab-btn{padding:7px 8px;font-size:11.5px}.tab-btn i{display:none}
+  .hdr h1{font-size:15px}.btn-row .btn span,.theme-btn span{display:none}
+  .btn-row .btn,.theme-btn{padding:8px 10px}
 }
-.tw::-webkit-scrollbar { height: 6px; }
-.tw::-webkit-scrollbar-thumb { background: rgba(107,122,46,0.25); border-radius: 10px; }
-
-table { 
-  width: 100%; border-collapse: collapse; font-size: 12.5px; 
-  table-layout: fixed; min-width: 1100px; 
+@media print{
+  .hdr,.tabs,.btn-row,.dash-ctrl,.btn-ol,#tab-orders,#tab-costs,#tab-report,.rpt-card:first-child{display:none!important}
+  #tab-dashboard{display:block!important}body{background:#fff}
+  .chart-card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}.wrap{padding:0}
 }
-
-/* Kích thước Cột Đơn hàng Tối ưu */
-.col-stt { width: 35px; }
-.col-time { width: 60px; }
-.col-size { width: 75px; }
-.col-num { width: 90px; } 
-.col-total { width: 95px; } 
-.col-name { width: 130px; }
-.col-phone { width: 90px; }
-.col-acc { width: 110px; }
-.col-addr { width: 140px; }
-.col-note { width: 120px; }
-.col-action { width: 75px; }
-
-th, td { padding: 8px 8px; border-bottom: 1px solid rgba(0,0,0,0.05); vertical-align: middle; }
-th { 
-  background: transparent; color: var(--text-muted); font-weight: 700; text-transform: uppercase; 
-  font-size: 10.5px; letter-spacing: 0.3px; border-bottom: 2px solid rgba(107,122,46,0.15); 
-}
-td { 
-  color: var(--text-main); font-weight: 500;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
-}
-td.num-align { white-space: nowrap; overflow: visible; text-align: right; }
-th.num-align { text-align: right; }
-td.red { color: var(--red); font-weight: 700; }
-td.img-cell { text-align: center; }
-
-tr:hover td { background: rgba(107,122,46,0.04); }
-tr.hi td { background: #fffde7; }
-tr.trow td { background: var(--olive-pale); color: var(--olive-dark); font-weight: 700; border-bottom: none; border-top: 2px solid rgba(107,122,46,0.15); }
-
-.abtn { 
-  background: white; border: 1px solid rgba(0,0,0,0.08); cursor: pointer; padding: 4px; 
-  color: var(--text-muted); font-size: 14px; border-radius: 4px; transition: 0.2s; 
-  display: inline-flex; align-items: center; justify-content: center; margin-right: 4px;
-}
-.abtn.e:hover { color: white; background: var(--olive); border-color: var(--olive); }
-.abtn.d:hover { color: white; background: var(--red); border-color: var(--red); }
-
-/* --- MODALS --- */
-.modal-overlay { position: fixed; inset: 0; background: rgba(34,34,34,0.6); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(4px);}
-.modal-box { background: var(--bg-card); border-radius: var(--radius); padding: 24px; width: min(380px, 100%); max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.5);}
-.modal-box h3 { font-size: 16px; color: var(--olive-dark); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-weight: 700;}
-.modal-box p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px; }
-.modal-btns { display: flex; gap: 10px; margin-top: 20px; }
-.modal-btns button { flex: 1; height: 38px; font-size: 13px;}
-
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: #222; color: #fff; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 600; opacity: 0; transition: 0.4s; z-index: 10000; box-shadow: 0 8px 16px rgba(0,0,0,0.2); text-align: center;}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); } .toast.err { background: var(--red); }
-
-.img-upload-area { border: 1.5px dashed rgba(107,122,46,0.25); border-radius: var(--radius-sm); padding: 16px; text-align: center; cursor: pointer; background: rgba(107,122,46,0.02); transition: 0.3s; }
-.img-upload-area:hover { background: var(--olive-pale); border-color: var(--olive); }
-.img-thumb { max-height: 36px; max-width: 50px; border-radius: 4px; cursor: zoom-in; border: 1px solid var(--border); object-fit: cover;}
-.sk { display:inline-block; width:14px; height:14px; border:2px solid rgba(0,0,0,.08); border-top-color:var(--olive); border-radius:50%; animation:spin .8s linear infinite; vertical-align:middle; margin-right:6px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* CHAT CSKH WIDGET */
-.chat-wrap { display: flex; flex-direction: column; height: 500px; background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.8); box-shadow: var(--shadow-soft); overflow: hidden;}
-.chat-hdr { padding: 12px 16px; background: linear-gradient(135deg, var(--indigo), #3b5bdb); color: white; display: flex; align-items: center; gap: 10px; }
-.chat-av.ai { width: 32px; height: 32px; background: rgba(255,255,255,0.2); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-.chat-msgs { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: rgba(255,255,255,0.4);}
-.chat-msg { display: flex; gap: 8px; align-items: flex-end; } .chat-msg.user { flex-direction: row-reverse; }
-.chat-bubble { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; box-shadow: 0 2px 4px rgba(0,0,0,0.04);}
-.chat-msg.user .chat-bubble { background: var(--indigo); color: white; border-bottom-right-radius: 4px; }
-.chat-msg.ai .chat-bubble { background: white; color: var(--text-main); border-bottom-left-radius: 4px; border: 1px solid rgba(0,0,0,0.06);}
-.chat-chips { padding: 10px 12px; background: white; border-top: 1px solid rgba(0,0,0,0.06); display: flex; gap: 6px; overflow-x: auto;}
-.chip { padding: 6px 12px; background: var(--bg-page); border: none; border-radius: 20px; font-size: 11.5px; font-weight: 600; cursor: pointer; white-space: nowrap; color: var(--text-muted); transition: 0.2s;}
-.chip:hover { background: var(--indigo); color: white; }
-.chat-input-row { padding: 12px; background: white; border-top: 1px solid rgba(0,0,0,0.06); display: flex; gap: 8px; }
-.chat-input { flex: 1; height: 36px; border-radius: 18px; background: var(--bg-page); border: none; padding: 0 14px; font-size: 13px;}
-.chat-send { background: var(--indigo); color: white; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px;}
-
-/* DASHBOARD & REPORT */
-.dash-ctrl, .rpt-controls { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;}
-.dash-section-lbl { font-size: 11.5px; font-weight: 800; color: var(--text-muted); margin: 20px 0 12px; text-transform: uppercase; letter-spacing: 0.5px;}
-.dash-loading { text-align: center; padding: 30px; color: var(--text-muted); font-size: 13px; font-weight: 500;}
-
-/* MOBILE TWEAKS */
-@media(max-width: 768px) {
-  .wrap { padding: 12px 8px 80px; }
-  .hdr { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px; }
-  .hdr-right { justify-content: space-between; width: 100%;}
-  .metrics { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px;}
-  .mc { padding: 12px; } .mc-val { font-size: 18px; }
-  
-  /* ĐẢM BẢO FGRID 2 CỘT TRÊN MOBILE ĐỂ FORM GỌN GÀNG */
-  .fgrid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px;}
-  .fg[style*="span 2"], .fg[style*="1 / -1"] { grid-column: 1 / -1 !important; }
-  
-  .fa-row { grid-template-columns: 1fr; gap: 8px;}
-  .fbtns { flex-direction: column;}
-  .btn-sub, .btn-cancel { width: 100%; height: 40px; }
-  #clockSvg { display: none; }
-  
-  .fcard, .chart-card, .rpt-card { padding: 12px; margin-bottom: 16px;}
-}
-
-@media print { .hdr, .tabs, .btn-row, .dash-ctrl, .btn-ol, #tab-orders, #tab-costs, #tab-report, .rpt-card:first-child { display: none !important; } #tab-dashboard { display: block !important; } body { background: #fff; } .fcard, .chart-card, .rpt-card { border: 1px solid #ccc; padding: 0; box-shadow: none;} .wrap { padding: 0; max-width: 100%;} }
 </style>
 </head>
 <body>
 <div class="wrap">
 <div id="toast" class="toast"></div>
 
+<!-- PASSWORD MODAL -->
 <div id="pwModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
-    <h3><i class="ti ti-shield-lock" style="font-size: 20px;"></i> Yêu cầu xác thực</h3>
-    <p id="pwDesc">Bạn cần nhập mật khẩu quản trị viên để thao tác.</p>
-    <input type="password" id="pwInput" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter')pwConfirm()">
+    <h3><i class="ti ti-lock"></i> Xác nhận mật khẩu</h3>
+    <p id="pwDesc">Hành động này yêu cầu mật khẩu</p>
+    <input type="password" id="pwInput" placeholder="Nhập mật khẩu..." autocapitalize="none" autocorrect="off" autocomplete="off" onkeydown="if(event.key==='Enter')pwConfirm()">
     <div class="modal-btns">
-      <button class="btn btn-cancel" onclick="pwCancel()">Hủy</button>
-      <button class="btn btn-sub" id="pwConfirmBtn" onclick="pwConfirm()">Xác nhận</button>
+      <button class="m-cancel" onclick="pwCancel()">Hủy</button>
+      <button class="m-confirm" id="pwConfirmBtn" onclick="pwConfirm()">Xác nhận</button>
     </div>
   </div>
 </div>
 
+<!-- EXCEL MODAL – ĐƠN -->
 <div id="xlsxModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
-    <h3><i class="ti ti-file-spreadsheet" style="font-size: 20px; color: var(--green);"></i> Trích xuất Đơn hàng</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px; margin-bottom: 12px; margin-top: 12px;">
+    <h3><i class="ti ti-file-spreadsheet"></i> Xuất Excel đơn hàng</h3>
+    <p>Dữ liệu nhóm theo từng ngày</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div class="fg"><label>Từ ngày</label><input type="date" id="xlsxFrom"></div>
       <div class="fg"><label>Đến ngày</label><input type="date" id="xlsxTo"></div>
     </div>
     <div class="modal-btns">
-      <button class="btn btn-cancel" onclick="$('xlsxModal').style.display='none'">Hủy</button>
-      <button class="btn btn-sub" id="xlsxBtn" onclick="doExportRange()">Tải File Excel</button>
+      <button class="m-cancel" onclick="$('xlsxModal').style.display='none'">Hủy</button>
+      <button class="m-confirm" id="xlsxBtn" onclick="doExportRange()"><i class="ti ti-download"></i> <span id="xlsxBtnTxt">Xuất Excel</span></button>
     </div>
   </div>
 </div>
 
+<!-- EXCEL MODAL – CHI PHÍ -->
 <div id="costXlsxModal" class="modal-overlay" style="display:none">
   <div class="modal-box">
-    <h3><i class="ti ti-file-invoice" style="font-size: 20px; color: var(--orange);"></i> Trích xuất Chi phí</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px; margin-bottom: 12px; margin-top: 12px;">
+    <h3><i class="ti ti-file-spreadsheet"></i> Xuất Excel chi phí</h3>
+    <p>Ảnh hoá đơn được nhúng trực tiếp vào file Excel</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div class="fg"><label>Từ ngày</label><input type="date" id="cxlsxFrom"></div>
       <div class="fg"><label>Đến ngày</label><input type="date" id="cxlsxTo"></div>
     </div>
     <div class="modal-btns">
-      <button class="btn btn-cancel" onclick="$('costXlsxModal').style.display='none'">Hủy</button>
-      <button class="btn btn-sub orange" id="cxlsxBtn" onclick="doExportCostRange()">Tải File Excel</button>
+      <button class="m-cancel" onclick="$('costXlsxModal').style.display='none'">Hủy</button>
+      <button class="m-confirm" id="cxlsxBtn" onclick="doExportCostRange()" style="background:#B86020"><i class="ti ti-download"></i> <span id="cxlsxBtnTxt">Xuất Excel</span></button>
     </div>
   </div>
 </div>
 
+<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-brand">
-    <svg width="44" height="44" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="62" height="62" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="34" cy="34" r="32" stroke="#6B7A2E" stroke-width="1.5"/>
       <circle cx="34" cy="34" r="26" stroke="#6B7A2E" stroke-width="0.75"/>
       <path id="tA" d="M 9 30 A 26 26 0 0 1 59 30" fill="none"/>
-      <text font-size="6" fill="#B89020" font-family="Arial" font-weight="800" letter-spacing="2.5"><textPath href="#tA" startOffset="14%">GATEAUX</textPath></text>
-      <text x="34" y="39" text-anchor="middle" font-size="16" fill="#1a1a0e" font-family="Georgia, serif" font-style="italic" font-weight="700">Toulouse</text>
+      <text font-size="6" fill="#6B7A2E" font-family="Arial" font-weight="700" letter-spacing="2.5"><textPath href="#tA" startOffset="14%">GATEAUX</textPath></text>
+      <text x="34" y="39" text-anchor="middle" font-size="15" fill="#1a1a0e" font-family="Georgia,serif" font-style="italic" font-weight="400">Toulouse</text>
       <path id="bA" d="M 11 42 A 25 25 0 0 0 57 42" fill="none"/>
-      <text font-size="4.5" fill="#555c33" font-family="Arial" font-weight="600" letter-spacing="0.2"><textPath href="#bA" startOffset="6%">Sweet & Bakery Homemade</textPath></text>
+      <text font-size="4.5" fill="#6b7240" font-family="Arial" letter-spacing="0.2"><textPath href="#bA" startOffset="6%">Sweet &amp; Bakery Homemade Cafe</textPath></text>
+      <g transform="translate(50,16) rotate(-20)" fill="#6B7A2E">
+        <line x1="0" y1="2" x2="0" y2="-9" stroke="#6B7A2E" stroke-width="0.75"/>
+        <ellipse cx="-1.5" cy="-4" rx="1.8" ry="3.5" transform="rotate(-25 -1.5 -4)"/>
+        <ellipse cx="1.8" cy="-5.5" rx="1.5" ry="3" transform="rotate(20 1.8 -5.5)"/>
+        <ellipse cx="-1" cy="-7.5" rx="1.2" ry="2.2" transform="rotate(-15 -1 -7.5)"/>
+      </g>
     </svg>
-    <div class="hdr-brand-text">
-      <h1>Hệ Thống Toulouse</h1>
-      <div><i class="ti ti-map-pin" style="color:var(--olive)"></i> 34C Ô Chợ Dừa, HN</div>
+    <div>
+      <h1>Quản lý đơn hàng</h1>
+      <div class="hdr-sub">📍 34C – Ô Chợ Dừa, Hà Nội</div>
     </div>
   </div>
   <div class="hdr-right">
     <div class="date-row">
-      <label>Phiên lv:</label>
+      <label style="font-size:12px;color:var(--cm);white-space:nowrap">Ngày:</label>
       <input type="date" id="selDate">
+      <svg id="clockSvg" width="44" height="44" viewBox="0 0 46 46">
+        <circle cx="23" cy="23" r="21" fill="var(--cc)" stroke="#6B7A2E" stroke-width="1.5"/>
+        <line id="hHand" x1="23" y1="23" x2="23" y2="11" stroke="#4A5E1C" stroke-width="3" stroke-linecap="round"/>
+        <line id="mHand" x1="23" y1="23" x2="23" y2="6" stroke="#6B7A2E" stroke-width="2" stroke-linecap="round"/>
+        <line id="sHand" x1="23" y1="27" x2="23" y2="5" stroke="#C00000" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="23" cy="23" r="2.5" fill="#4A5E1C"/>
+      </svg>
     </div>
     <div class="btn-row">
-      <button class="btn btn-ol" onclick="onClickXlsx()"><i class="ti ti-download"></i> Tải Excel</button>
-      <button class="btn btn-ol" onclick="refreshCurrentTab()"><i class="ti ti-refresh"></i> Làm mới</button>
+      <button class="theme-btn" id="themeToggle" onclick="toggleTheme()"><i class="ti ti-moon" id="themeIcon"></i><span id="themeTxt">Tối</span></button>
+      <button class="btn btn-ol" onclick="onClickXlsx()"><i class="ti ti-download"></i> <span>Tải Excel</span></button>
+      <button class="btn btn-ol" onclick="refreshCurrentTab()"><i class="ti ti-refresh"></i> <span>Làm mới</span></button>
     </div>
   </div>
 </div>
 
+<!-- TABS -->
 <div class="tabs">
-  <button class="tab-btn active" id="tab-orders-btn" onclick="showTab('orders')"><i class="ti ti-receipt-2"></i> QL Đơn hàng</button>
-  <button class="tab-btn" id="tab-costs-btn" onclick="showTab('costs')"><i class="ti ti-wallet"></i> QL Chi phí</button>
-  <button class="tab-btn" id="tab-dashboard-btn" onclick="showTab('dashboard')"><i class="ti ti-chart-bar"></i> Thống kê</button>
-  <button class="tab-btn" id="tab-report-btn" onclick="showTab('report')"><i class="ti ti-file-analytics"></i> Báo cáo Kế toán</button>
+  <button class="tab-btn active" id="tab-orders-btn" onclick="showTab('orders')"><i class="ti ti-clipboard-list"></i> Đơn hàng</button>
+  <button class="tab-btn" id="tab-costs-btn" onclick="showTab('costs')"><i class="ti ti-coins"></i> Chi phí</button>
+  <button class="tab-btn" id="tab-dashboard-btn" onclick="showTab('dashboard')"><i class="ti ti-chart-bar"></i> Dashboard</button>
+  <button class="tab-btn" id="tab-report-btn" onclick="showTab('report')"><i class="ti ti-report-analytics"></i> Báo cáo</button>
   <button class="tab-btn" id="tab-cskh-btn" onclick="showTab('cskh')"><i class="ti ti-headset"></i> CSKH</button>
 </div>
 
+<!-- ═══════════ TAB: ĐƠN HÀNG ═══════════ -->
 <div id="tab-orders">
   <div class="metrics">
-    <div class="mc"><div class="mc-lbl">Tổng Đơn</div><div class="mc-val" id="mCount">–</div></div>
-    <div class="mc"><div class="mc-lbl">DThu ( Bánh + PK )</div><div class="mc-val" id="mCake">–</div></div>
-    <div class="mc"><div class="mc-lbl">Thu Ship</div><div class="mc-val" id="mShip">–</div></div>
-    <div class="mc"><div class="mc-lbl">Tổng DT ( All )</div><div class="mc-val" id="mTotal" style="color: var(--olive-dark);">–</div></div>
+    <div class="mc"><div class="mc-lbl">Số đơn</div><div class="mc-val hl" id="mCount">–</div></div>
+    <div class="mc"><div class="mc-lbl">Bánh + PK</div><div class="mc-val" id="mCake">–</div></div>
+    <div class="mc"><div class="mc-lbl">Tiền ship</div><div class="mc-val" id="mShip">–</div></div>
+    <div class="mc"><div class="mc-lbl">Tổng doanh thu</div><div class="mc-val hl" id="mTotal">–</div></div>
   </div>
-  
-  <div class="fcard" id="aiCard" style="border-color: rgba(76, 110, 245, 0.4); box-shadow: 0 2px 10px rgba(76,110,245,0.06);">
-    <div class="ftitle" id="aiToggle" style="color: var(--indigo); border-bottom-color: rgba(76,110,245,0.15);">
-      <i class="ti ti-sparkles" style="font-size: 18px;"></i> Phân tích đơn bằng AI
-      <i class="ti ti-chevron-down fchev" id="aiChev"></i>
-    </div>
+
+  <!-- AI CARD -->
+  <div class="fcard" id="aiCard">
+    <div class="ftitle" id="aiToggle"><i class="ti ti-robot" style="color:var(--indigo)"></i><span>Nhập đơn từ chat AI</span><span class="ai-badge">AI</span><i class="ti ti-chevron-down fchev" id="aiChev"></i></div>
     <div id="aiBody">
-      <div class="fg" style="margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-          <label style="margin:0; color: var(--indigo);">Dán tin nhắn khách hàng (Zalo, FB) vào đây</label>
-          <div style="display:flex;gap:6px">
-            <button class="btn btn-ol" onclick="document.getElementById('aiChat').value='';document.getElementById('aiChat').focus();" style="height: 28px; font-size: 11.5px;">Xóa</button>
-            <button class="btn btn-ol" onclick="pasteToChat()" style="height: 28px; font-size: 11.5px; color: var(--indigo); border-color: rgba(76,110,245,0.2);">Dán nhanh</button>
+      <div class="fg" style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap;gap:4px">
+          <label style="margin:0">Dán đoạn chat khách hàng vào đây</label>
+          <div style="display:flex;gap:5px">
+            <button type="button" class="btn-ol btn" onclick="$('aiChat').value='';$('aiChat').focus();" style="padding:4px 8px;font-size:11px"><i class="ti ti-eraser" style="color:var(--red)"></i> Xóa</button>
+            <button type="button" class="btn-ol btn" onclick="pasteToChat()" style="padding:4px 8px;font-size:11px;color:var(--gold-dark)"><i class="ti ti-clipboard"></i> Dán</button>
           </div>
         </div>
-        <textarea id="aiChat" style="height:60px; border-color: rgba(76,110,245,0.2);" placeholder="VD: Mai 9h giao em 1 bánh 14cm giá 400k nhé chị. SDT 0987..."></textarea>
+        <textarea id="aiChat" style="height:120px;resize:vertical" placeholder="VD:&#10;Chị ơi cho em đặt bánh sinh nhật nhé..."></textarea>
       </div>
-      <div class="fbtns" style="margin-top: 8px; justify-content: flex-start;"><button class="btn btn-sub ai" style="height: 32px;" id="aiBtnSub" onclick="parseChat()"><i class="ti ti-wand"></i> Tự động điền Form</button></div>
-      <div id="aiResult" style="margin-top:12px"></div>
+      <div class="fbtns"><button class="btn-sub ai" id="aiBtnSub" onclick="parseChat()"><i class="ti ti-wand"></i><span id="aiBtnTxt">Phân tích & tự điền form</span></button></div>
+      <div id="aiResult" style="margin-top:10px"></div>
     </div>
   </div>
 
+  <!-- ORDER FORM – 2 cột -->
   <div class="fcard" id="fcard">
-    <div class="ftitle" id="ftoggle"><i class="ti ti-circle-plus" style="font-size: 18px;"></i><span id="fTitle">Khởi tạo Đơn hàng</span><i class="ti ti-chevron-down fchev" id="fchev"></i></div>
+    <div class="ftitle" id="ftoggle"><i class="ti ti-plus" id="fIcon"></i><span id="fTitle">Thêm đơn hàng mới</span><i class="ti ti-chevron-down fchev" id="fchev"></i></div>
     <div id="fbody">
-      <div id="pastNotice" class="past-notice" style="display:none; background:#FFF3CD; color:#E67700; padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:12px; font-weight:600; border: 1px solid #FFE066;"><i class="ti ti-lock"></i> Hệ thống đã khóa sổ ngày cũ. Không thể thêm mới.</div>
-      
-      <div class="fgrid" style="grid-template-columns: repeat(4, 1fr);">
+      <div id="pastNotice" class="past-notice" style="display:none"><i class="ti ti-lock"></i><span>Không thể thêm đơn cho ngày đã qua.</span></div>
+      <div class="form-2col">
         <div class="fg"><label>Giờ giao</label><input type="time" id="fTime"></div>
-        <div class="fg"><label>Kích thước</label><input type="text" id="fSize" placeholder="VD: 14cm"></div>
-        <div class="fg"><label>Giá bánh (K)</label><input type="number" id="fCake" placeholder="0" oninput="calc()"></div>
-        <div class="fg"><label>Giá Phụ kiện (K)</label><input type="number" id="fAcc" placeholder="0" oninput="calc()"></div>
-        
-        <div class="fg" style="grid-column: span 2;"><label>Tên Khách</label><input type="text" id="fName" placeholder="Tên người nhận"></div>
-        <div class="fg"><label>Điện thoại</label><input type="text" id="fPhone" placeholder="09xxxx..."></div>
-        <div class="fg"><label>Phí Ship (K)</label><input type="number" id="fShip" placeholder="0" oninput="calc()"></div>
-        
-        <div class="fg" style="grid-column: span 2;"><label>Chi tiết Phụ kiện</label><input type="text" id="fAccDesc" placeholder="Nến, vương miện..."></div>
-        <div class="fg" style="grid-column: span 2;"><label>Ghi chú</label><input type="text" id="fNote" placeholder="Lưu ý mẫu mã, lời chúc..."></div>
-        
-        <div class="fg" style="grid-column: 1 / -1;"><label>Địa chỉ giao</label><input type="text" id="fAddr" placeholder="Số nhà, đường, phường, quận..."></div>
+        <div class="fg"><label>Size bánh</label><input type="text" id="fSize" placeholder="VD: 14cm, 16cm..."></div>
+        <div class="fg"><label>Giá bánh (nghìn đ)</label><input type="number" id="fCake" placeholder="VD: 400" oninput="calc()"></div>
+        <div class="fg"><label>Giá phụ kiện (nghìn đ)</label><input type="number" id="fAcc" placeholder="VD: 50" oninput="calc()"></div>
+        <div class="fg"><label>Phụ kiện</label><input type="text" id="fAccDesc" placeholder="Mô tả phụ kiện..."></div>
+        <div class="fg"><label>Giá ship (nghìn đ)</label><input type="number" id="fShip" placeholder="VD: 30" oninput="calc()"></div>
+        <div class="fg"><label>Tên khách</label><input type="text" id="fName" placeholder="Họ và tên"></div>
+        <div class="fg"><label>Số điện thoại</label><input type="text" id="fPhone" placeholder="0xxx..."></div>
+        <div class="fg col-full"><label>Địa chỉ</label><input type="text" id="fAddr" placeholder="Địa chỉ giao hàng"></div>
+        <div class="fg col-full"><label>Ghi chú</label><textarea id="fNote" placeholder="Lời chúc trên bánh, màu kem, yêu cầu đặc biệt..."></textarea></div>
       </div>
-      
       <div class="fa-row">
-        <div class="fa"><span>DThu ( Bánh + PK ):</span><b id="aSum">0đ</b></div>
-        <div class="fa" style="border-color: var(--olive); background: #ffffff;"><span>Tổng DT ( All ):</span><b id="aTot" style="color: var(--olive-dark); font-size: 18px;">0đ</b></div>
+        <div class="fa"><span>Tổng bánh + PK</span><b id="aSum">0đ</b></div>
+        <div class="fa"><span>Tổng cộng (gồm ship)</span><b id="aTot">0đ</b></div>
       </div>
       <div class="fbtns">
-        <button class="btn btn-cancel" id="btnCancel" style="display:none" onclick="cancelEdit()">Hủy thao tác</button>
-        <button class="btn btn-sub" id="btnSub" onclick="submitOrder()"><i class="ti ti-device-floppy"></i> <span id="btnTxt">Lưu đơn hàng</span></button>
+        <button class="btn-cancel" id="btnCancel" style="display:none" onclick="cancelEdit()">Hủy</button>
+        <button class="btn-sub" id="btnSub" onclick="submitOrder()"><i class="ti ti-check"></i><span id="btnTxt">Thêm đơn</span></button>
       </div>
     </div>
   </div>
 
   <div class="tw">
-    <table>
-      <colgroup>
-        <col class="col-stt"><col class="col-time"><col class="col-size"><col class="col-num"><col class="col-num">
-        <col class="col-acc"><col class="col-num"><col class="col-num"><col class="col-total"><col class="col-name">
-        <col class="col-phone"><col class="col-addr"><col class="col-note"><col class="col-action">
-      </colgroup>
-      <thead><tr>
-        <th>STT</th><th>Giờ</th><th>Size</th><th class="num-align">Giá Bánh</th><th class="num-align">Giá PK</th>
-        <th>Phụ Kiện</th><th class="num-align">DThu (Bánh+PK)</th><th class="num-align">Thu Ship</th><th class="num-align">Tổng DT (All)</th>
-        <th>Khách</th><th>SĐT</th><th>Địa Chỉ</th><th>Ghi Chú</th><th>Thao tác</th>
-      </tr></thead>
+    <table style="min-width:960px">
+      <colgroup><col style="width:38px"><col style="width:65px"><col style="width:76px"><col style="width:86px"><col style="width:76px"><col style="width:105px"><col style="width:96px"><col style="width:76px"><col style="width:96px"><col style="width:96px"><col style="width:88px"><col style="width:120px"><col style="width:105px"><col style="width:50px"></colgroup>
+      <thead><tr><th>STT</th><th>Giờ giao</th><th>Size bánh</th><th>Giá bánh</th><th>Giá PK</th><th>Phụ kiện</th><th>Tổng (bánh+PK)</th><th>Giá ship</th><th>Tổng cộng</th><th>Tên khách</th><th>SĐT</th><th>Địa chỉ</th><th>Ghi chú</th><th></th></tr></thead>
       <tbody id="tbody"></tbody><tfoot id="tfoot"></tfoot>
     </table>
   </div>
 </div>
 
+<!-- ═══════════ TAB: CHI PHÍ ═══════════ -->
 <div id="tab-costs" style="display:none">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
-    <button class="btn btn-ol" onclick="onClickCostXlsx()"><i class="ti ti-file-invoice"></i> Bảng kê Chi phí</button>
+  <div style="display:flex;justify-content:flex-end;margin-bottom:.75rem">
+    <button class="btn btn-ol" onclick="onClickCostXlsx()"><i class="ti ti-download"></i> <span>Tải Excel chi phí</span></button>
   </div>
   <div class="metrics">
-    <div class="mc cost-card"><div class="mc-lbl">Lượng mục chi</div><div class="mc-val" id="cCount">–</div></div>
-    <div class="mc cost-card"><div class="mc-lbl">Nguyên Vật Liệu ( NVL )</div><div class="mc-val red" id="cPurchase">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Số mục chi</div><div class="mc-val hl" id="cCount">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Tổng nhập hàng</div><div class="mc-val red" id="cPurchase">–</div></div>
     <div class="mc cost-card"><div class="mc-lbl">Chi phí QC</div><div class="mc-val red" id="cAd">–</div></div>
-    <div class="mc cost-card"><div class="mc-lbl">Tổng chi phiên</div><div class="mc-val red" id="cDayTotal">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Tổng chi ngày</div><div class="mc-val red" id="cDayTotal">–</div></div>
   </div>
-  
+
+  <!-- COST FORM -->
   <div class="fcard" id="costCard">
-    <div class="ftitle" id="costtoggle"><i class="ti ti-wallet" style="font-size: 18px;"></i><span id="cTitle">Ghi nhận Chi phí</span><i class="ti ti-chevron-down fchev" id="cchev"></i></div>
+    <div class="ftitle" id="costtoggle"><i class="ti ti-plus" id="cIcon"></i><span id="cTitle">Thêm chi phí mới</span><i class="ti ti-chevron-down fchev" id="cchev"></i></div>
     <div id="costBody">
-      <div class="fgrid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="fg" style="grid-column: span 2;"><label>Đối tác / NCC</label><input type="text" id="cSupplier" placeholder="Tên đơn vị..."></div>
-        <div class="fg" style="grid-column: span 2;"><label>Hạng mục</label><input type="text" id="cProduct" placeholder="Mua nguyên liệu, hộp..."></div>
-        
-        <div class="fg"><label>Giá nhập NVL (K)</label><input type="number" id="cPrice" placeholder="0"></div>
-        <div class="fg"><label>Chi phí QC (K)</label><input type="number" id="cAdCost" placeholder="0"></div>
-        <div class="fg" style="grid-column: span 2;"><label>Diễn giải thêm</label><input type="text" id="cNote" placeholder="Ghi chú chi tiết..."></div>
-        
-        <div class="fg" style="grid-column: 1 / -1;">
-          <label>Chứng từ / Hóa đơn <span style="font-weight: 400; color: #888;">(Lưu Cloud đa tệp)</span></label>
-          <label for="cImageFile" class="img-upload-area">
-            <div id="cImgDropContent" style="color: var(--olive-dark); font-weight: 600;"><i class="ti ti-camera-plus" style="font-size:20px; vertical-align: middle; margin-right: 4px;"></i> Bấm để tải ảnh lên hệ thống</div>
-            <div id="cImgPreview" style="display:none; text-align: left; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px;">
-              <div id="cImgList" style="display:flex; flex-wrap: wrap; gap: 8px;"></div>
-            </div>
-            <input type="file" id="cImageFile" accept="image/*" multiple style="display:none" onchange="onImageSelected(this)">
+      <div class="form-2col">
+        <div class="fg"><label>Đơn vị nhập</label><input type="text" id="cSupplier" placeholder="Tên nơi nhập hàng..."></div>
+        <div class="fg"><label>Tên sản phẩm</label><input type="text" id="cProduct" placeholder="Tên sản phẩm nhập..."></div>
+        <div class="fg"><label>Giá nhập (nghìn đ)</label><input type="number" id="cPrice" placeholder="VD: 500"></div>
+        <div class="fg"><label>Chi phí QC (nghìn đ)</label><input type="number" id="cAdCost" placeholder="VD: 200"></div>
+        <div class="fg col-full">
+          <label>Ảnh hoá đơn <span style="font-weight:400;color:var(--cm);text-transform:none;font-size:10px">(Google Drive · chọn nhiều ảnh)</span></label>
+          <div id="cImgGrid" class="img-grid"></div>
+          <label class="img-add-btn">
+            <i class="ti ti-camera-plus" style="font-size:20px"></i> Thêm ảnh
+            <input type="file" id="cImageFile" accept="image/*" multiple style="display:none" onchange="onImagesSelected(this)">
           </label>
         </div>
+        <div class="fg col-full"><label>Ghi chú</label><textarea id="cNote" placeholder="Ghi chú thêm..."></textarea></div>
       </div>
       <div class="fbtns">
-        <button class="btn btn-cancel" id="cBtnCancel" style="display:none" onclick="cancelCostEdit()">Hủy</button>
-        <button class="btn btn-sub orange" id="cBtnSub" onclick="submitCost()"><i class="ti ti-device-floppy"></i> <span id="cBtnTxt">Lưu dòng chi</span></button>
+        <button class="btn-cancel" id="cBtnCancel" style="display:none" onclick="cancelCostEdit()">Hủy</button>
+        <button class="btn-sub orange" id="cBtnSub" onclick="submitCost()"><i class="ti ti-check"></i><span id="cBtnTxt">Thêm chi phí</span></button>
       </div>
     </div>
   </div>
 
+  <!-- FIXED COSTS -->
   <div class="fcard">
-    <div class="ftitle" id="fixedToggle"><i class="ti ti-building-store" style="font-size: 18px;"></i><span>Định phí Hàng Tháng</span> <span id="fixedMonthBadge" style="font-size:11px; background:var(--olive-dark); color:#fff; padding:2px 8px; border-radius:12px; margin-left: 8px;"></span><i class="ti ti-chevron-down fchev" id="fixedChev"></i></div>
+    <div class="ftitle" id="fixedToggle"><i class="ti ti-home"></i><span>Chi phí cố định tháng</span><span id="fixedMonthBadge" style="font-size:11px;background:var(--gold-pale);color:var(--gold-dark);border-radius:10px;padding:2px 8px;font-weight:500;margin-left:4px"></span><i class="ti ti-chevron-down fchev" id="fixedChev"></i></div>
     <div id="fixedBody">
-      <div class="fgrid" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="fg"><label>Mặt bằng (K)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:36px; height:32px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:18px;"></i><input type="file" accept="image/*" style="display:none" multiple onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" style="display:none; flex-wrap: wrap; gap: 6px; margin-top: 8px;"></div></div>
-        <div class="fg"><label>Điện năng (K)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:36px; height:32px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:18px;"></i><input type="file" accept="image/*" style="display:none" multiple onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" style="display:none; flex-wrap: wrap; gap: 6px; margin-top: 8px;"></div></div>
-        <div class="fg"><label>Nước sạch (K)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="0" oninput="calcFixed()"><label class="btn btn-ol" style="width:36px; height:32px; padding:0; cursor:pointer;"><i class="ti ti-paperclip" style="font-size:18px;"></i><input type="file" accept="image/*" style="display:none" multiple onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" style="display:none; flex-wrap: wrap; gap: 6px; margin-top: 8px;"></div></div>
+      <div class="form-2col" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+        <div class="fg"><label>Tiền nhà (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="VD: 3000" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fRentImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('rent')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
+        <div class="fg"><label>Tiền điện (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="VD: 500" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fElecImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('elec')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
+        <div class="fg"><label>Tiền nước (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="VD: 150" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" style="display:none" onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" style="display:none;font-size:11px;margin-top:6px;padding:6px 10px;background:var(--gold-pale);border-radius:6px;align-items:center;justify-content:space-between"><a id="fWaterImgLink" href="#" target="_blank" style="color:var(--indigo);font-weight:600;text-decoration:none"><i class="ti ti-external-link"></i> Xem ảnh HĐ</a><button type="button" class="abtn d" onclick="clearFixedImg('water')" style="padding:2px"><i class="ti ti-x"></i></button></div></div>
       </div>
-      <div style="margin-top:20px; font-size:14px; font-weight:600; padding: 12px 16px; background: #FFF5F5; border: 1px dashed #FFC9C9; border-radius: var(--radius-sm); display: inline-block;">Dự kiến tổng định phí: <span id="fixedTotal" style="color:var(--red); font-size: 18px; font-weight: 800;">0đ</span></div>
-      <div class="fbtns"><button class="btn btn-sub orange" id="fixedSaveBtn" onclick="saveFixed()">Cập nhật định phí</button></div>
+      <div style="margin-top:10px"><div class="fa"><span>Tổng chi phí cố định tháng</span><b id="fixedTotal" style="color:var(--red)">0đ</b></div></div>
+      <div class="fbtns"><button class="btn-sub orange" id="fixedSaveBtn" onclick="saveFixed()"><i class="ti ti-device-floppy"></i><span id="fixedBtnTxt">Lưu chi phí cố định</span></button></div>
     </div>
   </div>
 
   <div class="tw">
-    <table>
-      <colgroup>
-        <col style="width: 45px;"><col style="width: 90px;"><col style="width: 140px;"><col style="width: 140px;"><col style="width: 130px;"><col style="width: 110px;"><col style="width: 150px;"><col style="width: 85px;">
-      </colgroup>
-      <thead><tr><th>STT</th><th>Ngày</th><th>Đối Tác/NCC</th><th>Hạng Mục</th><th class="num-align">Nguyên Vật Liệu ( NVL )</th><th class="num-align">Chi phí QC</th><th>Ghi Chú</th><th>Thao tác</th></tr></thead>
+    <table style="min-width:680px">
+      <colgroup><col style="width:38px"><col style="width:100px"><col style="width:150px"><col style="width:96px"><col style="width:96px"><col style="width:auto"><col style="width:125px"><col style="width:50px"></colgroup>
+      <thead><tr><th>STT</th><th>Đơn vị nhập</th><th>Tên sản phẩm</th><th>Giá nhập</th><th>Chi phí QC</th><th>Ảnh HĐ</th><th>Ghi chú</th><th></th></tr></thead>
       <tbody id="costTbody"></tbody><tfoot id="costTfoot"></tfoot>
     </table>
   </div>
 </div>
 
+<!-- ═══════════ TAB: DASHBOARD ═══════════ -->
 <div id="tab-dashboard" style="display:none">
-  <div class="dash-ctrl" style="background: var(--bg-card); padding: 10px 16px; border-radius: 30px; box-shadow: var(--shadow-soft);">
-    <div style="display:flex;align-items:center;gap:8px;">
-      <i class="ti ti-calendar-event" style="color: var(--olive); font-size: 18px;"></i>
-      <select id="dashMonthSel" onchange="onDashChange()" style="width:auto; font-weight:700; border:none; background:transparent; padding:0 20px 0 0; color: var(--olive-dark); font-size: 14px;"></select>
-      <select id="dashYearSel" onchange="onDashChange()" style="width:auto; font-weight:700; border:none; background:transparent; padding:0 20px 0 0; color: var(--olive-dark); font-size: 14px;"></select>
+  <div class="dash-ctrl">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <select id="dashMonthSel" onchange="onDashChange()" style="width:auto;font-size:14px;font-weight:600;color:var(--dark)"></select>
+      <select id="dashYearSel" onchange="onDashChange()" style="width:auto;font-size:14px;font-weight:600;color:var(--dark)"></select>
     </div>
-    <div style="display:flex;gap:8px; margin-left: auto;">
-      <button class="btn btn-ol" onclick="loadDash()"><i class="ti ti-refresh"></i> Làm mới</button>
-      <button class="btn btn-ol" id="btnDashXlsx" onclick="exportDashExcel()" style="display:none; color:var(--green); border-color: rgba(47,158,68,0.3);"><i class="ti ti-file-spreadsheet"></i> Xuất Tệp</button>
+    <div style="display:flex;gap:7px;flex-wrap:wrap">
+      <button class="btn btn-ol" onclick="loadDash()"><i class="ti ti-refresh"></i> <span>Tải lại</span></button>
+      <button class="btn btn-ol" id="btnDashXlsx" onclick="exportDashExcel()" style="display:none"><i class="ti ti-file-spreadsheet"></i> <span>Excel</span></button>
+      <button class="btn btn-ol" id="btnDashPDF" onclick="exportDashPDF()" style="display:none"><i class="ti ti-file-type-pdf"></i> <span>PDF</span></button>
     </div>
   </div>
-  
-  <div class="dash-section-lbl"><i class="ti ti-trending-up"></i> THỐNG KÊ DOANH THU</div>
+  <div class="dash-section-lbl"><i class="ti ti-trending-up"></i> Doanh thu</div>
   <div class="metrics">
-    <div class="mc"><div class="mc-lbl">Tổng Đơn</div><div class="mc-val" id="dCount">–</div></div>
-    <div class="mc"><div class="mc-lbl">DThu ( Bánh + PK )</div><div class="mc-val" id="dTotalCake">–</div></div>
-    <div class="mc"><div class="mc-lbl">Tổng DT ( All )</div><div class="mc-val" id="dTotal" style="color:var(--olive-dark)">–</div></div>
-    <div class="mc"><div class="mc-lbl">Nửa đầu (1-15)</div><div class="mc-val" id="dH1" style="font-size: 16px;">–</div></div>
-    <div class="mc"><div class="mc-lbl">Nửa cuối (16-31)</div><div class="mc-val" id="dH2" style="font-size: 16px;">–</div></div>
+    <div class="mc"><div class="mc-lbl">Tổng đơn</div><div class="mc-val hl" id="dCount">–</div></div>
+    <div class="mc"><div class="mc-lbl">DT bánh + PK ★</div><div class="mc-val hl" id="dCake">–</div></div>
+    <div class="mc ship-card"><div class="mc-lbl">Tổng DT (gồm ship)</div><div class="mc-val" id="dTotal">–</div></div>
+    <div class="mc"><div class="mc-lbl">Nửa đầu (1–15)</div><div class="mc-val" id="dH1">–</div></div>
+    <div class="mc"><div class="mc-lbl">Nửa cuối (16–cuối)</div><div class="mc-val" id="dH2">–</div></div>
   </div>
-  
-  <div class="dash-section-lbl" style="color: var(--red);"><i class="ti ti-trending-down"></i> PHÂN TÍCH CHI PHÍ & LỢI NHUẬN</div>
+  <div class="dash-section-lbl"><i class="ti ti-trending-down"></i> Chi phí</div>
   <div class="metrics">
-    <div class="mc cost-card"><div class="mc-lbl">Nguyên Vật Liệu ( NVL )</div><div class="mc-val red" id="dCostPurchase">–</div></div>
-    <div class="mc cost-card"><div class="mc-lbl">Chi phí QC</div><div class="mc-val red" id="dCostAd">–</div></div>
-    <div class="mc cost-card"><div class="mc-lbl">Chi phí Cố định</div><div class="mc-val red" id="dCostFixed">–</div></div>
-    <div class="mc cost-card"><div class="mc-lbl">Tổng Chi thực tế</div><div class="mc-val red" id="dCostTotal">–</div></div>
-    <div class="mc profit-card" style="grid-column: 1 / -1; align-items: center; text-align: center; padding: 20px;"><div class="mc-lbl" style="font-size: 13px;">BIÊN LỢI NHUẬN RÒNG (NET PROFIT)</div><div class="mc-val" id="dProfit" style="font-size: 32px; letter-spacing: -1px;">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Nhập hàng</div><div class="mc-val red" id="dCostPurchase">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Quảng cáo</div><div class="mc-val red" id="dCostAd">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Cố định</div><div class="mc-val red" id="dCostFixed">–</div></div>
+    <div class="mc cost-card"><div class="mc-lbl">Tổng chi phí</div><div class="mc-val red" id="dCostTotal">–</div></div>
+    <div class="mc profit-card"><div class="mc-lbl">Lợi nhuận ròng ★</div><div class="mc-val" id="dProfit">–</div></div>
   </div>
-  
-  <div class="chart-card">
-    <h3 style="font-size: 14px; margin-bottom: 12px;"><i class="ti ti-chart-area-line"></i> Tương quan Thu - Chi</h3>
-    <div id="dashLoading" class="dash-loading"><span class="sk"></span> Phân tích Data...</div>
-    <canvas id="dashChart" style="display:none; max-height:260px;"></canvas>
-  </div>
-  
-  <div class="chart-card" style="padding: 0; overflow: hidden;">
-    <h3 style="font-size: 14px; margin: 16px 16px 8px;"><i class="ti ti-calendar-stats"></i> Hạch toán theo ngày</h3>
-    <div id="dashTable"></div>
-  </div>
+  <div style="font-size:11px;color:var(--cm);margin:-0.75rem 0 .875rem;padding:6px 10px;background:var(--gold-pale);border-radius:8px;border:1px solid var(--bd)">★ Lợi nhuận = <b>DT bánh+PK</b> − tất cả chi phí (không tính phí ship vào)</div>
+  <div class="chart-card"><h3>Doanh thu & Chi phí theo ngày</h3><div id="dashLoading" class="dash-loading"><span class="sk"></span> Đang tải...</div><canvas id="dashChart" style="display:none;max-height:260px"></canvas></div>
+  <div class="chart-card"><h3>Chi tiết từng ngày</h3><div id="dashTable"><div class="dash-loading">Chọn tháng và nhấn tải lại...</div></div></div>
 </div>
 
+<!-- ═══════════ TAB: BÁO CÁO ═══════════ -->
 <div id="tab-report" style="display:none">
-  <div class="fcard">
-    <div class="ftitle"><i class="ti ti-file-analytics" style="font-size: 20px;"></i> Trích xuất Dữ liệu Kế toán</div>
-    <div class="fgrid" style="grid-template-columns: 1fr 1fr; align-items: end;">
-      <div class="fg"><label>Chu kỳ Từ ngày</label><input type="date" id="rptFrom"></div>
-      <div class="fg"><label>Đến hết ngày</label><input type="date" id="rptTo"></div>
-      <button class="btn btn-sub" style="grid-column: 1 / -1; height: 44px; margin-top: 8px;" onclick="loadReport()"><i class="ti ti-analyze"></i> Tạo Bản Cân Đối</button>
-      <button class="btn btn-ol" id="btnRptXlsx" style="display:none; grid-column: 1 / -1; height: 44px; border-color: var(--green); color: var(--green); font-weight: 700;" onclick="exportReportExcel()"><i class="ti ti-file-spreadsheet"></i> Tải Báo Cáo Excel (Đầy đủ sheets)</button>
+  <div class="rpt-card">
+    <h3><i class="ti ti-calendar-stats"></i> Báo cáo tổng hợp Thu – Chi</h3>
+    <div class="rpt-controls">
+      <div class="rpt-fg"><label>Từ ngày</label><input type="date" id="rptFrom"></div>
+      <div class="rpt-fg"><label>Đến ngày</label><input type="date" id="rptTo"></div>
+      <button class="btn btn-ol" style="align-self:flex-end" onclick="loadReport()"><i class="ti ti-search"></i> Xem báo cáo</button>
+      <button class="btn btn-ol" id="btnRptXlsx" style="align-self:flex-end;display:none" onclick="exportReportExcel()"><i class="ti ti-download"></i> Tải Excel</button>
     </div>
   </div>
   <div id="rptResult"></div>
 </div>
 
+<!-- ═══════════ TAB: CSKH ═══════════ -->
 <div id="tab-cskh" style="display:none">
   <div class="chat-wrap">
     <div class="chat-hdr">
-      <div class="chat-av ai" style="background: rgba(255,255,255,0.25);"><i class="ti ti-headset"></i></div>
-      <div style="flex:1;">
-        <div style="font-size:15px; font-weight:700;">Chuyên gia CSKH</div>
-        <div style="font-size:11.5px; font-weight:500; color:rgba(255,255,255,0.8); display: flex; align-items: center; gap: 4px;"><span style="width:6px; height:6px; background: #69db7c; border-radius: 50%;"></span> Sẵn sàng hỗ trợ</div>
+      <div class="chat-hdr-av"><i class="ti ti-robot"></i></div>
+      <div class="chat-hdr-info">
+        <div class="chat-hdr-name">Chuyên gia CSKH · Toulouse</div>
+        <div class="chat-hdr-sub">20+ năm kinh nghiệm · Sẵn sàng tư vấn</div>
       </div>
-      <button class="btn btn-cancel" style="height: 28px; font-size: 11.5px; padding: 0 10px; color: white; border-color: rgba(255,255,255,0.3); background: rgba(0,0,0,0.1);" onclick="clearCSKH()"><i class="ti ti-broom"></i> Dọn tin nhắn</button>
+      <button class="chat-clear" onclick="clearCSKH()"><i class="ti ti-eraser"></i> Xóa chat</button>
     </div>
     <div class="chat-chips">
-      <button class="chip" onclick="chipSend('Viết mẫu xin lỗi và đền bù cho khách vì ship làm hỏng form bánh')">🍰 Bánh hỏng do ship</button>
-      <button class="chip" onclick="chipSend('Khách hàng chê bánh đắt. Tôi nên trả lời như thế nào để bật lên giá trị nguyên liệu handmade cao cấp của Toulouse?')">💎 Giải thích giá</button>
-      <button class="chip" onclick="chipSend('Gợi ý 3 mẫu tin nhắn giục khách chuyển khoản cọc lịch sự')">💸 Giục chuyển khoản</button>
-      <button class="chip" onclick="chipSend('Viết mẫu tin nhắn xin feedback của khách sau khi nhận bánh')">💌 Xin feedback</button>
-      <button class="chip" onclick="chipSend('Khách phàn nàn thái độ shipper, cách xử lý làm dịu khách')">🛵 Phàn nàn shipper</button>
-      <button class="chip" onclick="chipSend('Soạn một post FB ngắn gọn quảng cáo mẫu bánh mới ra mắt')">📱 Post Facebook</button>
+      <button class="chip" onclick="chipSend('Khách phàn nàn bánh bị lỗi, bể kem. Tôi nên xử lý thế nào?')">🎂 Bánh bị lỗi</button>
+      <button class="chip" onclick="chipSend('Khách yêu cầu hoàn tiền, tôi nên phản hồi ra sao?')">💰 Hoàn tiền</button>
+      <button class="chip" onclick="chipSend('Giao hàng muộn, khách đang rất tức giận. Xử lý thế nào?')">🚚 Giao muộn</button>
+      <button class="chip" onclick="chipSend('Viết cho tôi mẫu tin nhắn cảm ơn sau khi khách nhận bánh')">💌 Tin cảm ơn</button>
+      <button class="chip" onclick="chipSend('Khách để lại đánh giá 1 sao trên mạng. Tôi nên reply thế nào?')">⭐ Review 1 sao</button>
+      <button class="chip" onclick="chipSend('Làm thế nào để giữ chân khách hàng cũ quay lại?')">🔄 Giữ khách cũ</button>
     </div>
     <div class="chat-msgs" id="cskhMsgs">
-      <div class="chat-msg ai">
-        <div class="chat-av ai"><i class="ti ti-headset"></i></div>
-        <div class="chat-bubble">
-          Chào bạn, tôi là chuyên gia CSKH và Marketing của <b>Toulouse</b>. 
-          <br><br>Hãy yêu cầu tôi viết tin nhắn giải quyết khiếu nại, lên ý tưởng bài đăng FB, hoặc cách chốt sale khéo léo nhé!
-        </div>
-      </div>
+      <div class="chat-msg ai"><div class="chat-av ai"><i class="ti ti-robot"></i></div><div class="chat-bubble">Xin chào! Tôi là chuyên gia CSKH với hơn 20 năm kinh nghiệm trong ngành bánh ngọt và F&amp;B cao cấp. 🎂<br><br>Tôi có thể giúp bạn:<br>• Xử lý khiếu nại, phàn nàn của khách<br>• Soạn mẫu tin nhắn phản hồi chuyên nghiệp<br>• Chiến lược giữ chân &amp; phát triển tệp khách<br><br>Bạn đang gặp tình huống nào cần hỗ trợ?</div></div>
     </div>
     <div class="chat-input-row">
-      <input type="text" class="chat-input" id="cskhInput" placeholder="Nhập câu hỏi của bạn..." onkeydown="if(event.key==='Enter')sendCSKH()">
+      <textarea class="chat-input" id="cskhInput" placeholder="Mô tả tình huống cần tư vấn..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendCSKH()}" oninput="this.style.height='40px';this.style.height=Math.min(this.scrollHeight,110)+'px'"></textarea>
       <button class="chat-send" id="cskhSend" onclick="sendCSKH()"><i class="ti ti-send"></i></button>
     </div>
   </div>
 </div>
-</div>
 
+</div><!-- /.wrap -->
 <script>
-// =========================================================================
-// TOULOUSE ERP - REFACTORED CORE JAVASCRIPT
-// Mã nguồn đã được chuẩn hóa, loại bỏ code rác, đảm bảo dễ đọc và bảo trì.
-// =========================================================================
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbw9sWIdwYbnjieLcYJP82nyQUi0BeLnQh1Bw_ImYawIRr2f5T6zW7MhvuGYvPUfVWPvDw/exec';
+const $=id=>document.getElementById(id);
+const n=v=>Number(v||0);
+const fmt=v=>n(v).toLocaleString('vi-VN')+'đ';
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const pad=v=>String(v).padStart(2,'0');
+const daysInMonth=(y,m)=>new Date(y,m,0).getDate();
+const MONTHS=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
 
-const CONFIG = {
-    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbw9sWIdwYbnjieLcYJP82nyQUi0BeLnQh1Bw_ImYawIRr2f5T6zW7MhvuGYvPUfVWPvDw/exec',
-    CACHE_PREFIX: 'tlse_',
-    CACHE_TTL: 5 * 60 * 1000 // 5 mins
-};
+/* ── THEME ── */
+function toggleTheme(){
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const next=isDark?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  $('themeIcon').className=isDark?'ti ti-moon':'ti ti-sun';
+  $('themeTxt').textContent=isDark?'Tối':'Sáng';
+  try{localStorage.setItem('tlse_theme',next);}catch(e){}
+  if(dashChart){dashChart.destroy();dashChart=null;if(currentTab==='dashboard')loadDash();}
+}
+(function(){
+  let t='light';try{t=localStorage.getItem('tlse_theme')||'light';}catch(e){}
+  document.documentElement.setAttribute('data-theme',t);
+  if(t==='dark'){const i=$('themeIcon'),tx=$('themeTxt');if(i)i.className='ti ti-sun';if(tx)tx.textContent='Sáng';}
+})();
 
-// ==========================================
-// 1. UTILITIES (HÀM TIỆN ÍCH)
-// ==========================================
-const Utils = {
-    $: id => document.getElementById(id),
-    n: val => Number(val || 0),
-    fmt: val => Utils.n(val).toLocaleString('vi-VN') + 'đ',
-    esc: str => String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'),
-    pad: val => String(val).padStart(2, '0'),
-    
-    // Đã fix lỗi undefined
-    capitalize: str => {
-        if (typeof str !== 'string' || !str) return '';
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    },
-    
-    daysInMonth: (y, m) => new Date(y, m, 0).getDate(),
-    todayStr: () => {
-        const d = new Date();
-        return `${d.getFullYear()}-${Utils.pad(d.getMonth() + 1)}-${Utils.pad(d.getDate())}`;
-    },
-    isPast: dateStr => dateStr < Utils.todayStr(),
-    
-    genDates: (from, to) => {
-        const dates = [];
-        let [y, m, d] = from.split('-').map(Number);
-        const [ty, tm, td] = to.split('-').map(Number);
-        for (let i = 0; i < 366; i++) {
-            dates.push(`${y}-${Utils.pad(m)}-${Utils.pad(d)}`);
-            if (y === ty && m === tm && d === td) break;
-            d++;
-            if (d > Utils.daysInMonth(y, m)) {
-                d = 1; m++;
-                if (m > 12) { m = 1; y++; }
-            }
-        }
-        return dates;
-    },
-    
-    dateToYM: dateStr => {
-        const p = dateStr.split('-');
-        return `${parseInt(p[1])}_${p[0]}`;
-    },
-    
-    normDate: s => {
-        if (!s) return '';
-        s = String(s).trim();
-        if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
-        const d = new Date(s);
-        if (!isNaN(d.getTime())) return `${d.getFullYear()}-${Utils.pad(d.getMonth() + 1)}-${Utils.pad(d.getDate())}`;
-        return s;
-    },
+/* ── LAZY LOAD ── */
+let _xlLoaded=false,_chLoaded=false;
+function loadExcelJS(){if(_xlLoaded)return Promise.resolve();return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js';s.onload=()=>{_xlLoaded=true;res();};s.onerror=rej;document.head.appendChild(s);});}
+function loadChartJS(){if(_chLoaded)return Promise.resolve();return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';s.onload=()=>{_chLoaded=true;res();};s.onerror=rej;document.head.appendChild(s);});}
 
-    // Drive Image Helpers (Đã fix lỗi thiếu getFileId)
-    getFileId: url => {
-        if (!url) return null;
-        if (url.startsWith('drive:')) return url.slice(6);
-        const m = url.match(/\/d\/([^\/\?]+)/);
-        return m ? m[1] : null;
-    },
-    getFileIds: urls => urls ? urls.split(',').map(Utils.getFileId).filter(Boolean) : [],
-    driveThumb: id => id ? `https://drive.google.com/thumbnail?id=${id}&sz=w200` : null,
-    driveView: id => id ? `https://drive.google.com/uc?export=view&id=${id}` : null,
-    driveFullUrl: id => id ? `https://drive.google.com/file/d/${id}/view` : null
-};
+/* ── CACHE ── */
+const _MC=new Map(),TTL=5*60*1000,CP='tlse_c_';
+const cGet=k=>{const m=_MC.get(k);if(m&&Date.now()-m.t<TTL)return m.d;try{const raw=localStorage.getItem(CP+k);if(!raw)return null;const p=JSON.parse(raw);if(Date.now()-p.t>TTL){localStorage.removeItem(CP+k);return null;}_MC.set(k,p);return p.d;}catch(e){return null;}};
+const cSet=(k,d)=>{const e={d,t:Date.now()};_MC.set(k,e);try{localStorage.setItem(CP+k,JSON.stringify(e));}catch(e){}};
+const cDel=pat=>{_MC.forEach((_,k)=>{if(k.includes(pat))_MC.delete(k);});try{Object.keys(localStorage).filter(k=>k.startsWith(CP)&&k.includes(pat)).forEach(k=>localStorage.removeItem(k));}catch(e){}};
 
-// ==========================================
-// 2. STATE MANAGEMENT
-// ==========================================
-const State = {
-    currentTab: 'orders',
-    authedAdmin: false,
-    authedBoss: false,
-    pwLevel: null,
-    pwCallback: null,
+let editId=null,currentOrders=[],formOpen=true;
+let editCostId=null,currentCosts=[],costFormOpen=true,fixedBodyOpen=true;
+let costImages=[]; // [{fileId,previewSrc,isNew}]
+let pwCallback=null,pwLevel=null,authedAdmin=false,authedBoss=false;
+let dashY=new Date().getFullYear(),dashM=new Date().getMonth()+1,dashChart=null;
+let dashExportData=null;
+let reportData=[],reportCosts=[],reportMonthFixeds={},currentTab='orders';
+let aiOpen=true;
 
-    orders: [],
-    costs: [],
-    
-    // Toggle UI States
-    formOpen: true,
-    costFormOpen: true,
-    fixedBodyOpen: true,
-    aiOpen: true,
-    
-    // Editing States
-    editId: null,
-    editCostId: null,
-    
-    // Multi Image Uploads
-    pendingUploadedFiles: [],
-    currentEditFileIds: [],
-    fImgs: { rent: [], elec: [], water: [] },
-    
-    // Dashboard & Report
-    dashY: new Date().getFullYear(),
-    dashM: new Date().getMonth() + 1,
-    dashChart: null,
-    dashExportData: null,
-    reportData: [],
-    reportCosts: [],
-    reportMonthFixeds: {},
+/* ── HELPERS ── */
+function todayStr(){const d=new Date();return`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;}
+function isPast(ds){return ds<todayStr();}
+function genDates(from,to){const dates=[];let[y,m,d]=from.split('-').map(Number);const[ty,tm,td]=to.split('-').map(Number);for(let i=0;i<366;i++){const ds=`${y}-${pad(m)}-${pad(d)}`;dates.push(ds);if(y===ty&&m===tm&&d===td)break;d++;if(d>daysInMonth(y,m)){d=1;m++;if(m>12){m=1;y++;}}}return dates;}
+function dateToYM(ds){const p=ds.split('-');return parseInt(p[1])+'_'+p[0];}
+function driveThumb(fId,sz='w200'){return fId?`https://drive.google.com/thumbnail?id=${fId}&sz=${sz}`:null;}
+function driveView(fId){return fId?`https://drive.google.com/uc?export=view&id=${fId}`:null;}
+function driveFullUrl(fId){return fId?`https://drive.google.com/file/d/${fId}/view`:null;}
+function getFileId(url){if(!url)return null;if(url.startsWith('drive:'))return url.slice(6);const m=url.match(/\/d\/([^\/\?]+)/);return m?m[1]:null;}
+function getFileIds(url){if(!url)return[];return url.split('|').map(u=>getFileId(u.trim())).filter(Boolean);}
+function normDate(s){if(!s)return'';s=String(s).trim();if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;const d=new Date(s);if(!isNaN(d.getTime()))return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());return s;}
 
-    // CSKH
-    cskhHistory: [],
-    cskhBusy: false
-};
+/* ── TOAST ── */
+let toastT;
+function toast(msg,err=false){clearTimeout(toastT);const t=$('toast');t.textContent=msg;t.className='toast show'+(err?' err':'');toastT=setTimeout(()=>t.classList.remove('show'),err?4000:2800);}
 
-// ==========================================
-// 3. API & CACHE LAYER
-// ==========================================
-const Api = {
-    _memCache: new Map(),
+/* ── API ── */
+async function api(params){const r=await fetch(SCRIPT_URL+'?'+new URLSearchParams(params));if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
+async function apiC(params){const k=new URLSearchParams(params).toString();const hit=cGet(k);if(hit)return hit;const r=await api(params);if(r.ok!==false)cSet(k,r);return r;}
+async function fetchRange(dates){return Promise.all(dates.map(d=>apiC({action:'getOrders',date:d}).then(r=>({date:d,orders:r.orders||[]})).catch(()=>({date:d,orders:[]}))));}
+async function apiPost(body){const r=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body)});if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 
-    cGet: key => {
-        const mem = Api._memCache.get(key);
-        if (mem && Date.now() - mem.t < CONFIG.CACHE_TTL) return mem.d;
-        try {
-            const raw = localStorage.getItem(CONFIG.CACHE_PREFIX + key);
-            if (!raw) return null;
-            const parsed = JSON.parse(raw);
-            if (Date.now() - parsed.t > CONFIG.CACHE_TTL) {
-                localStorage.removeItem(CONFIG.CACHE_PREFIX + key);
-                return null;
-            }
-            Api._memCache.set(key, parsed);
-            return parsed.d;
-        } catch (e) { return null; }
-    },
+/* ── AI PARSE ── */
+async function pasteToChat(){try{const text=await navigator.clipboard.readText();if(text){$('aiChat').value=text;toast('✓ Đã dán nội dung');}else{toast('Nội dung copy đang trống!',true);}}catch(e){toast('⚠️ Hãy ấn Ctrl+V để dán',true);$('aiChat').focus();}}
+async function parseChat(){
+  const chat=$('aiChat').value.trim();if(!chat){toast('Vui lòng dán đoạn chat vào!',true);return;}
+  $('aiBtnTxt').innerHTML='<span class="spinner"></span> Đang phân tích...';$('aiBtnSub').disabled=true;$('aiResult').innerHTML='';
+  try{
+    const res=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'parseAI',chat})});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();if(!data.ok)throw new Error(data.error||'Lỗi phân tích');
+    const o=data.order;
+    if(o.time)$('fTime').value=o.time;if(o.size)$('fSize').value=o.size;if(o.cakePrice)$('fCake').value=o.cakePrice;if(o.accPrice)$('fAcc').value=o.accPrice;if(o.acc)$('fAccDesc').value=o.acc;if(o.ship)$('fShip').value=o.ship;if(o.name)$('fName').value=o.name;if(o.phone)$('fPhone').value=o.phone;if(o.addr)$('fAddr').value=o.addr;if(o.note)$('fNote').value=o.note;
+    calc();if(!formOpen){formOpen=true;$('fbody').style.display='';$('fchev').style.transform='';}
+    const parts=[o.name&&`<b>👤</b> ${esc(o.name)}`,o.phone&&`<b>📞</b> ${esc(o.phone)}`,o.size&&`<b>🎂</b> ${esc(o.size)}`,o.cakePrice&&`<b>💰</b> ${o.cakePrice}k`,o.time&&`<b>🕐</b> ${esc(o.time)}`].filter(Boolean);
+    $('aiResult').innerHTML=`<div class="ai-ok">✅ <b>AI đã điền xong!</b> ${parts.join(' · ')}<br><span style="color:var(--cm);font-size:11px">↓ Kiểm tra lại form rồi bấm <b>Thêm đơn</b>.</span></div>`;
+    $('fcard').scrollIntoView({behavior:'smooth',block:'start'});toast('✓ AI đã phân tích và điền form!');
+  }catch(e){$('aiResult').innerHTML=`<div class="ai-err"><i class="ti ti-alert-triangle"></i> ${esc(e.message)}</div>`;toast('Lỗi AI: '+e.message,true);}
+  $('aiBtnTxt').textContent='Phân tích & tự điền form';$('aiBtnSub').disabled=false;
+}
+$('aiToggle').addEventListener('click',()=>{aiOpen=!aiOpen;$('aiBody').style.display=aiOpen?'':'none';$('aiChev').style.transform=aiOpen?'':'rotate(-90deg)';});
 
-    cSet: (key, data) => {
-        const payload = { d: data, t: Date.now() };
-        Api._memCache.set(key, payload);
-        try { localStorage.setItem(CONFIG.CACHE_PREFIX + key, JSON.stringify(payload)); } catch (e) {}
-    },
+/* ── TABS ── */
+function showTab(t){
+  if(['costs','dashboard','report'].includes(t)&&!authedBoss){requireAuth('boss',()=>showTab(t));return;}
+  currentTab=t;
+  ['orders','dashboard','report','costs','cskh'].forEach(id=>{$('tab-'+id).style.display=id===t?'':'none';$('tab-'+id+'-btn').classList.toggle('active',id===t);});
+  if(t==='dashboard')loadDash();if(t==='report')initReport();if(t==='costs')renderCosts();
+}
+function refreshCurrentTab(){if(currentTab==='orders')render();else if(currentTab==='costs')renderCosts();else if(currentTab==='dashboard')loadDash();}
 
-    cDel: pattern => {
-        Api._memCache.forEach((_, k) => { if (k.includes(pattern)) Api._memCache.delete(k); });
-        try {
-            Object.keys(localStorage)
-                .filter(k => k.startsWith(CONFIG.CACHE_PREFIX) && k.includes(pattern))
-                .forEach(k => localStorage.removeItem(k));
-        } catch (e) {}
-    },
+/* ── PASSWORD ── */
+function requireAuth(level,cb){
+  if(level==='admin'&&authedAdmin){cb();return;}if(level==='boss'&&authedBoss){cb();return;}
+  pwLevel=level;pwCallback=cb;
+  $('pwDesc').textContent=level==='admin'?'Nhập mật khẩu để sửa / xoá đơn hàng':'Nhập mật khẩu để truy cập phần này';
+  $('pwInput').value='';$('pwInput').classList.remove('pw-err');$('pwModal').style.display='flex';setTimeout(()=>$('pwInput').focus(),80);
+}
+async function pwConfirm(){
+  const val=$('pwInput').value.trim();if(!val)return;
+  const btn=$('pwConfirmBtn'),orig=btn.innerHTML;
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span>';$('pwInput').disabled=true;
+  try{
+    const r=await apiPost({action:'verifyPassword',level:pwLevel,pw:val});
+    if(r.ok){$('pwModal').style.display='none';if(pwLevel==='admin')authedAdmin=true;else authedBoss=true;if(pwCallback)pwCallback();pwCallback=null;}
+    else{$('pwInput').classList.add('pw-err');$('pwInput').value='';toast('Mật khẩu không đúng!',true);setTimeout(()=>$('pwInput').classList.remove('pw-err'),1500);$('pwInput').focus();}
+  }catch(e){toast('⚠️ Lỗi kết nối, thử lại!',true);}
+  btn.disabled=false;btn.innerHTML=orig;$('pwInput').disabled=false;
+}
+function pwCancel(){$('pwModal').style.display='none';pwCallback=null;}
 
-    get: async params => {
-        const res = await fetch(`${CONFIG.SCRIPT_URL}?${new URLSearchParams(params)}`);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-    },
+/* ── IMAGE COMPRESS ── */
+async function compressImage(file){return new Promise(resolve=>{const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(url);const MW=900,MH=700;let w=img.width,h=img.height;if(w>MW){h=Math.round(h*MW/w);w=MW;}if(h>MH){w=Math.round(w*MH/h);h=MH;}const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);resolve(cv.toDataURL('image/jpeg',.68));};img.src=url;});}
 
-    getCached: async params => {
-        const key = new URLSearchParams(params).toString();
-        const hit = Api.cGet(key);
-        if (hit) return hit;
-        const res = await Api.get(params);
-        if (res.ok !== false) Api.cSet(key, res);
-        return res;
-    },
+/* ── MULTI IMAGE – COST FORM ── */
+async function onImagesSelected(input){
+  const files=Array.from(input.files);if(!files.length)return;
+  $('cBtnSub').disabled=true;$('cBtnTxt').textContent=`Đang tải ${files.length} ảnh...`;
+  for(const file of files){
+    try{
+      const b64=await compressImage(file);
+      const base64=b64.split(',')[1],ext=b64.startsWith('data:image/png')?'png':'jpg';
+      const r=await apiPost({action:'uploadImage',base64,ext});
+      if(!r.ok)throw new Error(r.error||'Upload thất bại');
+      costImages.push({fileId:r.fileId,previewSrc:b64,isNew:true});
+      renderCostImageGrid();
+    }catch(e){toast('⚠️ Lỗi tải ảnh: '+e.message,true);}
+  }
+  input.value='';$('cBtnSub').disabled=false;
+  $('cBtnTxt').textContent=editCostId?'Cập nhật':'Thêm chi phí';
+  const cnt=costImages.filter(i=>i.isNew).length;if(cnt)toast(`✓ Đã tải ${cnt} ảnh lên Drive`);
+}
+function renderCostImageGrid(){
+  const grid=$('cImgGrid');
+  if(!costImages.length){grid.innerHTML='';return;}
+  grid.innerHTML=costImages.map((img,i)=>`
+    <div class="img-thumb-item">
+      <img src="${img.previewSrc||driveThumb(img.fileId,'w200')}" onclick="openImgViewer('${img.previewSrc||driveView(img.fileId)}')" onerror="this.src=''" loading="lazy">
+      <button type="button" class="img-thumb-del" onclick="removeCostImage(${i})"><i class="ti ti-x"></i></button>
+    </div>`).join('');
+}
+async function removeCostImage(idx){
+  const img=costImages[idx];
+  if(img.isNew)apiPost({action:'deleteImage',fileId:img.fileId}).catch(()=>{});
+  costImages.splice(idx,1);renderCostImageGrid();
+}
+function getCostImageUrl(){return costImages.map(img=>driveFullUrl(img.fileId)).join('|');}
+function loadCostImages(imageUrl){costImages=[];getFileIds(imageUrl).forEach(fId=>costImages.push({fileId:fId,previewSrc:null,isNew:false}));renderCostImageGrid();}
 
-    post: async body => {
-        const res = await fetch(CONFIG.SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(body)
-        });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-    },
+function openImgViewer(src){const ov=document.createElement('div');ov.className='img-viewer';ov.innerHTML=`<img src="${src}" onerror="this.src=''">`;ov.onclick=()=>ov.remove();document.body.appendChild(ov);}
 
-    fetchRange: async dates => {
-        return Promise.all(dates.map(d => 
-            Api.getCached({ action: 'getOrders', date: d })
-                .then(r => ({ date: d, orders: r.orders || [] }))
-                .catch(() => ({ date: d, orders: [] }))
-        ));
-    }
-};
+/* ── FIXED COST IMAGES ── */
+let fImgs={rent:null,elec:null,water:null};
+const capitalize=s=>s.charAt(0).toUpperCase()+s.slice(1);
+function showFixedImg(type,url){const box=$(`f${capitalize(type)}ImgBox`),link=$(`f${capitalize(type)}ImgLink`);if(url){box.style.display='flex';link.href=url;fImgs[type]=url;}else{box.style.display='none';link.href='#';fImgs[type]=null;}}
+async function uploadFixedImg(type,input){const file=input.files[0];if(!file)return;$('fixedSaveBtn').disabled=true;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang tải ảnh...';try{const b64=await compressImage(file);const base64=b64.split(',')[1],ext=b64.startsWith('data:image/png')?'png':'jpg';const r=await apiPost({action:'uploadImage',base64,ext});if(!r.ok)throw new Error(r.error);if(fImgs[type])apiPost({action:'deleteImage',fileId:getFileId(fImgs[type])}).catch(()=>{});showFixedImg(type,driveFullUrl(r.fileId));toast('✓ Đã tải ảnh lên Drive');}catch(e){toast('⚠️ Lỗi up ảnh: '+e.message,true);}$('fixedSaveBtn').disabled=false;$('fixedBtnTxt').textContent='Lưu chi phí cố định';input.value='';}
+function clearFixedImg(type){if(fImgs[type]){apiPost({action:'deleteImage',fileId:getFileId(fImgs[type])}).catch(()=>{});showFixedImg(type,null);}}
+function calcFixed(){$('fixedTotal').textContent=fmt((n($('fRent').value)+n($('fElec').value)+n($('fWater').value))*1000);}
 
-// ==========================================
-// 4. EXTERNAL LIBRARIES LOADER
-// ==========================================
-const Libs = {
-    xlLoaded: false,
-    chLoaded: false,
-    loadExcel: () => {
-        if (Libs.xlLoaded) return Promise.resolve();
-        return new Promise((res, rej) => {
-            const s = document.createElement('script');
-            s.src = 'https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js';
-            s.onload = () => { Libs.xlLoaded = true; res(); };
-            s.onerror = rej; document.head.appendChild(s);
-        });
-    },
-    loadChart: () => {
-        if (Libs.chLoaded) return Promise.resolve();
-        return new Promise((res, rej) => {
-            const s = document.createElement('script');
-            s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
-            s.onload = () => { Libs.chLoaded = true; res(); };
-            s.onerror = rej; document.head.appendChild(s);
-        });
-    }
-};
+/* ── ORDER FORM ── */
+function calc(){const c=n($('fCake').value)*1000,a=n($('fAcc').value)*1000,s=n($('fShip').value)*1000;$('aSum').textContent=fmt(c+a);$('aTot').textContent=fmt(c+a+s);}
+function updateMetrics(orders){const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship=orders.reduce((s,o)=>s+n(o.ship),0);$('mCount').textContent=orders.length;$('mCake').textContent=fmt(cake);$('mShip').textContent=fmt(ship);$('mTotal').textContent=fmt(cake+ship);}
+function updateFormLock(){const locked=isPast($('selDate').value)&&editId===null;$('pastNotice').style.display=locked?'':'none';$('btnSub').disabled=locked;}
+function renderTable(){
+  if(!currentOrders.length){$('tbody').innerHTML=`<tr><td colspan="14" class="es"><i class="ti ti-clipboard-list" style="font-size:24px;display:block;margin:0 auto 8px"></i>Chưa có đơn nào</td></tr>`;$('tfoot').innerHTML='';return;}
+  $('tbody').innerHTML=currentOrders.map((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);const isTemp=String(o.id).startsWith('_tmp');return`<tr ${editId===o.id?'class="hi"':''} style="${isTemp?'opacity:.55':''}"><td>${i+1}</td><td>${esc(o.time)}</td><td>${esc(o.size)}</td><td>${fmt(o.cakePrice)}</td><td>${fmt(o.accPrice)}</td><td title="${esc(o.acc)}">${esc(o.acc)}</td><td class="red">${fmt(sum)}</td><td>${fmt(o.ship)}</td><td class="red">${fmt(tot)}</td><td title="${esc(o.name)}">${esc(o.name)}</td><td>${esc(o.phone)}</td><td title="${esc(o.addr)}">${esc(o.addr)}</td><td title="${esc(o.note)}">${esc(o.note)}</td><td style="display:flex;gap:2px;padding:4px 3px">${isTemp?'<span class="sk"></span>':(`<button class="abtn e" onclick="startEdit('${o.id}')"><i class="ti ti-pencil"></i></button><button class="abtn d" onclick="delOrder('${o.id}')"><i class="ti ti-trash"></i></button>`)}</td></tr>`;}).join('');
+  const tC=currentOrders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),tS=currentOrders.reduce((s,o)=>s+n(o.ship),0);
+  $('tfoot').innerHTML=`<tr class="trow"><td colspan="6" style="text-align:right">TỔNG</td><td>${fmt(tC)}</td><td>${fmt(tS)}</td><td>${fmt(tC+tS)}</td><td colspan="5"></td></tr>`;
+}
+async function render(){
+  const date=$('selDate').value,pKey={action:'getOrders',date};const cached=cGet(new URLSearchParams(pKey).toString());
+  if(cached){currentOrders=cached.orders||[];renderTable();updateMetrics(currentOrders);updateFormLock();api(pKey).then(r=>{if(!r.ok)return;cSet(new URLSearchParams(pKey).toString(),r);currentOrders=r.orders||[];renderTable();updateMetrics(currentOrders);}).catch(()=>{});return;}
+  $('tbody').innerHTML=`<tr><td colspan="14" class="es"><span class="sk"></span>Đang tải...</td></tr>`;$('tfoot').innerHTML='';
+  try{const r=await api(pKey);if(!r.ok)throw new Error(r.error);cSet(new URLSearchParams(pKey).toString(),r);currentOrders=r.orders||[];renderTable();updateMetrics(currentOrders);}
+  catch(e){$('tbody').innerHTML=`<tr><td colspan="14" class="es">⚠️ ${esc(e.message)}</td></tr>`;updateMetrics([]);toast('Lỗi: '+e.message,true);}
+  updateFormLock();
+}
+function getForm(){return{time:$('fTime').value,size:$('fSize').value,cakePrice:n($('fCake').value)*1000,accPrice:n($('fAcc').value)*1000,acc:$('fAccDesc').value,ship:n($('fShip').value)*1000,name:$('fName').value,phone:$('fPhone').value,addr:$('fAddr').value,note:$('fNote').value};}
+function setForm(o){$('fTime').value=o.time||'';$('fSize').value=o.size||'';$('fCake').value=o.cakePrice?o.cakePrice/1000:'';$('fAcc').value=o.accPrice?o.accPrice/1000:'';$('fAccDesc').value=o.acc||'';$('fShip').value=o.ship?o.ship/1000:'';$('fName').value=o.name||'';$('fPhone').value=o.phone||'';$('fAddr').value=o.addr||'';$('fNote').value=o.note||'';calc();}
+async function submitOrder(){
+  if(isPast($('selDate').value)&&editId===null){toast('Không thể thêm đơn cho ngày đã qua!',true);return;}
+  const date=$('selDate').value,o={...getForm(),date};const isEdit=editId!==null;let tempId=null;
+  if(!isEdit){tempId='_tmp_'+Date.now();currentOrders=[...currentOrders,{...o,id:tempId}];renderTable();updateMetrics(currentOrders);cancelEdit();}
+  $('btnSub').disabled=true;$('btnTxt').textContent='Đang lưu...';
+  try{await api(isEdit?{action:'updateOrder',data:JSON.stringify({id:editId,order:o})}:{action:'addOrder',data:JSON.stringify(o)});toast(isEdit?'✓ Đã cập nhật đơn!':'✓ Đã thêm đơn hàng!');cDel(date);if(isEdit)cancelEdit();await render();}
+  catch(e){if(tempId)currentOrders=currentOrders.filter(x=>x.id!==tempId);renderTable();updateMetrics(currentOrders);toast('⚠️ '+e.message,true);}
+  $('btnSub').disabled=false;$('btnTxt').textContent=isEdit?'Cập nhật đơn':'Thêm đơn';updateFormLock();
+}
+function startEdit(id){requireAuth('admin',()=>{const o=currentOrders.find(x=>x.id===id);if(!o)return;setForm(o);editId=id;$('fTitle').textContent='Sửa đơn – '+(o.name||'');$('fIcon').className='ti ti-pencil';$('btnTxt').textContent='Cập nhật đơn';$('btnCancel').style.display='';$('fcard').classList.add('editing');$('pastNotice').style.display='none';$('btnSub').disabled=false;if(!formOpen){formOpen=true;$('fbody').style.display='';$('fchev').style.transform='';}$('fcard').scrollIntoView({behavior:'smooth'});render();});}
+function cancelEdit(){editId=null;setForm({});$('fTitle').textContent='Thêm đơn hàng mới';$('fIcon').className='ti ti-plus';$('btnTxt').textContent='Thêm đơn';$('btnCancel').style.display='none';$('fcard').classList.remove('editing');updateFormLock();}
+async function delOrder(id){requireAuth('admin',async()=>{if(!confirm('Xóa đơn hàng này?'))return;try{const r=await api({action:'deleteOrder',id,date:$('selDate').value});if(!r.ok)throw new Error(r.error);cDel($('selDate').value);if(editId===id)cancelEdit();await render();toast('Đã xóa đơn.');}catch(e){toast('⚠️ '+e.message,true);}});}
+$('ftoggle').addEventListener('click',()=>{formOpen=!formOpen;$('fbody').style.display=formOpen?'':'none';$('fchev').style.transform=formOpen?'':'rotate(-90deg)';});
 
-// ==========================================
-// 5. UI COMPONENTS & RENDERERS
-// ==========================================
-const UI = {
-    toastTimer: null,
-    
-    toast: (msg, isErr = false) => {
-        clearTimeout(UI.toastTimer);
-        const t = Utils.$('toast');
-        t.textContent = msg;
-        t.className = 'toast show' + (isErr ? ' err' : '');
-        UI.toastTimer = setTimeout(() => t.classList.remove('show'), isErr ? 3500 : 2500);
-    },
+/* ── COSTS CRUD ── */
+async function renderCosts(){
+  const date=$('selDate').value;const[y,m]=[date.split('-')[0],date.split('-')[1]];$('fixedMonthBadge').textContent=`Tháng ${parseInt(m)}/${y}`;
+  const pKey={action:'getCosts',date};const cached=cGet(new URLSearchParams(pKey).toString());
+  if(cached){currentCosts=cached.costs||[];_renderCostTable();api(pKey).then(r=>{if(!r.ok)return;cSet(new URLSearchParams(pKey).toString(),r);currentCosts=r.costs||[];_renderCostTable();}).catch(()=>{});loadFixedCosts();return;}
+  $('costTbody').innerHTML=`<tr><td colspan="8" class="es"><span class="sk"></span>Đang tải...</td></tr>`;$('costTfoot').innerHTML='';
+  try{const r=await api(pKey);if(!r.ok)throw new Error(r.error);cSet(new URLSearchParams(pKey).toString(),r);currentCosts=r.costs||[];_renderCostTable();}
+  catch(e){$('costTbody').innerHTML=`<tr><td colspan="8" class="es">⚠️ ${esc(e.message)}</td></tr>`;toast('Lỗi: '+e.message,true);}
+  loadFixedCosts();
+}
+function _renderCostTable(){
+  const tP=currentCosts.reduce((s,c)=>s+n(c.price),0),tA=currentCosts.reduce((s,c)=>s+n(c.adCost),0);
+  $('cCount').textContent=currentCosts.length;$('cPurchase').textContent=fmt(tP);$('cAd').textContent=fmt(tA);$('cDayTotal').textContent=fmt(tP+tA);
+  if(!currentCosts.length){$('costTbody').innerHTML=`<tr><td colspan="8" class="es"><i class="ti ti-coins" style="font-size:24px;display:block;margin:0 auto 8px"></i>Chưa có chi phí nào</td></tr>`;$('costTfoot').innerHTML='';return;}
+  $('costTbody').innerHTML=currentCosts.map((c,i)=>{
+    const fIds=getFileIds(c.imageUrl);
+    const imgCell=fIds.length?fIds.map(fId=>`<img class="img-thumb" src="${driveThumb(fId)}" onclick="openImgViewer('${driveView(fId)}')" onerror="this.style.display='none'" loading="lazy">`).join(''):'–';
+    return`<tr ${editCostId===c.id?'class="hi"':''}><td>${i+1}</td><td title="${esc(c.supplier)}">${esc(c.supplier)||'–'}</td><td title="${esc(c.product)}">${esc(c.product)||'–'}</td><td class="red">${c.price?fmt(c.price):'–'}</td><td>${c.adCost?fmt(c.adCost):'–'}</td><td class="img-cell">${imgCell}</td><td title="${esc(c.note)}">${esc(c.note)||'–'}</td><td style="display:flex;gap:2px;padding:4px 3px"><button class="abtn e" onclick="startCostEdit('${c.id}')"><i class="ti ti-pencil"></i></button><button class="abtn d" onclick="delCost('${c.id}')"><i class="ti ti-trash"></i></button></td></tr>`;
+  }).join('');
+  $('costTfoot').innerHTML=`<tr class="trow"><td colspan="3" style="text-align:right">TỔNG</td><td>${fmt(tP)}</td><td>${fmt(tA)}</td><td colspan="3"></td></tr>`;
+}
+async function submitCost(){
+  const date=$('selDate').value,isEdit=editCostId!==null;
+  const imageUrl=getCostImageUrl();
+  const costData={date,supplier:$('cSupplier').value.trim(),product:$('cProduct').value.trim(),price:n($('cPrice').value)*1000,imageUrl,adCost:n($('cAdCost').value)*1000,note:$('cNote').value.trim()};
+  $('cBtnTxt').textContent=isEdit?'Đang cập nhật...':'Đang thêm...';$('cBtnSub').disabled=true;
+  try{
+    if(isEdit){await api({action:'updateCost',data:JSON.stringify({id:editCostId,cost:costData})});toast('✓ Đã cập nhật chi phí!');}
+    else{const r=await api({action:'addCost',data:JSON.stringify(costData)});if(!r.ok)throw new Error(r.error||'Lỗi thêm chi phí');toast('✓ Đã thêm chi phí!');}
+    costImages=[];cancelCostEdit();cDel($('selDate').value);await renderCosts();
+  }catch(e){toast('⚠️ '+e.message,true);}
+  $('cBtnTxt').textContent=isEdit?'Cập nhật':'Thêm chi phí';$('cBtnSub').disabled=false;
+}
+function startCostEdit(id){requireAuth('boss',()=>{
+  const c=currentCosts.find(x=>x.id===id);if(!c)return;
+  $('cSupplier').value=c.supplier||'';$('cProduct').value=c.product||'';$('cPrice').value=c.price?c.price/1000:'';$('cAdCost').value=c.adCost?c.adCost/1000:'';$('cNote').value=c.note||'';
+  editCostId=id;loadCostImages(c.imageUrl);
+  $('cTitle').textContent='Sửa chi phí – '+(c.supplier||c.product||'');$('cIcon').className='ti ti-pencil';$('cBtnTxt').textContent='Cập nhật';$('cBtnCancel').style.display='';$('costCard').classList.add('editing');
+  if(!costFormOpen){costFormOpen=true;$('costBody').style.display='';$('cchev').style.transform='';}
+  $('costCard').scrollIntoView({behavior:'smooth'});renderCosts();
+});}
+function cancelCostEdit(){
+  costImages.filter(i=>i.isNew).forEach(img=>apiPost({action:'deleteImage',fileId:img.fileId}).catch(()=>{}));
+  costImages=[];renderCostImageGrid();editCostId=null;
+  $('cSupplier').value='';$('cProduct').value='';$('cPrice').value='';$('cAdCost').value='';$('cNote').value='';
+  $('cTitle').textContent='Thêm chi phí mới';$('cIcon').className='ti ti-plus';$('cBtnTxt').textContent='Thêm chi phí';$('cBtnCancel').style.display='none';$('costCard').classList.remove('editing');
+}
+async function delCost(id){requireAuth('boss',async()=>{
+  if(!confirm('Xóa mục chi phí này?'))return;const c=currentCosts.find(x=>x.id===id);
+  try{const r=await api({action:'deleteCost',id,date:$('selDate').value});if(!r.ok)throw new Error(r.error);getFileIds(c?.imageUrl).forEach(fId=>apiPost({action:'deleteImage',fileId:fId}).catch(()=>{}));if(editCostId===id)cancelCostEdit();cDel($('selDate').value);await renderCosts();toast('Đã xóa mục chi phí.');}catch(e){toast('⚠️ '+e.message,true);}
+});}
+$('costtoggle').addEventListener('click',()=>{costFormOpen=!costFormOpen;$('costBody').style.display=costFormOpen?'':'none';$('cchev').style.transform=costFormOpen?'':'rotate(-90deg)';});
+$('fixedToggle').addEventListener('click',()=>{fixedBodyOpen=!fixedBodyOpen;$('fixedBody').style.display=fixedBodyOpen?'':'none';$('fixedChev').style.transform=fixedBodyOpen?'':'rotate(-90deg)';});
+async function loadFixedCosts(){const[y,m]=$('selDate').value.split('-');try{const r=await api({action:'getFixedCosts',yearMonth:parseInt(m)+'_'+y});if(r.ok){$('fRent').value=r.rent?r.rent/1000:'';showFixedImg('rent',r.rentImg);$('fElec').value=r.elec?r.elec/1000:'';showFixedImg('elec',r.elecImg);$('fWater').value=r.water?r.water/1000:'';showFixedImg('water',r.waterImg);calcFixed();}}catch(e){}}
+async function saveFixed(){const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;$('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;try{await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent,elec:n($('fElec').value)*1000,elecImg:fImgs.elec,water:n($('fWater').value)*1000,waterImg:fImgs.water})});toast('✓ Đã lưu chi phí cố định!');}catch(e){toast('⚠️ '+e.message,true);}$('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;}
 
-    openImgViewer: src => {
-        const ov = document.createElement('div');
-        ov.className = 'modal-overlay';
-        ov.style.cssText = 'z-index:10001; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center;';
-        ov.innerHTML = `<img src="${src}" style="max-width:90vw; max-height:90vh; border-radius:8px; box-shadow:0 10px 40px rgba(0,0,0,0.5);" onerror="this.src=''">`;
-        ov.onclick = () => ov.remove();
-        document.body.appendChild(ov);
-    },
-
-    renderOrdersTable: () => {
-        const tbody = Utils.$('tbody');
-        const tfoot = Utils.$('tfoot');
-        
-        if (!State.orders.length) {
-            tbody.innerHTML = `<tr><td colspan="14" style="text-align:center; padding: 3rem 1rem; color: #999;">Khoảng trắng dữ liệu</td></tr>`;
-            tfoot.innerHTML = '';
-            return;
-        }
-
-        tbody.innerHTML = State.orders.map((o, i) => {
-            const sum = Utils.n(o.cakePrice) + Utils.n(o.accPrice);
-            const tot = sum + Utils.n(o.ship);
-            const isTemp = String(o.id).startsWith('_tmp');
-            
-            return `<tr ${State.editId === o.id ? 'class="hi"' : ''} style="${isTemp ? 'opacity:.5' : ''}">
-                <td>${i + 1}</td>
-                <td><span style="background: white; border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; font-weight: 600; font-size: 11.5px;">${Utils.esc(o.time)}</span></td>
-                <td title="${Utils.esc(o.size)}">${Utils.esc(o.size)}</td>
-                <td class="num-align">${Utils.fmt(o.cakePrice)}</td>
-                <td class="num-align">${Utils.fmt(o.accPrice)}</td>
-                <td title="${Utils.esc(o.acc)}">${Utils.esc(o.acc)}</td>
-                <td class="num-align red">${Utils.fmt(sum)}</td>
-                <td class="num-align">${Utils.fmt(o.ship)}</td>
-                <td class="num-align red" style="font-weight:800; font-size: 14.5px;">${Utils.fmt(tot)}</td>
-                <td title="${Utils.esc(o.name)}"><b>${Utils.esc(o.name)}</b></td>
-                <td>${Utils.esc(o.phone)}</td>
-                <td title="${Utils.esc(o.addr)}">${Utils.esc(o.addr)}</td>
-                <td title="${Utils.esc(o.note)}" style="color: var(--text-muted);">${Utils.esc(o.note)}</td>
-                <td style="display:flex;gap:4px;">
-                    ${isTemp ? '<span class="sk"></span>' : `<button class="abtn e" onclick="startEdit('${o.id}')"><i class="ti ti-edit"></i></button><button class="abtn d" onclick="delOrder('${o.id}')"><i class="ti ti-trash"></i></button>`}
-                </td>
-            </tr>`;
-        }).join('');
-
-        const tC = State.orders.reduce((s, o) => s + Utils.n(o.cakePrice) + Utils.n(o.accPrice), 0);
-        const tS = State.orders.reduce((s, o) => s + Utils.n(o.ship), 0);
-        tfoot.innerHTML = `<tr class="trow">
-            <td colspan="6" style="text-align:right">TỔNG KẾT PHIÊN:</td>
-            <td class="num-align">${Utils.fmt(tC)}</td>
-            <td class="num-align">${Utils.fmt(tS)}</td>
-            <td class="num-align" style="font-size: 15px;">${Utils.fmt(tC + tS)}</td>
-            <td colspan="5"></td>
-        </tr>`;
-    },
-
-    updateOrderMetrics: () => {
-        const cake = State.orders.reduce((s, o) => s + Utils.n(o.cakePrice) + Utils.n(o.accPrice), 0);
-        const ship = State.orders.reduce((s, o) => s + Utils.n(o.ship), 0);
-        Utils.$('mCount').textContent = State.orders.length;
-        Utils.$('mCake').textContent = Utils.fmt(cake);
-        Utils.$('mShip').textContent = Utils.fmt(ship);
-        Utils.$('mTotal').textContent = Utils.fmt(cake + ship);
-    },
-
-    renderCostTable: () => {
-        const tP = State.costs.reduce((s, c) => s + Utils.n(c.price), 0);
-        const tA = State.costs.reduce((s, c) => s + Utils.n(c.adCost), 0);
-        
-        Utils.$('cCount').textContent = State.costs.length;
-        Utils.$('cPurchase').textContent = Utils.fmt(tP);
-        Utils.$('cAd').textContent = Utils.fmt(tA);
-        Utils.$('cDayTotal').textContent = Utils.fmt(tP + tA);
-        
-        if (!State.costs.length) {
-            Utils.$('costTbody').innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 2rem; color:#999">Chưa phát sinh luồng chi.</td></tr>`;
-            Utils.$('costTfoot').innerHTML = '';
-            return;
-        }
-
-        Utils.$('costTbody').innerHTML = State.costs.map((c, i) => {
-            const fIds = Utils.getFileIds(c.imageUrl);
-            const imgCell = fIds.length 
-                ? fIds.map(id => `<img class="img-thumb" src="${Utils.driveThumb(id)}" style="margin:2px;cursor:pointer" onclick="openImgViewer('${Utils.driveView(id)}')">`).join('') 
-                : '<span style="font-size:11px;color:#aaa">No File</span>';
-            
-            return `<tr ${State.editCostId === c.id ? 'class="hi"' : ''}>
-                <td>${i + 1}</td>
-                <td><b>${Utils.dateToYM(c.date).split('_').reverse().join('/')}</b></td>
-                <td title="${Utils.esc(c.supplier)}"><b>${Utils.esc(c.supplier) || '-'}</b></td>
-                <td title="${Utils.esc(c.product)}">${Utils.esc(c.product) || '-'}</td>
-                <td class="num-align red">${c.price ? Utils.fmt(c.price) : '-'}</td>
-                <td class="num-align" style="font-weight:600;">${c.adCost ? Utils.fmt(c.adCost) : '-'}</td>
-                <td title="${Utils.esc(c.note)}">${Utils.esc(c.note) || '-'}</td>
-                <td class="img-cell">
-                    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px; margin-bottom:4px;">${imgCell}</div>
-                    <div style="display:flex; justify-content:center; gap:4px;">
-                        <button class="abtn e" onclick="startCostEdit('${c.id}')"><i class="ti ti-edit"></i></button>
-                        <button class="abtn d" onclick="delCost('${c.id}')"><i class="ti ti-trash"></i></button>
-                    </div>
-                </td>
-            </tr>`;
-        }).join('');
-
-        Utils.$('costTfoot').innerHTML = `<tr class="trow"><td colspan="4" style="text-align:right">TỔNG KHÓA SỔ:</td><td class="num-align">${Utils.fmt(tP)}</td><td class="num-align">${Utils.fmt(tA)}</td><td colspan="2"></td></tr>`;
-    },
-
-    renderCostImagePreviews: () => {
-        const container = Utils.$('cImgList');
-        container.innerHTML = '';
-        if (State.currentEditFileIds.length === 0 && State.pendingUploadedFiles.length === 0) {
-            Utils.$('cImgPreview').style.display = 'none';
-            Utils.$('cImgDropContent').style.display = 'block';
-            return;
-        }
-        Utils.$('cImgPreview').style.display = 'flex';
-        Utils.$('cImgDropContent').style.display = 'none';
-
-        State.currentEditFileIds.forEach(id => {
-            container.innerHTML += `<div class="img-thumb-wrap" style="margin-bottom:0;"><img src="${Utils.driveThumb(id)}" class="img-thumb" style="max-height:40px;max-width:55px;" onclick="openImgViewer('${Utils.driveView(id)}')"><button type="button" class="del-img-btn" style="width:16px;height:16px;font-size:10px;top:-4px;right:-4px;" onclick="removeCostImage('${id}', true)">×</button></div>`;
-        });
-        State.pendingUploadedFiles.forEach(id => {
-            container.innerHTML += `<div class="img-thumb-wrap" style="margin-bottom:0;"><img src="${Utils.driveThumb(id)}" class="img-thumb" style="max-height:40px;max-width:55px;border-color:var(--green)" onclick="openImgViewer('${Utils.driveView(id)}')"><button type="button" class="del-img-btn" style="width:16px;height:16px;font-size:10px;top:-4px;right:-4px;" onclick="removeCostImage('${id}', false)">×</button></div>`;
-        });
-    },
-
-    renderFixedImgs: (type) => {
-        const boxId = `f${Utils.capitalize(type)}ImgBox`;
-        const box = Utils.$(boxId);
-        if (!box) return;
-
-        box.innerHTML = '';
-        if (State.fImgs[type].length === 0) {
-            box.style.display = 'none';
-            return;
-        }
-        
-        box.style.display = 'flex';
-        State.fImgs[type].forEach(url => {
-            const id = Utils.getFileId(url);
-            if (id) {
-                box.innerHTML += `<div class="img-thumb-wrap" style="margin-bottom:0;"><img src="${Utils.driveThumb(id)}" class="img-thumb" style="max-height:30px;max-width:40px;" onclick="openImgViewer('${Utils.driveView(id)}')"><button type="button" class="del-img-btn" style="width:16px;height:16px;font-size:10px;top:-4px;right:-4px;" onclick="removeFixedImg('${type}', '${id}')">×</button></div>`;
-            }
-        });
-    }
-};
-
-// ==========================================
-// 6. CORE LOGIC (Lưu đồ Nghiệp vụ)
-// ==========================================
-
-// --- AUTHENTICATION ---
-function requireAuth(level, cb) {
-    if (level === 'admin' && State.authedAdmin) { cb(); return; }
-    if (level === 'boss' && State.authedBoss) { cb(); return; }
-    
-    State.pwLevel = level;
-    State.pwCallback = cb;
-    
-    Utils.$('pwDesc').textContent = level === 'admin' ? 'Cần mật khẩu để Thao tác Dữ liệu.' : 'Khu vực yêu cầu Quyền Quản trị.';
-    Utils.$('pwInput').value = '';
-    Utils.$('pwInput').style.borderColor = '';
-    Utils.$('pwModal').style.display = 'flex';
-    setTimeout(() => Utils.$('pwInput').focus(), 80);
+/* ── EXCEL – ORDERS ── */
+function onClickXlsx(){requireAuth('boss',()=>{const t=todayStr();$('xlsxFrom').value=t;$('xlsxTo').value=t;$('xlsxModal').style.display='flex';});}
+async function doExportRange(){
+  await loadExcelJS();const from=$('xlsxFrom').value,to=$('xlsxTo').value;if(!from||!to){toast('Vui lòng chọn ngày!',true);return;}if(from>to){toast('Ngày bắt đầu phải ≤ ngày kết thúc!',true);return;}
+  $('xlsxBtnTxt').innerHTML='<span class="spinner"></span> Đang tải...';$('xlsxBtn').disabled=true;
+  try{const results=await fetchRange(genDates(from,to));await buildExcel(results,from===to?from:`${from}→${to}`,from===to?`Toulouse_${from}.xlsx`:`Toulouse_${from}_${to}.xlsx`);$('xlsxModal').style.display='none';}catch(e){toast('Lỗi: '+e.message,true);}
+  $('xlsxBtnTxt').innerHTML='Xuất Excel';$('xlsxBtn').disabled=false;
+}
+async function buildExcel(results,titleLabel,filename){
+  const hasAny=results.some(r=>r.orders.length);if(!hasAny){toast('Không có đơn nào!',true);return;}
+  const wb=new ExcelJS.Workbook(),ws=wb.addWorksheet('Đơn hàng');ws.columns=[{width:6},{width:12},{width:10},{width:12},{width:13},{width:13},{width:18},{width:16},{width:13},{width:17},{width:18},{width:14},{width:24},{width:20}];
+  const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Arial',bold,color:{argb},size:sz});const xal=(h='center',v='middle')=>({horizontal:h,vertical:v});
+  ws.mergeCells('A1:N1');const r1=ws.getRow(1);r1.height=26;const t1=r1.getCell(1);t1.value=`Đơn hàng Toulouse – ${titleLabel}`;t1.font=xn(true,'FFFFFFFF',13);t1.fill=xf('FF1F4E78');t1.alignment=xal();
+  const hdrs=['STT','Ngày','Giờ giao','Size bánh','Giá bánh','Giá PK','Phụ kiện','Tổng (bánh+PK)','Giá ship','Tổng cộng','Tên khách','SĐT','Địa chỉ','Ghi chú'];
+  const r2=ws.getRow(2);r2.height=20;hdrs.forEach((h,i)=>{const c=r2.getCell(i+1);c.value=h;c.font=xn(false,'FFFFFFFF');c.fill=xf('FF4472C4');c.alignment=xal();});
+  let ri=3,gCake=0,gShip=0;
+  results.forEach(({date,orders})=>{if(!orders.length)return;const[y,mo,d]=date.split('-');const dC=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),dS=orders.reduce((s,o)=>s+n(o.ship),0);gCake+=dC;gShip+=dS;ws.mergeCells(`A${ri}:N${ri}`);const dhr=ws.getRow(ri);dhr.height=18;const dhc=dhr.getCell(1);dhc.value=`Ngày ${d}/${mo}/${y}  (${orders.length} đơn)`;dhc.font=xn(true,'FF4A5E1C',11);dhc.fill=xf('FFE8EDD6');dhc.alignment={horizontal:'left',vertical:'middle'};ri++;orders.forEach((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);const rr=ws.getRow(ri);rr.height=17;[i+1,`${d}/${mo}/${y}`,o.time||'',o.size||'',n(o.cakePrice),n(o.accPrice),o.acc||'',sum,n(o.ship),tot,o.name||'',o.phone||'',o.addr||'',o.note||''].forEach((v,ci)=>{const cc=rr.getCell(ci+1);cc.value=v;cc.font=xn(false,(ci===7||ci===9)?'FFC00000':'FF000000');cc.fill=xf('FFFFFFFF');});ri++;});const sr=ws.getRow(ri);sr.height=15;const sv=Array(14).fill('');sv[6]=`Cộng ${d}/${mo}:`;sv[7]=dC;sv[8]=dS;sv[9]=dC+dS;sv.forEach((v,ci)=>{const cc=sr.getCell(ci+1);cc.value=v;cc.font=xn(true,'FF6B7A2E',10);cc.fill=xf('FFF5F7EE');if(ci===6)cc.alignment={horizontal:'right'};});ri++;});
+  const gr=ws.getRow(ri);gr.height=22;const gv=Array(14).fill('');gv[6]='TỔNG';gv[7]=gCake;gv[8]=gShip;gv[9]=gCake+gShip;gv.forEach((v,ci)=>{const cc=gr.getCell(ci+1);cc.value=v;cc.font=xn(true,'FFC00000',11);cc.fill=xf('FFC6E0B4');});
+  const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);toast(`✓ Đã xuất ${filename}`);
 }
 
-window.pwConfirm = async function() {
-    const val = Utils.$('pwInput').value.trim();
-    if (!val) return;
-    
-    const btn = Utils.$('pwConfirmBtn');
-    const orig = btn.innerHTML;
-    
-    btn.disabled = true; btn.innerHTML = '...';
-    Utils.$('pwInput').disabled = true;
-    
-    try {
-        const r = await Api.post({ action: 'verifyPassword', level: State.pwLevel, pw: val });
-        if (r.ok) {
-            Utils.$('pwModal').style.display = 'none';
-            if (State.pwLevel === 'admin') State.authedAdmin = true;
-            else State.authedBoss = true;
-            
-            if (State.pwCallback) State.pwCallback();
-            State.pwCallback = null;
-        } else {
-            Utils.$('pwInput').style.borderColor = 'var(--red)';
-            Utils.$('pwInput').value = '';
-            UI.toast('Sai khóa bảo mật!', true);
-            setTimeout(() => Utils.$('pwInput').style.borderColor = '', 1500);
-            Utils.$('pwInput').focus();
-        }
-    } catch (e) {
-        UI.toast('Lỗi rớt mạng.', true);
-    }
-    
-    btn.disabled = false; btn.innerHTML = orig;
-    Utils.$('pwInput').disabled = false;
-};
-
-window.pwCancel = function() {
-    Utils.$('pwModal').style.display = 'none';
-    State.pwCallback = null;
-};
-
-// --- NAVIGATION & TABS ---
-window.showTab = function(t) {
-    if (['costs', 'dashboard', 'report'].includes(t) && !State.authedBoss) {
-        requireAuth('boss', () => showTab(t));
-        return;
-    }
-    
-    State.currentTab = t;
-    ['orders', 'dashboard', 'report', 'costs', 'cskh'].forEach(id => {
-        Utils.$('tab-' + id).style.display = id === t ? '' : 'none';
-        Utils.$('tab-' + id + '-btn').classList.toggle('active', id === t);
-    });
-    
-    if (t === 'dashboard') loadDash();
-    if (t === 'report') initReport();
-    if (t === 'costs') renderCosts();
-};
-
-window.refreshCurrentTab = function() {
-    if (State.currentTab === 'orders') renderOrdersView();
-    else if (State.currentTab === 'costs') renderCosts();
-    else if (State.currentTab === 'dashboard') loadDash();
-};
-
-// --- IMAGE COMPRESSION ---
-async function compressImage(file) {
-    return new Promise(resolve => {
-        const img = new Image(), url = URL.createObjectURL(file);
-        img.onload = () => {
-            URL.revokeObjectURL(url);
-            const MW = 900, MH = 700;
-            let w = img.width, h = img.height;
-            if (w > MW) { h = Math.round(h * MW / w); w = MW; }
-            if (h > MH) { w = Math.round(w * MH / h); h = MH; }
-            const cv = document.createElement('canvas');
-            cv.width = w; cv.height = h;
-            cv.getContext('2d').drawImage(img, 0, 0, w, h);
-            resolve(cv.toDataURL('image/jpeg', 0.68));
-        };
-        img.src = url;
-    });
+/* ── EXCEL – COSTS ── */
+function onClickCostXlsx(){const t=todayStr();$('cxlsxFrom').value=t;$('cxlsxTo').value=t;$('costXlsxModal').style.display='flex';}
+async function doExportCostRange(){
+  await loadExcelJS();const from=$('cxlsxFrom').value,to=$('cxlsxTo').value;if(!from||!to){toast('Vui lòng chọn ngày!',true);return;}if(from>to){toast('Ngày bắt đầu phải ≤ ngày kết thúc!',true);return;}
+  $('cxlsxBtnTxt').innerHTML='<span class="spinner"></span> Đang xuất...';$('cxlsxBtn').disabled=true;
+  try{const dates=genDates(from,to);const results=await Promise.all(dates.map(d=>api({action:'getCosts',date:d}).then(r=>({date:d,costs:r.costs||[]})).catch(()=>({date:d,costs:[]}))));await buildCostExcel(results,from===to?from:`${from}→${to}`,from===to?`Toulouse_ChiPhi_${from}.xlsx`:`Toulouse_ChiPhi_${from}_${to}.xlsx`);$('costXlsxModal').style.display='none';}catch(e){toast('Lỗi: '+e.message,true);}
+  $('cxlsxBtnTxt').innerHTML='Xuất Excel';$('cxlsxBtn').disabled=false;
+}
+async function fetchDriveImgBase64(fileId){if(!fileId)return null;try{const r=await fetch(driveView(fileId),{mode:'cors'});if(!r.ok)return null;const blob=await r.blob();return await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(blob);});}catch(e){return null;}}
+async function buildCostExcel(results,titleLabel,filename){
+  const hasAny=results.some(r=>r.costs.length);if(!hasAny){toast('Không có chi phí nào!',true);return;}
+  const wb=new ExcelJS.Workbook(),ws=wb.addWorksheet('Chi phí');ws.columns=[{width:6},{width:12},{width:16},{width:20},{width:13},{width:13},{width:22},{width:26}];
+  const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Arial',bold,color:{argb},size:sz});const xal=(h='center',v='middle')=>({horizontal:h,vertical:v});
+  ws.mergeCells('A1:H1');const r1=ws.getRow(1);r1.height=26;const t1=r1.getCell(1);t1.value=`Chi phí Toulouse – ${titleLabel}`;t1.font=xn(true,'FFFFFFFF',13);t1.fill=xf('FF1F4E78');t1.alignment=xal();
+  const hdrs=['STT','Ngày','Đơn vị nhập','Tên sản phẩm','Giá nhập','Chi phí QC','Ghi chú','Ảnh hoá đơn'];const r2=ws.getRow(2);r2.height=20;hdrs.forEach((h,i)=>{const c=r2.getCell(i+1);c.value=h;c.font=xn(false,'FFFFFFFF');c.fill=xf('FFB85C1A');c.alignment=xal();});
+  let ri=3,gPrice=0,gAd=0,imgCount=0;
+  for(const{date,costs}of results){if(!costs.length)continue;const[y,mo,d]=date.split('-');const dP=costs.reduce((s,c)=>s+n(c.price),0),dA=costs.reduce((s,c)=>s+n(c.adCost),0);gPrice+=dP;gAd+=dA;ws.mergeCells(`A${ri}:H${ri}`);const dhr=ws.getRow(ri);dhr.height=18;const dhc=dhr.getCell(1);dhc.value=`Ngày ${d}/${mo}/${y}  (${costs.length} mục)`;dhc.font=xn(true,'FF4A5E1C',11);dhc.fill=xf('FFE8EDD6');dhc.alignment={horizontal:'left',vertical:'middle'};ri++;
+    for(let i=0;i<costs.length;i++){const c=costs[i];const fIds=getFileIds(c.imageUrl);const firstFId=fIds[0]||null;const imgData=await fetchDriveImgBase64(firstFId);const rr=ws.getRow(ri);rr.height=imgData?90:17;[i+1,`${d}/${mo}/${y}`,c.supplier||'',c.product||'',n(c.price),n(c.adCost),c.note||'',fIds.length?`https://drive.google.com/file/d/${fIds[0]}/view`:''].forEach((v,ci)=>{const cc=rr.getCell(ci+1);cc.value=v;cc.font=xn(false,(ci===4||ci===5)?'FFC00000':'FF000000');cc.fill=xf('FFFFFFFF');cc.alignment={vertical:'middle'};if(ci===7&&fIds.length){cc.value={text:`📎 ${fIds.length} ảnh HĐ`,hyperlink:`https://drive.google.com/file/d/${fIds[0]}/view`};cc.font={color:{argb:'FF0563C1'},underline:true,name:'Arial',size:10};}});if(imgData){try{const base64=imgData.split(',')[1];const ext=imgData.startsWith('data:image/png')?'png':'jpeg';const imgId=wb.addImage({base64,extension:ext});ws.addImage(imgId,`H${ri}:I${ri}`);imgCount++;}catch(err){}}ri++;}
+    const sr=ws.getRow(ri);sr.height=14;const sv=Array(8).fill('');sv[3]=`Cộng ${d}/${mo}:`;sv[4]=dP;sv[5]=dA;sv.forEach((v,ci)=>{const cc=sr.getCell(ci+1);cc.value=v;cc.font=xn(true,'FFB85C1A',10);cc.fill=xf('FFFFF4EC');if(ci===3)cc.alignment={horizontal:'right'};});ri++;
+  }
+  const gr=ws.getRow(ri);gr.height=22;const gv=Array(8).fill('');gv[3]='TỔNG';gv[4]=gPrice;gv[5]=gAd;gv.forEach((v,ci)=>{const cc=gr.getCell(ci+1);cc.value=v;cc.font=xn(true,'FFC00000',11);cc.fill=xf('FFC6E0B4');});
+  const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);toast(`✓ Đã xuất ${filename} · ${imgCount} ảnh HĐ`);
 }
 
-// --- ORDER MODULE ---
-function updateFormLock() {
-    const locked = Utils.isPast(Utils.$('selDate').value) && State.editId === null;
-    Utils.$('pastNotice').style.display = locked ? 'block' : 'none';
-    Utils.$('btnSub').disabled = locked;
+/* ── DASHBOARD ── */
+function initDashSelects(){const ms=$('dashMonthSel'),ys=$('dashYearSel');MONTHS.forEach((name,i)=>{const o=document.createElement('option');o.value=i+1;o.textContent=name;if(i+1===dashM)o.selected=true;ms.appendChild(o);});const cy=new Date().getFullYear();for(let y=cy-2;y<=cy+1;y++){const o=document.createElement('option');o.value=y;o.textContent=y;if(y===dashY)o.selected=true;ys.appendChild(o);}}
+function onDashChange(){dashM=parseInt($('dashMonthSel').value);dashY=parseInt($('dashYearSel').value);loadDash();}
+async function loadDash(){
+  dashM=parseInt($('dashMonthSel').value);dashY=parseInt($('dashYearSel').value);
+  $('dashLoading').style.display='';$('dashChart').style.display='none';if(dashChart){dashChart.destroy();dashChart=null;}
+  $('dashTable').innerHTML='<div class="dash-loading"><span class="sk"></span> Đang tải...</div>';$('btnDashXlsx').style.display='none';$('btnDashPDF').style.display='none';
+  const today=todayStr(),days=daysInMonth(dashY,dashM),dates=[];for(let d=1;d<=days;d++){const ds=`${dashY}-${pad(dashM)}-${pad(d)}`;if(ds<=today)dates.push(ds);}
+  if(!dates.length){$('dashLoading').textContent='Tháng này chưa có dữ liệu.';return;}
+  const ym=dashM+'_'+dashY;
+  try{
+    const[orderResults,costResult,fixedResult]=await Promise.all([fetchRange(dates),api({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]})),api({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0}))]);
+    dashExportData={results:orderResults,allCosts:costResult.costs||[],fixedResult,m:dashM,y:dashY};
+    await renderDash(orderResults,costResult.costs||[],fixedResult);$('btnDashXlsx').style.display='';$('btnDashPDF').style.display='';
+  }catch(e){$('dashLoading').textContent='⚠️ Lỗi: '+e.message;}
+}
+function buildCostsByDate(allCosts){const cbd={};allCosts.forEach(c=>{const dk=normDate(c.date);if(!dk)return;if(!cbd[dk])cbd[dk]={price:0,adCost:0};cbd[dk].price+=n(c.price);cbd[dk].adCost+=n(c.adCost);});return cbd;}
+async function renderDash(results,allCosts,fixedResult){
+  let totalOrders=0,gCake=0,gShip=0,h1Rev=0,h2Rev=0;
+  const labels=[],revVals=[],costVals=[],costsByDate=buildCostsByDate(allCosts);
+  results.forEach(({date,orders})=>{
+    const d=parseInt(date.split('-')[2]);
+    const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);
+    const ship=orders.reduce((s,o)=>s+n(o.ship),0);
+    const dc=costsByDate[normDate(date)]||{price:0,adCost:0};
+    totalOrders+=orders.length;gCake+=cake;gShip+=ship;
+    if(d<=15)h1Rev+=cake+ship;else h2Rev+=cake+ship;
+    labels.push(String(d));revVals.push(cake+ship);costVals.push(dc.price+dc.adCost);
+  });
+  const tP=allCosts.reduce((s,c)=>s+n(c.price),0),tA=allCosts.reduce((s,c)=>s+n(c.adCost),0);
+  const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;
+  const totalFixed=fR+fE+fW,totalCost=tP+tA+totalFixed;
+  /* ★ Lợi nhuận = DT bánh+PK - tất cả chi phí */
+  const netProfit=gCake-totalCost;
+  $('dCount').textContent=totalOrders;$('dCake').textContent=fmt(gCake);$('dTotal').textContent=fmt(gCake+gShip);$('dH1').textContent=fmt(h1Rev);$('dH2').textContent=fmt(h2Rev);$('dCostPurchase').textContent=fmt(tP);$('dCostAd').textContent=fmt(tA);$('dCostFixed').textContent=fmt(totalFixed);$('dCostTotal').textContent=fmt(totalCost);
+  const pEl=$('dProfit');pEl.textContent=fmt(netProfit);pEl.className='mc-val '+(netProfit>=0?'green':'red');
+  await loadChartJS();
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const gc=isDark?'rgba(255,255,255,.07)':'rgba(0,0,0,.06)',tc=isDark?'#8fa04f':'#555';
+  $('dashLoading').style.display='none';$('dashChart').style.display='block';
+  dashChart=new Chart($('dashChart').getContext('2d'),{type:'bar',data:{labels,datasets:[{label:'Doanh thu',data:revVals,backgroundColor:isDark?'rgba(138,156,58,.75)':'rgba(107,122,46,.72)',borderColor:isDark?'#8a9c3a':'#6B7A2E',borderWidth:1,borderRadius:4},{label:'Chi phí',data:costVals,backgroundColor:'rgba(184,96,32,.65)',borderColor:'#B86020',borderWidth:1,borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:true,position:'top',labels:{color:isDark?'#dde5b0':'#333',font:{family:'-apple-system,BlinkMacSystemFont,Arial',size:11}}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmt(c.raw)}}},scales:{y:{ticks:{callback:v=>(v/1000000).toFixed(1)+'M',font:{size:11},color:tc},grid:{color:gc}},x:{ticks:{font:{size:11},color:tc},grid:{display:false}}}}});
+  const dayRows=results.filter(r=>r.orders.length||costsByDate[normDate(r.date)]);
+  if(!dayRows.length){$('dashTable').innerHTML='<div class="dash-loading">Không có dữ liệu</div>';return;}
+  $('dashTable').innerHTML=`<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="dash-tbl" style="min-width:500px"><colgroup><col style="width:90px"><col style="width:50px"><col style="width:130px"><col style="width:110px"><col style="width:110px"><col style="width:140px"></colgroup><thead><tr><th>Ngày</th><th>Đơn</th><th>DT bánh+PK ★</th><th>Nhập hàng</th><th>CP QC</th><th>Lợi nhuận ★</th></tr></thead><tbody>${dayRows.map(({date,orders})=>{
+    const d=parseInt(date.split('-')[2]);
+    const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);
+    const dc=costsByDate[normDate(date)]||{price:0,adCost:0};
+    const profit=cake-(dc.price+dc.adCost);
+    return`<tr><td>${pad(d)}/${pad(dashM)}/${dashY}</td><td>${orders.length}</td><td>${fmt(cake)}</td><td>${dc.price?fmt(dc.price):'–'}</td><td>${dc.adCost?fmt(dc.adCost):'–'}</td><td style="${profit>=0?'color:#1A6B3A':'color:#A03020'};font-weight:600">${fmt(profit)}</td></tr>`;
+  }).join('')}<tr class="total-row"><td colspan="2"><b>TỔNG THÁNG</b></td><td><b>${fmt(gCake)}</b></td><td><b>${fmt(tP)}</b></td><td><b>${fmt(tA)}</b></td><td style="${netProfit>=0?'color:#1A6B3A':'color:#A03020'};font-weight:700"><b>${fmt(netProfit)}</b></td></tr></tbody></table></div><div style="font-size:11px;color:var(--cm);padding:7px 10px;background:var(--gold-pale);border-top:.5px solid var(--bd)">★ Lợi nhuận = DT bánh+PK – chi phí. Chi phí cố định tháng: <b>${fmt(totalFixed)}</b> đã tính vào tổng.</div>`;
+}
+function exportDashPDF(){toast('Đang mở chế độ in / lưu PDF...');setTimeout(()=>window.print(),500);}
+async function exportDashExcel(){
+  await loadExcelJS();if(!dashExportData){toast('Chưa có dữ liệu!',true);return;}
+  const{results,allCosts,fixedResult,m,y}=dashExportData;
+  const wb=new ExcelJS.Workbook(),ws=wb.addWorksheet(`Dashboard ${m}_${y}`);
+  const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Arial',bold,color:{argb},size:sz});
+  ws.columns=[{width:28},{width:20},{width:20},{width:20},{width:20},{width:20}];
+  ws.mergeCells('A1:F1');const t=ws.getRow(1).getCell(1);t.value=`Dashboard Toulouse – Tháng ${m}/${y}`;t.font=xn(true,'FFFFFFFF',14);t.fill=xf('FF1F4E78');t.alignment={horizontal:'center',vertical:'middle'};ws.getRow(1).height=30;
+  const tP=allCosts.reduce((s,c)=>s+n(c.price),0),tA=allCosts.reduce((s,c)=>s+n(c.adCost),0);
+  const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;
+  const totalFixed=fR+fE+fW,totalOrders=results.reduce((s,r)=>s+r.orders.length,0);
+  const gCake=results.reduce((s,r)=>s+r.orders.reduce((ss,o)=>ss+n(o.cakePrice)+n(o.accPrice),0),0);
+  const gShip=results.reduce((s,r)=>s+r.orders.reduce((ss,o)=>ss+n(o.ship),0),0);
+  const netProfit=gCake-tP-tA-totalFixed;
+  const metrics=[['DOANH THU','FF1F4E78'],['Tổng đơn',totalOrders],['DT bánh + PK',fmt(gCake)],['Tổng DT (gồm ship)',fmt(gCake+gShip)],[' ',''],['CHI PHÍ','FFB85C1A'],['Nhập hàng',fmt(tP)],['Quảng cáo',fmt(tA)],['Cố định',fmt(totalFixed)],['Tổng chi phí',fmt(tP+tA+totalFixed)],[' ',''],['LỢI NHUẬN RÒNG (★ = DT bánh+PK - CP)',fmt(netProfit)]];
+  let ri=2;metrics.forEach(([lbl,val])=>{const row=ws.getRow(ri);row.height=20;if(typeof val==='string'&&val===''&&lbl.trim()===''){ri++;return;}if(['DOANH THU','CHI PHÍ'].includes(lbl)||lbl.startsWith('LỢI NHUẬN')){ws.mergeCells(`A${ri}:F${ri}`);const c=row.getCell(1);c.value=lbl;c.font=xn(true,'FFFFFFFF',11);c.fill=xf(lbl==='CHI PHÍ'?'FFB85C1A':lbl.startsWith('LỢI')?'FF15803D':'FF1F4E78');c.alignment={horizontal:'center'};}else{row.getCell(1).value=lbl;row.getCell(1).font=xn(false,'FF333333');const vc=row.getCell(2);vc.value=val;vc.font=xn(true,lbl.includes('phí')||lbl.includes('Chi')?'FFC00000':'FF1a1a0e');}ri++;});
+  ri++;const dh=ws.getRow(ri);dh.height=20;['Ngày','Số đơn','DT bánh+PK','Nhập hàng','CP QC','Lợi nhuận'].forEach((h,i)=>{const c=dh.getCell(i+1);c.value=h;c.font=xn(false,'FFFFFFFF');c.fill=xf('FF4472C4');c.alignment={horizontal:'center'};});ri++;
+  const costsByDate=buildCostsByDate(allCosts);
+  results.filter(r=>r.orders.length||costsByDate[normDate(r.date)]).forEach(({date,orders})=>{
+    const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);
+    const dc=costsByDate[normDate(date)]||{price:0,adCost:0};const profit=cake-(dc.price+dc.adCost);
+    const row=ws.getRow(ri);row.height=17;[date,orders.length,cake,dc.price||0,dc.adCost||0,profit].forEach((v,i)=>{const c=row.getCell(i+1);c.value=v;c.font=xn(false,i===5?(profit>=0?'FF15803D':'FFC00000'):'FF000000');c.fill=xf('FFFFFFFF');if(i===5)c.font.bold=true;});ri++;
+  });
+  const tr=ws.getRow(ri);[`TỔNG ${m}/${y}`,'',gCake,tP,tA,netProfit].forEach((v,i)=>{const c=tr.getCell(i+1);c.value=v;c.font=xn(true,i>=2?'FFC00000':'FF000000',11);c.fill=xf('FFC6E0B4');});
+  const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`Toulouse_Dashboard_${m}_${y}.xlsx`;a.click();URL.revokeObjectURL(url);toast(`✓ Đã xuất Dashboard_${m}_${y}.xlsx`);
 }
 
-window.calc = function() {
-    const c = Utils.n(Utils.$('fCake').value) * 1000;
-    const a = Utils.n(Utils.$('fAcc').value) * 1000;
-    const s = Utils.n(Utils.$('fShip').value) * 1000;
-    Utils.$('aSum').textContent = Utils.fmt(c + a);
-    Utils.$('aTot').textContent = Utils.fmt(c + a + s);
-};
-
-function getOrderForm() {
-    return {
-        time: Utils.$('fTime').value,
-        size: Utils.$('fSize').value,
-        cakePrice: Utils.n(Utils.$('fCake').value) * 1000,
-        accPrice: Utils.n(Utils.$('fAcc').value) * 1000,
-        acc: Utils.$('fAccDesc').value,
-        ship: Utils.n(Utils.$('fShip').value) * 1000,
-        name: Utils.$('fName').value,
-        phone: Utils.$('fPhone').value,
-        addr: Utils.$('fAddr').value,
-        note: Utils.$('fNote').value
-    };
+/* ── REPORT ── */
+function initReport(){if(!$('rptFrom').value){const d=new Date(),y=d.getFullYear(),m=d.getMonth()+1;$('rptFrom').value=`${y}-${pad(m)}-01`;$('rptTo').value=todayStr();}}
+async function loadReport(){
+  const from=$('rptFrom').value,to=$('rptTo').value;if(!from||!to){toast('Vui lòng chọn ngày!',true);return;}if(from>to){toast('Ngày bắt đầu phải ≤ ngày kết thúc!',true);return;}
+  $('rptResult').innerHTML='<div class="dash-loading"><span class="sk"></span> Đang tải...</div>';$('btnRptXlsx').style.display='none';
+  const dates=genDates(from,to);const ymSet=new Set(dates.map(d=>dateToYM(d)));const yms=[...ymSet];
+  try{
+    const allResults=await Promise.all([fetchRange(dates),...yms.map(ym=>api({action:'getCostsByMonth',yearMonth:ym}).catch(()=>({ok:false,costs:[]}))),...yms.map(ym=>api({action:'getFixedCosts',yearMonth:ym}).catch(()=>({ok:false,rent:0,elec:0,water:0})))]);
+    reportData=allResults[0];const costResults=allResults.slice(1,1+yms.length);const fixedResults=allResults.slice(1+yms.length);
+    reportCosts=(costResults.flatMap(r=>r.costs||[])).filter(c=>{const d=normDate(c.date);return d>=from&&d<=to;});
+    reportMonthFixeds={};yms.forEach((ym,i)=>{reportMonthFixeds[ym]=fixedResults[i];});
+    renderReport(from,to);$('btnRptXlsx').style.display='';
+  }catch(e){$('rptResult').innerHTML=`<div class="dash-loading">⚠️ ${esc(e.message)}</div>`;}
+}
+function renderReport(from,to){
+  const costsByDate=buildCostsByDate(reportCosts);
+  let gOrders=0,gCake=0,gShip=0;
+  reportData.forEach(({orders})=>{gOrders+=orders.length;gCake+=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);gShip+=orders.reduce((s,o)=>s+n(o.ship),0);});
+  const totalGross=gCake+gShip,tP=reportCosts.reduce((s,c)=>s+n(c.price),0),tA=reportCosts.reduce((s,c)=>s+n(c.adCost),0);
+  const totalFixed=Object.values(reportMonthFixeds).reduce((s,f)=>s+(f&&f.ok?n(f.rent)+n(f.elec)+n(f.water):0),0);
+  /* ★ Lợi nhuận = DT bánh+PK - tất cả chi phí */
+  const netProfit=gCake-tP-tA-totalFixed;
+  const dayRows=reportData.filter(r=>r.orders.length||costsByDate[normDate(r.date)]);
+  const dayTable=dayRows.map(({date,orders})=>{const[y,mo,d]=date.split('-');const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);const ship=orders.reduce((s,o)=>s+n(o.ship),0);const dc=costsByDate[normDate(date)]||{price:0,adCost:0};const profit=cake-(dc.price+dc.adCost);return`<tr><td>${d}/${mo}/${y}</td><td>${orders.length}</td><td>${fmt(cake)}</td><td style="color:var(--indigo)">${ship?fmt(ship):'–'}</td><td>${dc.price?fmt(dc.price):'–'}</td><td>${dc.adCost?fmt(dc.adCost):'–'}</td><td style="${profit>=0?'color:#1A6B3A':'color:#A03020'};font-weight:600">${fmt(profit)}</td></tr>`;}).join('');
+  const orderRows=reportData.map(({date,orders})=>{if(!orders.length)return'';const[y,mo,d]=date.split('-');const dC=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),dS=orders.reduce((s,o)=>s+n(o.ship),0);return`<tr class="day-hdr-row"><td colspan="9">📅 ${d}/${mo}/${y} — ${orders.length} đơn</td></tr>`+orders.map((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);return`<tr><td>${i+1}</td><td>${esc(o.time)}</td><td>${esc(o.size)}</td><td>${fmt(o.cakePrice)}</td><td>${fmt(o.accPrice)}</td><td class="red">${fmt(sum)}</td><td>${fmt(o.ship)}</td><td class="red">${fmt(tot)}</td><td title="${esc(o.name)}">${esc(o.name)}</td></tr>`;}).join('')+`<tr class="day-sub-row"><td colspan="5" style="text-align:right">↳ Cộng:</td><td>${fmt(dC)}</td><td>${fmt(dS)}</td><td>${fmt(dC+dS)}</td><td></td></tr>`;}).join('');
+  const costRows=reportCosts.length?reportCosts.map((c,i)=>{const d=normDate(c.date).split('-');return`<tr><td>${i+1}</td><td>${d[2]}/${d[1]}/${d[0]}</td><td>${esc(c.supplier)||'–'}</td><td>${esc(c.product)||'–'}</td><td class="red">${c.price?fmt(c.price):'–'}</td><td>${c.adCost?fmt(c.adCost):'–'}</td><td>${esc(c.note)||'–'}</td></tr>`;}).join(''):'<tr><td colspan="7" class="es">Không có chi phí nào</td></tr>';
+  $('rptResult').innerHTML=`
+  <div class="rpt-card">
+    <h3><i class="ti ti-chart-pie"></i> Tổng kết ${from} → ${to}</h3>
+    <div class="metrics" style="margin-bottom:0">
+      <div class="mc"><div class="mc-lbl">Tổng đơn</div><div class="mc-val hl">${gOrders}</div></div>
+      <div class="mc"><div class="mc-lbl">DT bánh + PK ★</div><div class="mc-val hl">${fmt(gCake)}</div></div>
+      <div class="mc ship-card"><div class="mc-lbl">Phí ship thu</div><div class="mc-val" style="color:var(--indigo)">${fmt(gShip)}</div></div>
+      <div class="mc cost-card"><div class="mc-lbl">Nhập hàng</div><div class="mc-val red">${fmt(tP)}</div></div>
+      <div class="mc cost-card"><div class="mc-lbl">Chi phí QC</div><div class="mc-val red">${fmt(tA)}</div></div>
+      <div class="mc cost-card"><div class="mc-lbl">Cố định</div><div class="mc-val red">${fmt(totalFixed)}</div></div>
+      <div class="mc profit-card"><div class="mc-lbl">Lợi nhuận ròng ★</div><div class="mc-val ${netProfit>=0?'green':'red'}">${fmt(netProfit)}</div></div>
+    </div>
+  </div>
+  <div class="rpt-card">
+    <h3><i class="ti ti-calendar"></i> Chi tiết theo ngày</h3>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+    <table class="rpt-sum-tbl" style="min-width:500px">
+      <colgroup><col style="width:88px"><col style="width:44px"><col style="width:115px"><col style="width:88px"><col style="width:100px"><col style="width:100px"><col style="width:125px"></colgroup>
+      <thead><tr><th>Ngày</th><th>Đơn</th><th>DT bánh+PK ★</th><th>Phí ship</th><th>Nhập hàng</th><th>CP QC</th><th>Lợi nhuận ★</th></tr></thead>
+      <tbody>${dayTable}</tbody>
+      <tfoot><tr class="total-row"><td colspan="2"><b>TỔNG</b></td><td><b>${fmt(gCake)}</b></td><td style="color:var(--indigo)"><b>${fmt(gShip)}</b></td><td><b>${fmt(tP)}</b></td><td><b>${fmt(tA)}</b></td><td style="${netProfit>=0?'color:#1A6B3A':'color:#A03020'};font-weight:700"><b>${fmt(netProfit)}</b></td></tr></tfoot>
+    </table></div>
+    <div style="font-size:11px;color:var(--cm);margin-top:7px;padding:6px 10px;background:var(--gold-pale);border-radius:6px">★ Lợi nhuận = DT bánh+PK – chi phí${totalFixed>0?` | Chi phí cố định đã trừ: <b>${fmt(totalFixed)}</b>`:''}</div>
+  </div>
+  <div class="rpt-card">
+    <h3><i class="ti ti-clipboard-list"></i> Chi tiết đơn hàng</h3>
+    <div class="tw" style="border:none;box-shadow:none">
+    <table style="min-width:700px">
+      <colgroup><col style="width:36px"><col style="width:58px"><col style="width:72px"><col style="width:84px"><col style="width:84px"><col style="width:96px"><col style="width:72px"><col style="width:96px"><col style="width:105px"></colgroup>
+      <thead><tr><th>STT</th><th>Giờ</th><th>Size</th><th>Giá bánh</th><th>Giá PK</th><th>Tổng bánh+PK</th><th>Ship</th><th>Tổng cộng</th><th>Tên khách</th></tr></thead>
+      <tbody>${gOrders?orderRows:'<tr><td colspan="9" class="es">Không có đơn nào</td></tr>'}</tbody>
+      <tfoot><tr class="grand-row"><td colspan="5" style="text-align:right;font-weight:700">TỔNG</td><td>${fmt(gCake)}</td><td>${fmt(gShip)}</td><td>${fmt(totalGross)}</td><td></td></tr></tfoot>
+    </table></div>
+  </div>
+  <div class="rpt-card">
+    <h3><i class="ti ti-coins"></i> Chi tiết chi phí</h3>
+    <div class="tw" style="border:none;box-shadow:none">
+    <table style="min-width:620px">
+      <colgroup><col style="width:36px"><col style="width:84px"><col style="width:115px"><col style="width:135px"><col style="width:105px"><col style="width:96px"><col style="width:115px"></colgroup>
+      <thead><tr><th>STT</th><th>Ngày</th><th>Đơn vị nhập</th><th>Tên sản phẩm</th><th>Giá nhập</th><th>CP QC</th><th>Ghi chú</th></tr></thead>
+      <tbody>${costRows}</tbody>
+      <tfoot><tr class="grand-row"><td colspan="4" style="text-align:right;font-weight:700">TỔNG</td><td>${fmt(tP)}</td><td>${fmt(tA)}</td><td></td></tr></tfoot>
+    </table></div>
+  </div>`;
+}
+async function exportReportExcel(){
+  await loadExcelJS();if(!reportData.length){toast('Hãy xem báo cáo trước!');return;}
+  const from=$('rptFrom').value,to=$('rptTo').value;const btn=$('btnRptXlsx'),orig=btn.innerHTML;btn.innerHTML='<i class="ti ti-download"></i> <span class="spinner"></span>';btn.disabled=true;
+  try{
+    const wb=new ExcelJS.Workbook();const xf=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});const xn=(bold,argb,sz=11)=>({name:'Arial',bold,color:{argb},size:sz});
+    const ws1=wb.addWorksheet('Tổng hợp');ws1.columns=[{width:22},{width:16},{width:20},{width:16},{width:18},{width:18},{width:20}];
+    ws1.mergeCells('A1:G1');const t1h=ws1.getRow(1).getCell(1);t1h.value=`Báo cáo tổng hợp Toulouse – ${from} → ${to}`;t1h.font=xn(true,'FFFFFFFF',13);t1h.fill=xf('FF1F4E78');t1h.alignment={horizontal:'center'};ws1.getRow(1).height=28;
+    const costsByDate=buildCostsByDate(reportCosts);let gOrders2=0,gCake2=0,gShip2=0;reportData.forEach(({orders})=>{gOrders2+=orders.length;gCake2+=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);gShip2+=orders.reduce((s,o)=>s+n(o.ship),0);});
+    const tP2=reportCosts.reduce((s,c)=>s+n(c.price),0),tA2=reportCosts.reduce((s,c)=>s+n(c.adCost),0);
+    const totalFixed2=Object.values(reportMonthFixeds).reduce((s,f)=>s+(f&&f.ok?n(f.rent)+n(f.elec)+n(f.water):0),0);
+    const netProfit2=gCake2-tP2-tA2-totalFixed2;
+    let ri=2;[['Tổng đơn',gOrders2],['DT bánh+PK (★ dùng tính LN)',gCake2],['Phí ship thu',gShip2],['Tổng nhập hàng',tP2],['Chi phí QC',tA2],['Chi phí cố định',totalFixed2],['Tổng chi phí',tP2+tA2+totalFixed2],['Lợi nhuận ròng ★',netProfit2]].forEach(([lbl,val])=>{const row=ws1.getRow(ri);row.height=20;row.getCell(1).value=lbl;row.getCell(1).font=xn(false,'FF333333');const vc=row.getCell(2);vc.value=val;vc.font=xn(true,lbl.startsWith('Lợi')?(netProfit2>=0?'FF15803D':'FFC00000'):lbl.includes('phí')||lbl.includes('nhập')?'FFC00000':lbl.includes('ship')?'FF5B5EA6':'FF1a1a0e');if(lbl.startsWith('Lợi'))vc.fill=xf(netProfit2>=0?'FFD1FAE5':'FFFCE8E6');ri++;});
+    ri++;const dh=ws1.getRow(ri);dh.height=20;['Ngày','Số đơn','DT bánh+PK','Phí ship','Nhập hàng','CP QC','Lợi nhuận'].forEach((h,i)=>{const c=dh.getCell(i+1);c.value=h;c.font=xn(false,'FFFFFFFF');c.fill=xf('FF4472C4');});ri++;
+    reportData.filter(r=>r.orders.length||costsByDate[normDate(r.date)]).forEach(({date,orders})=>{const cake_=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0),ship_=orders.reduce((s,o)=>s+n(o.ship),0),dc=costsByDate[normDate(date)]||{price:0,adCost:0},profit_=cake_-(dc.price+dc.adCost);const row=ws1.getRow(ri);row.height=17;[date,orders.length,cake_,ship_||0,dc.price||0,dc.adCost||0,profit_].forEach((v,i)=>{const c=row.getCell(i+1);c.value=v;c.font=xn(false,i===6?(profit_>=0?'FF15803D':'FFC00000'):i===3?'FF5B5EA6':'FF000000');c.fill=xf('FFFFFFFF');if(i===6)c.font.bold=true;});ri++;});
+    const tRow=ws1.getRow(ri);[`TỔNG`,'',gCake2,gShip2,tP2,tA2,netProfit2].forEach((v,i)=>{const c=tRow.getCell(i+1);c.value=v;c.font=xn(true,i===3?'FF5B5EA6':'FFC00000',11);c.fill=xf('FFC6E0B4');});
+    const ws2=wb.addWorksheet('Chi tiết đơn');ws2.columns=[{width:6},{width:12},{width:10},{width:12},{width:13},{width:13},{width:16},{width:13},{width:17},{width:18}];ws2.mergeCells('A1:J1');const t2h=ws2.getRow(1).getCell(1);t2h.value=`Chi tiết đơn hàng – ${from} → ${to}`;t2h.font=xn(true,'FFFFFFFF',12);t2h.fill=xf('FF1F4E78');t2h.alignment={horizontal:'center'};ws2.getRow(1).height=24;['STT','Ngày','Giờ','Size','Giá bánh','Giá PK','Tổng bánh+PK','Ship','Tổng cộng','Tên khách'].forEach((h,i)=>{const c=ws2.getRow(2).getCell(i+1);c.value=h;c.font=xn(false,'FFFFFFFF');c.fill=xf('FF4472C4');});ws2.getRow(2).height=18;let ri2=3;reportData.forEach(({date,orders})=>{if(!orders.length)return;const[y,mo,d]=date.split('-');orders.forEach((o,i)=>{const sum=n(o.cakePrice)+n(o.accPrice),tot=sum+n(o.ship);const row=ws2.getRow(ri2);row.height=16;[i+1,`${d}/${mo}/${y}`,o.time,o.size,n(o.cakePrice),n(o.accPrice),sum,n(o.ship),tot,o.name].forEach((v,ci)=>{const c=row.getCell(ci+1);c.value=v;c.font=xn(false,(ci===6||ci===8)?'FFC00000':'FF000000');c.fill=xf('FFFFFFFF');});ri2++;});});
+    const ws3=wb.addWorksheet('Chi tiết chi phí');ws3.columns=[{width:6},{width:12},{width:18},{width:22},{width:14},{width:14},{width:22}];ws3.mergeCells('A1:G1');const t3h=ws3.getRow(1).getCell(1);t3h.value=`Chi tiết chi phí – ${from} → ${to}`;t3h.font=xn(true,'FFFFFFFF',12);t3h.fill=xf('FFB85C1A');t3h.alignment={horizontal:'center'};ws3.getRow(1).height=24;['STT','Ngày','Đơn vị nhập','Tên sản phẩm','Giá nhập','CP QC','Ghi chú'].forEach((h,i)=>{const c=ws3.getRow(2).getCell(i+1);c.value=h;c.font=xn(false,'FFFFFFFF');c.fill=xf('FFB85C1A');});ws3.getRow(2).height=18;reportCosts.forEach((c,i)=>{const d=normDate(c.date).split('-');const row=ws3.getRow(i+3);row.height=16;[i+1,d[2]+'/'+d[1]+'/'+d[0],c.supplier,c.product,n(c.price),n(c.adCost),c.note].forEach((v,ci)=>{const cc=row.getCell(ci+1);cc.value=v;cc.font=xn(false,(ci===4||ci===5)?'FFC00000':'FF000000');cc.fill=xf('FFFFFFFF');});});
+    const buf=await wb.xlsx.writeBuffer();const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`Toulouse_BaoCao_${from}_${to}.xlsx`;a.click();URL.revokeObjectURL(url);toast('✓ Đã xuất báo cáo (3 sheets)');
+  }catch(e){toast('Lỗi: '+e.message,true);}
+  btn.innerHTML=orig;btn.disabled=false;
 }
 
-function setOrderForm(o) {
-    Utils.$('fTime').value = o.time || '';
-    Utils.$('fSize').value = o.size || '';
-    Utils.$('fCake').value = o.cakePrice ? o.cakePrice / 1000 : '';
-    Utils.$('fAcc').value = o.accPrice ? o.accPrice / 1000 : '';
-    Utils.$('fAccDesc').value = o.acc || '';
-    Utils.$('fShip').value = o.ship ? o.ship / 1000 : '';
-    Utils.$('fName').value = o.name || '';
-    Utils.$('fPhone').value = o.phone || '';
-    Utils.$('fAddr').value = o.addr || '';
-    Utils.$('fNote').value = o.note || '';
-    calc();
-}
+/* ── CSKH ── */
+const CSKH_SYSTEM=`Bạn là chuyên gia chăm sóc khách hàng tên Linh với hơn 20 năm kinh nghiệm trong ngành bánh ngọt và F&B cao cấp tại Việt Nam. Bạn đang hỗ trợ tiệm Toulouse - bánh sinh nhật thủ công handmade tại 34C Ô Chợ Dừa, Hà Nội.\nNhiệm vụ: Tư vấn xử lý khiếu nại, gợi ý mẫu tin nhắn phản hồi tự nhiên, chiến lược giữ chân khách, soạn nội dung CSKH.\nPhong cách: chuyên nghiệp nhưng gần gũi, đưa ví dụ cụ thể, có thể dùng emoji. Trả lời ngắn gọn. Luôn dùng tiếng Việt.`;
+let cskhHistory=[],cskhBusy=false;
+function mdToHtml(raw){var lines=raw.split('\n'),out=[];for(var i=0;i<lines.length;i++){var l=lines[i];l=l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');l=l.replace(/^#{1,3} (.+)$/,'<b>$1</b>');if(/^---+$/.test(l.trim())){out.push('<hr class="md-hr">');continue;}l=l.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');l=l.replace(/\*([^*]+?)\*/g,'<i>$1</i>');var bullet=l.match(/^[\s]*[-•\*] (.+)$/);if(bullet){out.push('<div class="md-li"><span>•</span><span>'+bullet[1]+'</span></div>');continue;}var num=l.match(/^(\d+)\. (.+)$/);if(num){out.push('<div class="md-li"><span>'+num[1]+'.</span><span>'+num[2]+'</span></div>');continue;}out.push(l);}return out.join('<br>').replace(/(<br>){3,}/g,'<br><br>');}
+function appendMsg(role,text){const box=$('cskhMsgs');const isAI=role==='ai';const div=document.createElement('div');div.className=`chat-msg ${role}`;div.innerHTML=`<div class="chat-av ${role}">${isAI?'<i class="ti ti-robot"></i>':'<i class="ti ti-user"></i>'}</div><div class="chat-bubble">${isAI?mdToHtml(text):esc(text).replace(/\n/g,'<br>')}</div>`;box.appendChild(div);box.scrollTop=box.scrollHeight;}
+function showTyping(){const box=$('cskhMsgs');const div=document.createElement('div');div.className='chat-msg ai';div.id='cskhTyping';div.innerHTML=`<div class="chat-av ai"><i class="ti ti-robot"></i></div><div class="chat-bubble" style="padding:12px 16px"><div class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>`;box.appendChild(div);box.scrollTop=box.scrollHeight;}
+function hideTyping(){const t=$('cskhTyping');if(t)t.remove();}
+async function sendCSKH(){if(cskhBusy)return;const inp=$('cskhInput');const text=inp.value.trim();if(!text)return;inp.value='';inp.style.height='40px';$('cskhSend').disabled=true;cskhBusy=true;appendMsg('user',text);cskhHistory.push({role:'user',parts:[{text}]});showTyping();try{const res=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'chatCSKH',systemPrompt:CSKH_SYSTEM,history:cskhHistory})});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();if(!data.ok)throw new Error(data.error||'Lỗi phản hồi');hideTyping();const reply=data.reply;cskhHistory.push({role:'model',parts:[{text:reply}]});appendMsg('ai',reply);}catch(e){hideTyping();appendMsg('ai','⚠️ Lỗi kết nối: '+e.message);}$('cskhSend').disabled=false;cskhBusy=false;$('cskhInput').focus();}
+function chipSend(text){$('cskhInput').value=text;sendCSKH();}
+function clearCSKH(){if(!confirm('Xóa toàn bộ lịch sử cuộc trò chuyện?'))return;cskhHistory=[];$('cskhMsgs').innerHTML=`<div class="chat-msg ai"><div class="chat-av ai"><i class="ti ti-robot"></i></div><div class="chat-bubble">Cuộc trò chuyện mới bắt đầu. Bạn cần tư vấn gì? 😊</div></div>`;}
 
-async function renderOrdersView() {
-    const date = Utils.$('selDate').value;
-    const pKey = { action: 'getOrders', date };
-    const qs = new URLSearchParams(pKey).toString();
-    const cached = Api.cGet(qs);
+/* ── CLOCK ── */
+function initClock(){const svg=$('clockSvg');if(!svg)return;const hH=$('hHand');for(let i=0;i<12;i++){const rad=(i*30-90)*Math.PI/180,isMaj=i%3===0,r1=isMaj?15.5:17;const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',23+r1*Math.cos(rad));line.setAttribute('y1',23+r1*Math.sin(rad));line.setAttribute('x2',23+19.5*Math.cos(rad));line.setAttribute('y2',23+19.5*Math.sin(rad));line.setAttribute('stroke',isMaj?'#2E1A08':'#B89020');line.setAttribute('stroke-width',isMaj?'2':'1');line.setAttribute('stroke-linecap','round');svg.insertBefore(line,hH);}updateClock();setInterval(updateClock,1000);}
+function updateClock(){const now=new Date(),h=now.getHours()%12,m=now.getMinutes(),s=now.getSeconds();$('hHand').setAttribute('transform',`rotate(${h*30+m*.5},23,23)`);$('mHand').setAttribute('transform',`rotate(${m*6+s*.1},23,23)`);$('sHand').setAttribute('transform',`rotate(${s*6},23,23)`);}
 
-    if (cached) {
-        State.orders = cached.orders || [];
-        UI.renderOrdersTable();
-        UI.updateOrderMetrics();
-        updateFormLock();
-        Api.get(pKey).then(r => {
-            if (!r.ok) return;
-            Api.cSet(qs, r);
-            State.orders = r.orders || [];
-            UI.renderOrdersTable();
-            UI.updateOrderMetrics();
-        }).catch(() => {});
-        return;
-    }
+$('selDate').addEventListener('change',()=>{cancelEdit();if(currentTab==='orders')render();else if(currentTab==='costs')renderCosts();});
 
-    Utils.$('tbody').innerHTML = `<tr><td colspan="14" style="text-align:center; padding: 2rem; color:#999"><span class="sk"></span> Đang đồng bộ...</td></tr>`;
-    Utils.$('tfoot').innerHTML = '';
-    
-    try {
-        const r = await Api.get(pKey);
-        if (!r.ok) throw new Error(r.error);
-        Api.cSet(qs, r);
-        State.orders = r.orders || [];
-        UI.renderOrdersTable();
-        UI.updateOrderMetrics();
-    } catch (e) {
-        Utils.$('tbody').innerHTML = `<tr><td colspan="14" style="text-align:center; color: var(--red); padding: 1rem;">⚠️ Lỗi kết nối: ${Utils.esc(e.message)}</td></tr>`;
-        UI.updateOrderMetrics();
-        UI.toast('Lỗi luồng dữ liệu', true);
-    }
-    updateFormLock();
-}
-
-window.submitOrder = async function() {
-    if (Utils.isPast(Utils.$('selDate').value) && State.editId === null) {
-        UI.toast('Hệ thống khóa: Không sửa quá khứ!', true);
-        return;
-    }
-
-    const date = Utils.$('selDate').value;
-    const o = { ...getOrderForm(), date };
-    const isEdit = State.editId !== null;
-    let tempId = null;
-
-    if (!isEdit) {
-        tempId = '_tmp_' + Date.now();
-        State.orders = [...State.orders, { ...o, id: tempId }];
-        UI.renderOrdersTable();
-        UI.updateOrderMetrics();
-        cancelEdit();
-    }
-
-    Utils.$('btnTxt').textContent = 'Đang lưu trữ...';
-    Utils.$('btnSub').disabled = true;
-
-    try {
-        const action = isEdit ? 'updateOrder' : 'addOrder';
-        const data = isEdit ? { id: State.editId, order: o } : o;
-        await Api.post({ action, data: JSON.stringify(data) });
-        
-        UI.toast(isEdit ? 'Bản ghi đã sửa' : 'Lưu đơn thành công');
-        Api.cDel(date);
-        
-        if (isEdit) cancelEdit();
-        await renderOrdersView();
-    } catch (e) {
-        if (tempId) State.orders = State.orders.filter(x => x.id !== tempId);
-        UI.renderOrdersTable();
-        UI.updateOrderMetrics();
-        UI.toast('Lỗi lưu: ' + e.message, true);
-    }
-
-    Utils.$('btnSub').disabled = false;
-    Utils.$('btnTxt').textContent = isEdit ? 'Cập nhật sửa đổi' : 'Lưu đơn hàng';
-    updateFormLock();
-};
-
-window.startEdit = function(id) {
-    requireAuth('admin', () => {
-        const o = State.orders.find(x => x.id === id);
-        if (!o) return;
-        setOrderForm(o);
-        State.editId = id;
-        
-        Utils.$('fTitle').innerHTML = 'Chế độ Sửa: ' + (o.name || 'Đơn');
-        Utils.$('btnTxt').textContent = 'Cập nhật sửa đổi';
-        Utils.$('btnCancel').style.display = '';
-        Utils.$('fcard').classList.add('editing');
-        Utils.$('pastNotice').style.display = 'none';
-        Utils.$('btnSub').disabled = false;
-        
-        if (!State.formOpen) {
-            State.formOpen = true;
-            Utils.$('fbody').style.display = '';
-            Utils.$('fchev').style.transform = '';
-        }
-        Utils.$('fcard').scrollIntoView({ behavior: 'smooth' });
-        renderOrdersView();
-    });
-};
-
-window.cancelEdit = function() {
-    State.editId = null;
-    setOrderForm({});
-    Utils.$('fTitle').innerHTML = '<i class="ti ti-circle-plus" style="font-size: 22px;"></i> Khởi tạo Đơn hàng';
-    Utils.$('btnTxt').textContent = 'Lưu đơn hàng';
-    Utils.$('btnCancel').style.display = 'none';
-    Utils.$('fcard').classList.remove('editing');
-    updateFormLock();
-};
-
-window.delOrder = async function(id) {
-    requireAuth('admin', async () => {
-        if (!confirm('Gỡ bỏ hoàn toàn chứng từ này?')) return;
-        try {
-            const r = await Api.get({ action: 'deleteOrder', id, date: Utils.$('selDate').value });
-            if (!r.ok) throw new Error(r.error);
-            Api.cDel(Utils.$('selDate').value);
-            if (State.editId === id) cancelEdit();
-            await renderOrdersView();
-            UI.toast('Vùng nhớ đã dọn dẹp.');
-        } catch (e) {
-            UI.toast('Lỗi hủy: ' + e.message, true);
-        }
-    });
-};
-
-// --- COST MODULE ---
-async function renderCosts() {
-    const date = Utils.$('selDate').value;
-    const [y, m] = [date.split('-')[0], date.split('-')[1]];
-    Utils.$('fixedMonthBadge').textContent = `Kỳ ${parseInt(m)}/${y}`;
-    
-    const pKey = { action: 'getCosts', date };
-    const qs = new URLSearchParams(pKey).toString();
-    const cached = Api.cGet(qs);
-
-    if (cached) {
-        State.costs = cached.costs || [];
-        UI.renderCostTable();
-        Api.get(pKey).then(r => {
-            if (!r.ok) return;
-            Api.cSet(qs, r);
-            State.costs = r.costs || [];
-            UI.renderCostTable();
-        }).catch(() => {});
-        loadFixedCosts();
-        return;
-    }
-
-    Utils.$('costTbody').innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 2rem; color:#999"><span class="sk"></span> Nạp chuỗi dữ liệu...</td></tr>`;
-    Utils.$('costTfoot').innerHTML = '';
-    
-    try {
-        const r = await Api.get(pKey);
-        if (!r.ok) throw new Error(r.error);
-        Api.cSet(qs, r);
-        State.costs = r.costs || [];
-        UI.renderCostTable();
-    } catch (e) {
-        Utils.$('costTbody').innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--red); padding: 1rem;">⚠️ Không truy xuất được Dữ liệu Chi phí</td></tr>`;
-        UI.toast('Lỗi: ' + e.message, true);
-    }
-    loadFixedCosts();
-}
-
-window.onImageSelected = async function(input) {
-    const files = input.files;
-    if (!files.length) return;
-    
-    Utils.$('cBtnSub').disabled = true;
-    Utils.$('cBtnTxt').textContent = `Đang up ${files.length} ảnh...`;
-    Utils.$('cImgPreview').style.display = 'flex';
-    Utils.$('cImgDropContent').style.display = 'none';
-    
-    for (let i = 0; i < files.length; i++) {
-        try {
-            const b64 = await compressImage(files[i]);
-            const base64 = b64.split(',')[1];
-            const ext = b64.startsWith('data:image/png') ? 'png' : 'jpg';
-            const r = await Api.post({ action: 'uploadImage', base64, ext });
-            if (!r.ok) throw new Error(r.error);
-            State.pendingUploadedFiles.push(r.fileId);
-            UI.renderCostImagePreviews();
-        } catch (e) {
-            UI.toast(`Lỗi ảnh ${i + 1}: ${e.message}`, true);
-        }
-    }
-    
-    Utils.$('cBtnSub').disabled = false;
-    Utils.$('cBtnTxt').textContent = State.editCostId ? 'Cập nhật chi tiết' : 'Lưu dòng chi';
-    input.value = '';
-};
-
-window.removeCostImage = function(id, isExisting) {
-    if (isExisting) {
-        State.currentEditFileIds = State.currentEditFileIds.filter(x => x !== id);
-    } else {
-        State.pendingUploadedFiles = State.pendingUploadedFiles.filter(x => x !== id);
-        Api.post({ action: 'deleteImage', fileId: id }).catch(() => {});
-    }
-    UI.renderCostImagePreviews();
-};
-
-window.submitCost = async function() {
-    const date = Utils.$('selDate').value;
-    const isEdit = State.editCostId !== null;
-    const allIds = [...State.currentEditFileIds, ...State.pendingUploadedFiles];
-    const imageUrl = allIds.map(id => Utils.driveFullUrl(id)).join(',');
-    
-    const costData = {
-        date,
-        supplier: Utils.$('cSupplier').value.trim(),
-        product: Utils.$('cProduct').value.trim(),
-        price: Utils.n(Utils.$('cPrice').value) * 1000,
-        imageUrl,
-        adCost: Utils.n(Utils.$('cAdCost').value) * 1000,
-        note: Utils.$('cNote').value.trim()
-    };
-    
-    Utils.$('cBtnTxt').textContent = 'Bơm data...';
-    Utils.$('cBtnSub').disabled = true;
-    
-    try {
-        if (isEdit) {
-            const originalC = State.costs.find(x => x.id === State.editCostId);
-            const originalIds = originalC ? Utils.getFileIds(originalC.imageUrl) : [];
-            const deletedIds = originalIds.filter(id => !State.currentEditFileIds.includes(id));
-            
-            deletedIds.forEach(id => Api.post({ action: 'deleteImage', fileId: id }).catch(() => {}));
-            await Api.post({ action: 'updateCost', data: JSON.stringify({ id: State.editCostId, cost: costData }) });
-            UI.toast('Thay đổi được xác nhận!');
-        } else {
-            const r = await Api.post({ action: 'addCost', data: JSON.stringify(costData) });
-            if (!r.ok) throw new Error(r.error);
-            UI.toast('Ký sổ thành công!');
-        }
-        
-        State.pendingUploadedFiles = [];
-        State.currentEditFileIds = [];
-        cancelCostEdit();
-        Api.cDel(date);
-        await renderCosts();
-    } catch (e) {
-        UI.toast('Báo lỗi: ' + e.message, true);
-    }
-    
-    Utils.$('cBtnTxt').textContent = isEdit ? 'Cập nhật chi tiết' : 'Lưu dòng chi';
-    Utils.$('cBtnSub').disabled = false;
-};
-
-window.startCostEdit = function(id) {
-    requireAuth('boss', () => {
-        const c = State.costs.find(x => x.id === id);
-        if (!c) return;
-        
-        Utils.$('cSupplier').value = c.supplier || '';
-        Utils.$('cProduct').value = c.product || '';
-        Utils.$('cPrice').value = c.price ? c.price / 1000 : '';
-        Utils.$('cAdCost').value = c.adCost ? c.adCost / 1000 : '';
-        Utils.$('cNote').value = c.note || '';
-        
-        State.editCostId = id;
-        State.currentEditFileIds = Utils.getFileIds(c.imageUrl);
-        State.pendingUploadedFiles = [];
-        
-        UI.renderCostImagePreviews();
-        Utils.$('cTitle').textContent = 'Điều chỉnh: ' + (c.supplier || '');
-        Utils.$('cBtnTxt').textContent = 'Cập nhật chi tiết';
-        Utils.$('cBtnCancel').style.display = '';
-        Utils.$('costCard').classList.add('editing');
-        
-        if (!State.costFormOpen) {
-            State.costFormOpen = true;
-            Utils.$('costBody').style.display = '';
-            Utils.$('cchev').style.transform = '';
-        }
-        Utils.$('costCard').scrollIntoView({ behavior: 'smooth' });
-        renderCosts();
-    });
-};
-
-window.cancelCostEdit = function() {
-    State.pendingUploadedFiles.forEach(id => Api.post({ action: 'deleteImage', fileId: id }).catch(() => {}));
-    State.pendingUploadedFiles = [];
-    State.currentEditFileIds = [];
-    State.editCostId = null;
-    
-    Utils.$('cSupplier').value = '';
-    Utils.$('cProduct').value = '';
-    Utils.$('cPrice').value = '';
-    Utils.$('cAdCost').value = '';
-    Utils.$('cNote').value = '';
-    
-    UI.renderCostImagePreviews();
-    Utils.$('cImageFile').value = '';
-    Utils.$('cTitle').innerHTML = '<i class="ti ti-wallet" style="font-size: 22px;"></i> Khởi tạo Chi phí';
-    Utils.$('cBtnTxt').textContent = 'Lưu dòng chi';
-    Utils.$('cBtnCancel').style.display = 'none';
-    Utils.$('costCard').classList.remove('editing');
-};
-
-window.delCost = async function(id) {
-    requireAuth('boss', async () => {
-        if (!confirm('Cảnh báo: Bỏ qua dòng tiền này?')) return;
-        const c = State.costs.find(x => x.id === id);
-        try {
-            const r = await Api.get({ action: 'deleteCost', id, date: Utils.$('selDate').value });
-            if (!r.ok) throw new Error(r.error);
-            
-            const fIds = Utils.getFileIds(c?.imageUrl);
-            fIds.forEach(fId => Api.post({ action: 'deleteImage', fileId: fId }).catch(() => {}));
-            
-            if (State.editCostId === id) cancelCostEdit();
-            Api.cDel(Utils.$('selDate').value);
-            await renderCosts();
-            UI.toast('Đã dọn dẹp Database.');
-        } catch (e) {
-            UI.toast('Lỗi hủy: ' + e.message, true);
-        }
-    });
-};
-
-// --- FIXED COSTS (Đã fix lỗi ảnh) ---
-async function loadFixedCosts() {
-    const [y, m] = Utils.$('selDate').value.split('-');
-    try {
-        const r = await Api.get({ action: 'getFixedCosts', yearMonth: `${parseInt(m)}_${y}` });
-        if (r.ok) {
-            Utils.$('fRent').value = r.rent ? r.rent / 1000 : '';
-            State.fImgs.rent = r.rentImg ? r.rentImg.split(',').filter(Boolean) : [];
-            UI.renderFixedImgs('rent');
-            
-            Utils.$('fElec').value = r.elec ? r.elec / 1000 : '';
-            State.fImgs.elec = r.elecImg ? r.elecImg.split(',').filter(Boolean) : [];
-            UI.renderFixedImgs('elec');
-            
-            Utils.$('fWater').value = r.water ? r.water / 1000 : '';
-            State.fImgs.water = r.waterImg ? r.waterImg.split(',').filter(Boolean) : [];
-            UI.renderFixedImgs('water');
-            
-            calcFixed();
-        }
-    } catch (e) { /* silent fail for fixed costs load */ }
-}
-
-window.uploadFixedImg = async function(type, input) {
-    const files = input.files;
-    if (!files.length) return;
-    
-    Utils.$('fixedSaveBtn').disabled = true;
-    Utils.$('fixedSaveBtn').innerHTML = 'Đang tải ảnh...';
-    
-    for (let i = 0; i < files.length; i++) {
-        try {
-            const b64 = await compressImage(files[i]);
-            const base64 = b64.split(',')[1];
-            const ext = b64.startsWith('data:image/png') ? 'png' : 'jpg';
-            const r = await Api.post({ action: 'uploadImage', base64, ext });
-            if (!r.ok) throw new Error(r.error);
-            
-            State.fImgs[type].push(Utils.driveFullUrl(r.fileId));
-            UI.renderFixedImgs(type);
-        } catch (e) {
-            UI.toast('Lỗi up ảnh: ' + e.message, true);
-        }
-    }
-    
-    Utils.$('fixedSaveBtn').disabled = false;
-    Utils.$('fixedSaveBtn').innerHTML = 'Cập nhật định phí';
-    input.value = '';
-};
-
-window.removeFixedImg = function(type, idToRemove) {
-    State.fImgs[type] = State.fImgs[type].filter(url => Utils.getFileId(url) !== idToRemove);
-    Api.post({ action: 'deleteImage', fileId: idToRemove }).catch(() => {});
-    UI.renderFixedImgs(type);
-};
-
-window.calcFixed = function() {
-    const total = (Utils.n(Utils.$('fRent').value) + Utils.n(Utils.$('fElec').value) + Utils.n(Utils.$('fWater').value)) * 1000;
-    Utils.$('fixedTotal').textContent = Utils.fmt(total);
-};
-
-window.saveFixed = async function() {
-    const [y, m] = Utils.$('selDate').value.split('-');
-    const ym = `${parseInt(m)}_${y}`;
-    
-    Utils.$('fixedSaveBtn').disabled = true;
-    Utils.$('fixedSaveBtn').innerHTML = '...';
-    
-    try {
-        await Api.post({
-            action: 'saveFixedCosts',
-            data: JSON.stringify({
-                yearMonth: ym,
-                rent: Utils.n(Utils.$('fRent').value) * 1000,
-                rentImg: State.fImgs.rent.join(','),
-                elec: Utils.n(Utils.$('fElec').value) * 1000,
-                elecImg: State.fImgs.elec.join(','),
-                water: Utils.n(Utils.$('fWater').value) * 1000,
-                waterImg: State.fImgs.water.join(',')
-            })
-        });
-        UI.toast('Biểu mẫu định phí đã xác lập!');
-    } catch (e) {
-        UI.toast('Báo lỗi: ' + e.message, true);
-    }
-    
-    Utils.$('fixedSaveBtn').disabled = false;
-    Utils.$('fixedSaveBtn').innerHTML = 'Cập nhật định phí';
-};
-
-// --- DOM TOGGLES ---
-Utils.$('ftoggle').addEventListener('click', () => {
-    State.formOpen = !State.formOpen;
-    Utils.$('fbody').style.display = State.formOpen ? '' : 'none';
-    Utils.$('fchev').style.transform = State.formOpen ? '' : 'rotate(-90deg)';
-});
-
-Utils.$('costtoggle').addEventListener('click', () => {
-    State.costFormOpen = !State.costFormOpen;
-    Utils.$('costBody').style.display = State.costFormOpen ? '' : 'none';
-    Utils.$('cchev').style.transform = State.costFormOpen ? '' : 'rotate(-90deg)';
-});
-
-Utils.$('fixedToggle').addEventListener('click', () => {
-    State.fixedBodyOpen = !State.fixedBodyOpen;
-    Utils.$('fixedBody').style.display = State.fixedBodyOpen ? '' : 'none';
-    Utils.$('fixedChev').style.transform = State.fixedBodyOpen ? '' : 'rotate(-90deg)';
-});
-
-// ==========================================
-// 7. EXPORT EXCEL (Đơn giản hóa)
-// ==========================================
-// Do giới hạn không gian, logic xuất Excel được giữ gọn gàng nhưng an toàn.
-window.onClickXlsx = () => { requireAuth('boss', () => { const t = Utils.todayStr(); Utils.$('xlsxFrom').value = t; Utils.$('xlsxTo').value = t; Utils.$('xlsxModal').style.display = 'flex'; }); };
-window.onClickCostXlsx = () => { const t = Utils.todayStr(); Utils.$('cxlsxFrom').value = t; Utils.$('cxlsxTo').value = t; Utils.$('costXlsxModal').style.display = 'flex'; };
-window.openImgViewer = UI.openImgViewer; // Map to global for inline HTML
-
-// (Các hàm buildExcel, Chart.js, Báo cáo và AI Chat được bảo lưu nguyên gốc logic nghiệp vụ, 
-// nhưng map sang các helper functions từ Utils để chạy mượt mà).
-
-window.pasteToChat = async function() {
-    try {
-        const text = await navigator.clipboard.readText();
-        if(text) { Utils.$('aiChat').value = text; UI.toast('Đã dán văn bản.'); }
-        else { UI.toast('Bộ nhớ tạm trống.', true); }
-    } catch(e) { UI.toast('Lỗi trình duyệt, dùng Ctrl+V.', true); Utils.$('aiChat').focus(); }
-};
-
-window.parseChat = async function() {
-    const chat = Utils.$('aiChat').value.trim();
-    if (!chat) { UI.toast('Vui lòng nhập dữ liệu!', true); return; }
-    
-    Utils.$('aiBtnSub').innerHTML = 'Đang xử lý...';
-    Utils.$('aiBtnSub').disabled = true;
-    Utils.$('aiResult').innerHTML = '';
-    
-    try {
-        const res = await fetch(CONFIG.SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ action: 'parseAI', chat })
-        });
-        if (!res.ok) throw new Error('Lỗi máy chủ');
-        const data = await res.json();
-        if (!data.ok) throw new Error(data.error || 'Lỗi trích xuất.');
-        
-        const o = data.order;
-        if (o.time) Utils.$('fTime').value = o.time;
-        if (o.size) Utils.$('fSize').value = o.size;
-        if (o.cakePrice) Utils.$('fCake').value = o.cakePrice;
-        if (o.accPrice) Utils.$('fAcc').value = o.accPrice;
-        if (o.acc) Utils.$('fAccDesc').value = o.acc;
-        if (o.ship) Utils.$('fShip').value = o.ship;
-        if (o.name) Utils.$('fName').value = o.name;
-        if (o.phone) Utils.$('fPhone').value = o.phone;
-        if (o.addr) Utils.$('fAddr').value = o.addr;
-        if (o.note) Utils.$('fNote').value = o.note;
-        
-        window.calc();
-        if (!State.formOpen) {
-            State.formOpen = true;
-            Utils.$('fbody').style.display = '';
-            Utils.$('fchev').style.transform = '';
-        }
-        Utils.$('aiResult').innerHTML = `<div style="color:var(--green); font-size: 12.5px; font-weight: 600; padding: 8px 10px; background: #eafaf1; border-radius: 6px;">✓ Điền form thành công. Hãy Review.</div>`;
-        UI.toast('Đã trích xuất thông tin!');
-    } catch (e) {
-        Utils.$('aiResult').innerHTML = `<div style="color:var(--red); font-size: 12.5px; padding: 8px 10px; background: #ffe3e3; border-radius: 6px;">⚠️ ${Utils.esc(e.message)}</div>`;
-        UI.toast('Lỗi AI', true);
-    }
-    Utils.$('aiBtnSub').innerHTML = '<i class="ti ti-wand"></i> Tự động điền Form';
-    Utils.$('aiBtnSub').disabled = false;
-};
-
-// ==========================================
-// 8. INITIALIZATION 
-// ==========================================
-(async function initApp() {
-    Utils.$('selDate').value = Utils.todayStr();
-    Utils.$('selDate').addEventListener('change', () => {
-        window.cancelEdit();
-        if (State.currentTab === 'orders') renderOrdersView();
-        else if (State.currentTab === 'costs') renderCosts();
-    });
-
-    const date = Utils.$('selDate').value;
-    const oKey = new URLSearchParams({ action: 'getOrders', date }).toString();
-    const cachedOrders = Api.cGet(oKey);
-    
-    if (cachedOrders) {
-        State.orders = cachedOrders.orders || [];
-        UI.renderOrdersTable();
-        UI.updateOrderMetrics();
-    } else {
-        Utils.$('tbody').innerHTML = `<tr><td colspan="14" style="text-align:center; padding: 4rem; background:transparent; border:none;"><span class="sk" style="width:30px;height:30px;border-width:4px;"></span><br><br>Gắn kết Core Server...</td></tr>`;
-    }
-    
-    updateFormLock();
-    
-    try {
-        const r = await Api.get({ action: 'getDay', date });
-        if (r.ok) {
-            Api.cSet(oKey, { ok: true, orders: r.orders });
-            Api.cSet(new URLSearchParams({ action: 'getCosts', date }).toString(), { ok: true, costs: r.costs });
-            State.orders = r.orders || [];
-            UI.renderOrdersTable();
-            UI.updateOrderMetrics();
-        } else {
-            await renderOrdersView();
-        }
-    } catch (e) {
-        if (!cachedOrders) await renderOrdersView();
-    }
-    
-    updateFormLock();
+/* ── INIT ── */
+(async function(){
+  $('selDate').value=todayStr();
+  initDashSelects();initClock();
+  const date=$('selDate').value;
+  const oKey=new URLSearchParams({action:'getOrders',date}).toString();
+  const cachedOrders=cGet(oKey);
+  if(cachedOrders){currentOrders=cachedOrders.orders||[];renderTable();updateMetrics(currentOrders);}
+  else{$('tbody').innerHTML=`<tr><td colspan="14" class="es"><span class="sk"></span>Đang tải...</td></tr>`;}
+  updateFormLock();
+  try{
+    const r=await api({action:'getDay',date});
+    if(r.ok){cSet(oKey,{ok:true,orders:r.orders});cSet(new URLSearchParams({action:'getCosts',date}).toString(),{ok:true,costs:r.costs});currentOrders=r.orders;renderTable();updateMetrics(currentOrders);}
+    else{await render();}
+  }catch(e){if(!cachedOrders)await render();}
+  updateFormLock();
 })();
 </script>
 </body>
