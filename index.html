@@ -686,6 +686,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
       <button class="btn btn-ol" onclick="loadDash()"><i class="ti ti-refresh"></i> <span>Tải lại</span></button>
       <button class="btn btn-ol" id="btnDashXlsx" onclick="exportDashExcel()" style="display:none"><i class="ti ti-file-spreadsheet"></i> <span>Excel</span></button>
       <button class="btn btn-ol" id="btnDashPDF" onclick="exportDashPDF()" style="display:none"><i class="ti ti-file-type-pdf"></i> <span>PDF</span></button>
+      <button class="btn btn-sub ai" id="btnDashAI" onclick="analyzeDashboardAI()" style="display:none; padding: 7px 12px; min-height: unset; border-radius: 8px;"><i class="ti ti-wand"></i> <span id="dashAITxt">AI Đánh giá</span></button> 
     </div>
   </div>
   <div class="dash-section-lbl"><i class="ti ti-trending-up"></i> Doanh thu</div>
@@ -1426,7 +1427,7 @@ async function loadDash(){
     ]);
     dashExportData={results:orderResults,allCosts:costResult.costs||[],fixedResult,m:dashM,y:dashY};
     await renderDash(orderResults,costResult.costs||[],fixedResult);
-    $('btnDashXlsx').style.display='';$('btnDashPDF').style.display='';
+    $('btnDashXlsx').style.display='';$('btnDashPDF').style.display='';$('btnDashAI').style.display=''; $('dashAIResult').style.display='none';
     // Pre-fetch prev month silently for faster next navigation
     if(dashM>1)prefetchMonth(dashY,dashM-1);
     else prefetchMonth(dashY-1,12);
@@ -1799,6 +1800,61 @@ async function exportCRMExcel() {
   } catch (e) { toast('Lỗi xuất Excel: ' + e.message, true); }
   btn.innerHTML = orig; btn.disabled = false;
 }   
+/* ── AI BUSINESS ANALYST ── */
+async function analyzeDashboardAI() {
+  const btn = $('btnDashAI');
+  const txt = $('dashAITxt');
+  const resBox = $('dashAIResult');
+
+  // Lấy dữ liệu trực tiếp từ các con số đang hiển thị trên Dashboard
+  const m = dashM, y = dashY;
+  const orders = $('dCount').textContent;
+  const rev = $('dTotal').textContent;
+  const cost = $('dCostTotal').textContent;
+  const profit = $('dProfit').textContent;
+
+  // Soạn lời nhắc (Prompt) đóng vai trò CFO
+  const prompt = `Bạn là Giám đốc tài chính (CFO) của tiệm bánh ngọt cao cấp Toulouse. Dưới đây là số liệu kinh doanh tháng ${m}/${y}: 
+  - Tổng số đơn hàng: ${orders}
+  - Tổng doanh thu: ${rev}
+  - Tổng chi phí: ${cost}
+  - Lợi nhuận ròng: ${profit}.
+  Nhiệm vụ: Viết một báo cáo phân tích ngắn gọn (khoảng 4-5 câu). Hãy chỉ ra điểm sáng, cảnh báo rủi ro về chi phí (nếu có), và đưa ra 1 lời khuyên chiến lược cho tháng tới. Giọng điệu chuyên nghiệp, khích lệ.`;
+
+  btn.disabled = true;
+  txt.innerHTML = '<span class="spinner"></span> Đang phân tích...';
+  resBox.style.display = 'block';
+  resBox.innerHTML = '<div class="ai-ok"><span class="spinner"></span> <i>Giám đốc AI đang tổng hợp số liệu và suy nghĩ...</i></div>';
+
+  try {
+    // Tận dụng cổng API AI sẵn có của tab CSKH
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action: 'chatCSKH',
+        systemPrompt: 'Bạn là chuyên gia phân tích dữ liệu F&B và Giám đốc Tài chính.',
+        history: [{ role: 'user', parts: [{ text: prompt }] }]
+      })
+    });
+    
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Lỗi phản hồi AI');
+
+    // Hiển thị báo cáo tuyệt đẹp
+    resBox.innerHTML = `<div class="ai-ok" style="border-left: 4px solid var(--indigo);">
+      <h3 style="font-size: 13px; font-weight: 700; color: var(--indigo); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;"><i class="ti ti-robot"></i> BÁO CÁO CỦA C.F.O (Tháng ${m}/${y})</h3>
+      ${data.reply.replace(/\n/g, '<br>')}
+    </div>`;
+  } catch (e) {
+    resBox.innerHTML = `<div class="ai-err"><i class="ti ti-alert-triangle"></i> Lỗi kết nối AI: ${esc(e.message)}</div>`;
+    toast('Không thể tải đánh giá AI', true);
+  }
+  
+  btn.disabled = false;
+  txt.textContent = 'AI Đánh giá';
+}
 /* ── INIT ── */
 (async function(){
   $('selDate').value=todayStr();
