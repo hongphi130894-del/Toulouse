@@ -5,96 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Toulouse – Quản lý đơn hàng</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
-/* ==========================================================
-   2026 HERO DASHBOARD & METRICS (ULTRA MINIMALIST)
-   ========================================================== */
-
-/* 1. KHÔNG GIAN ÂM (AIRY SPACING) CHO LƯỚI METRICS */
-.metrics {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
-  gap: 1.5rem !important; /* Kéo dãn khoảng cách cực đại */
-  margin-bottom: 2.5rem !important;
-}
-
-/* 2. THẺ DỮ LIỆU & BÓNG PHẲNG NEO-BRUTALISM */
-.mc {
-  padding: 1.5rem 1.25rem !important;
-  border: 1px solid var(--bd) !important;
-  border-radius: 4px !important;
-  background: var(--cc) !important;
-  box-shadow: 3px 3px 0 var(--bd2) !important; /* Bóng đổ khối đặc */
-  transition: transform 0.15s, box-shadow 0.15s !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-.mc:hover {
-  transform: translate(-3px, -3px) !important;
-  box-shadow: 6px 6px 0 var(--bd) !important; /* Đen đặc sắc cạnh khi hover */
-}
-
-/* 3. HERO TYPOGRAPHY CHO CÁC CON SỐ */
-.mc-lbl {
-  font-size: 10px !important;
-  font-weight: 800 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 1px !important;
-  color: var(--cm) !important;
-  margin-bottom: 16px !important;
-}
-.mc-val {
-  font-size: clamp(26px, 4vw, 34px) !important; /* Size cực to */
-  font-weight: 900 !important; /* Đậm nhất có thể */
-  letter-spacing: -0.5px !important;
-  line-height: 1 !important;
-}
-
-/* 4. ĐƠN GIẢN HOÁ TIÊU ĐỀ PHÂN VÙNG */
-.dash-section-lbl, .chart-card h3 {
-  font-size: 14px !important;
-  font-weight: 900 !important;
-  color: var(--dark) !important;
-  text-transform: uppercase !important;
-  letter-spacing: -0.5px !important;
-  margin: 2.5rem 0 1.25rem !important;
-  border-bottom: 2px solid var(--bd) !important; /* Gạch đít đậm, bỏ line mờ */
-  padding-bottom: 10px !important;
-  background: none !important;
-}
-.dash-section-lbl::after, .dash-section-lbl i, .chart-card h3 i {
-  display: none !important; /* Bỏ icon và đường kẻ thừa */
-}
-
-/* 5. GỠ KHUNG BIỂU ĐỒ - CHO DỮ LIỆU HOÀN TOÀN TỰ DO */
-.chart-card {
-  padding: 0 !important;
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  margin-bottom: 3rem !important;
-}
-
-/* 6. BẢNG DỮ LIỆU SIÊU TỐI GIẢN */
-.dash-tbl th {
-  background: transparent !important;
-  color: var(--cm) !important;
-  border: none !important;
-  border-bottom: 1px solid var(--bd) !important;
-  padding: 12px 8px !important;
-}
-.dash-tbl td {
-  border: none !important;
-  border-bottom: 1px solid var(--bd2) !important;
-  padding: 18px 8px !important; /* Dãn khoảng cách hàng (Airy) */
-  font-size: 14px !important;
-}
-.dash-tbl .total-row td {
-  border-top: 3px solid var(--bd) !important; /* Khoá bảng bằng nét đậm */
-  border-bottom: none !important;
-  background: transparent !important;
-  font-size: 15px !important;
-  padding-top: 24px !important;
-}
 <style>
 /* ══════════════════════════════════════════════════
    CSS VARIABLES – Light / Dark
@@ -531,6 +441,96 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
 [data-theme="dark"] .gl-prog-txt {
   color: var(--gold); text-shadow: 0 1px 2px rgba(0,0,0,0.9);
 }   
+/* ==========================================================
+   2026 HERO DASHBOARD & METRICS (ULTRA MINIMALIST)
+   ========================================================== */
+
+/* 1. KHÔNG GIAN ÂM (AIRY SPACING) CHO LƯỚI METRICS */
+.metrics {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+  gap: 1.5rem !important; /* Kéo dãn khoảng cách cực đại */
+  margin-bottom: 2.5rem !important;
+}
+
+/* 2. THẺ DỮ LIỆU & BÓNG PHẲNG NEO-BRUTALISM */
+.mc {
+  padding: 1.5rem 1.25rem !important;
+  border: 1px solid var(--bd) !important;
+  border-radius: 4px !important;
+  background: var(--cc) !important;
+  box-shadow: 3px 3px 0 var(--bd2) !important; /* Bóng đổ khối đặc */
+  transition: transform 0.15s, box-shadow 0.15s !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.mc:hover {
+  transform: translate(-3px, -3px) !important;
+  box-shadow: 6px 6px 0 var(--bd) !important; /* Đen đặc sắc cạnh khi hover */
+}
+
+/* 3. HERO TYPOGRAPHY CHO CÁC CON SỐ */
+.mc-lbl {
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  color: var(--cm) !important;
+  margin-bottom: 16px !important;
+}
+.mc-val {
+  font-size: clamp(26px, 4vw, 34px) !important; /* Size cực to */
+  font-weight: 900 !important; /* Đậm nhất có thể */
+  letter-spacing: -0.5px !important;
+  line-height: 1 !important;
+}
+
+/* 4. ĐƠN GIẢN HOÁ TIÊU ĐỀ PHÂN VÙNG */
+.dash-section-lbl, .chart-card h3 {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  color: var(--dark) !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.5px !important;
+  margin: 2.5rem 0 1.25rem !important;
+  border-bottom: 2px solid var(--bd) !important; /* Gạch đít đậm, bỏ line mờ */
+  padding-bottom: 10px !important;
+  background: none !important;
+}
+.dash-section-lbl::after, .dash-section-lbl i, .chart-card h3 i {
+  display: none !important; /* Bỏ icon và đường kẻ thừa */
+}
+
+/* 5. GỠ KHUNG BIỂU ĐỒ - CHO DỮ LIỆU HOÀN TOÀN TỰ DO */
+.chart-card {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  margin-bottom: 3rem !important;
+}
+
+/* 6. BẢNG DỮ LIỆU SIÊU TỐI GIẢN */
+.dash-tbl th {
+  background: transparent !important;
+  color: var(--cm) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--bd) !important;
+  padding: 12px 8px !important;
+}
+.dash-tbl td {
+  border: none !important;
+  border-bottom: 1px solid var(--bd2) !important;
+  padding: 18px 8px !important; /* Dãn khoảng cách hàng (Airy) */
+  font-size: 14px !important;
+}
+.dash-tbl .total-row td {
+  border-top: 3px solid var(--bd) !important; /* Khoá bảng bằng nét đậm */
+  border-bottom: none !important;
+  background: transparent !important;
+  font-size: 15px !important;
+  padding-top: 24px !important;
+}
 </style>
 </head>
 <body>
