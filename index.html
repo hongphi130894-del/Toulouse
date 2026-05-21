@@ -546,6 +546,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   <button class="tab-btn" id="tab-dashboard-btn" onclick="showTab('dashboard')"><i class="ti ti-chart-bar"></i> Dashboard</button>
   <button class="tab-btn" id="tab-report-btn" onclick="showTab('report')"><i class="ti ti-report-analytics"></i> Báo cáo</button>
   <button class="tab-btn" id="tab-cskh-btn" onclick="showTab('cskh')"><i class="ti ti-headset"></i> CSKH</button>
+  <button class="tab-btn" id="tab-crm-btn" onclick="showTab('crm')"><i class="ti ti-users"></i> CRM</button> 
 </div>
 
 <!-- ═══════════ TAB: ĐƠN HÀNG ═══════════ -->
@@ -750,7 +751,61 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
     </div>
   </div>
 </div>
+<div id="tab-crm" style="display:none">
+  <div class="metrics">
+    <div class="mc"><div class="mc-lbl">Tổng số khách hàng</div><div class="mc-val hl" id="crmTotal">1,420</div></div>
+    <div class="mc"><div class="mc-lbl">Khách thân thiết (VIP)</div><div class="mc-val green" id="crmVIP">98</div></div>
+    <div class="mc"><div class="mc-lbl">Tỷ lệ quay lại mua</div><div class="mc-val hl" id="crmRate">45.2%</div></div>
+  </div>
 
+  <div class="dash-ctrl" style="margin-bottom: 2rem;">
+    <input type="text" id="crmSearch" placeholder="TÌM TÊN KHÁCH HOẶC SỐ ĐIỆN THOẠI..." style="max-width: 380px; border: 1px solid var(--bd) !important; border-radius: 4px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">
+  </div>
+
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+    <table class="dash-tbl" style="min-width:750px">
+      <colgroup>
+        <col style="width:180px"><col style="width:120px"><col style="width:90px"><col style="width:140px"><col style="width:130px"><col style="width:110px">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Tên khách</th>
+          <th>Số điện thoại</th>
+          <th>Số đơn</th>
+          <th>Tổng chi tiêu ★</th>
+          <th>Mua gần nhất</th>
+          <th>Phân hạng</th>
+        </tr>
+      </thead>
+      <tbody id="crmTbody">
+        <tr>
+          <td>Nguyễn Hoàng Yến</td>
+          <td>0904123xxx</td>
+          <td>14 đơn</td>
+          <td class="red">6.200.000đ</td>
+          <td>21/05/2026</td>
+          <td><span style="background: var(--gold-light); color: var(--gold-dark); padding: 3px 8px; font-weight: 900; font-size: 10px; border: 1px solid var(--bd);">VIP</span></td>
+        </tr>
+        <tr>
+          <td>Phan Anh Tuấn</td>
+          <td>0912345xxx</td>
+          <td>6 đơn</td>
+          <td class="red">2.450.000đ</td>
+          <td>18/05/2026</td>
+          <td><span style="background: var(--gold-pale); color: var(--cm); padding: 3px 8px; font-weight: 700; font-size: 10px; border: 1px solid var(--bd2);">LOYAL</span></td>
+        </tr>
+        <tr>
+          <td>Lê Minh Triết</td>
+          <td>0988776xxx</td>
+          <td>1 đơn</td>
+          <td class="red">450.000đ</td>
+          <td>10/05/2026</td>
+          <td><span style="background: transparent; color: var(--cm); padding: 3px 8px; font-weight: 500; font-size: 10px; border: 1px solid var(--bd2);">NEW</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 </div><!-- /.wrap -->
 <script>
 /* ══ TRÌNH QUẢN LÝ THANH TIẾN ĐỘ TOÀN CỤC ══ */
@@ -1032,9 +1087,11 @@ $('aiToggle').addEventListener('click',()=>{aiOpen=!aiOpen;$('aiBody').style.dis
 
 /* ── TABS ── */
 function showTab(t){
-  if(['costs','dashboard','report'].includes(t)&&!authedBoss){requireAuth('boss',()=>showTab(t));return;}
+  // Thêm 'crm' vào danh sách bắt buộc phải nhập mật khẩu Boss mới được xem dữ liệu khách hàng
+  if(['costs','dashboard','report','crm'].includes(t)&&!authedBoss){requireAuth('boss',()=>showTab(t));return;}
   currentTab=t;
-  ['orders','dashboard','report','costs','cskh'].forEach(id=>{$('tab-'+id).style.display=id===t?'':'none';$('tab-'+id+'-btn').classList.toggle('active',id===t);});
+  // Bổ sung 'crm' vào mảng lặp ẩn/hiện cấu trúc giao diện
+  ['orders','dashboard','report','costs','cskh','crm'].forEach(id=>{$('tab-'+id).style.display=id===t?'':'none';$('tab-'+id+'-btn').classList.toggle('active',id===t);});
   if(t==='dashboard')loadDash();if(t==='report')initReport();if(t==='costs')renderCosts();
 }
 function refreshCurrentTab(){if(currentTab==='orders')render();else if(currentTab==='costs')renderCosts();else if(currentTab==='dashboard')loadDash();}
