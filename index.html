@@ -1363,7 +1363,8 @@ async function saveFixed(){
   $('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;
   try{
     await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent.join('|'),elec:n($('fElec').value)*1000,elecImg:fImgs.elec.join('|'),water:n($('fWater').value)*1000,waterImg:fImgs.water.join('|'),salary:n($('fSalary').value)*1000,salaryImg:fImgs.salary.join('|')})});
-    toast('✓ Đã lưu chi phí cố định!');
+   cDel(ym); 
+   toast('✓ Đã lưu chi phí cố định!');
   }catch(e){toast('⚠️ '+e.message,true);}
   $('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;
 }
