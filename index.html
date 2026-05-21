@@ -1474,8 +1474,8 @@ async function renderDash(results,allCosts,fixedResult){
     labels.push(String(d));revVals.push(cake+ship);costVals.push(dc.price+dc.adCost);
   });
   const tP=allCosts.reduce((s,c)=>s+n(c.price),0),tA=allCosts.reduce((s,c)=>s+n(c.adCost),0);
-  const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;
-  const totalFixed=fR+fE+fW,totalCost=tP+tA+totalFixed;
+  const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;const fS=fixedResult.ok?n(fixedResult.salary):0;
+  const totalFixed=fR+fE+fW+fS,totalCost=tP+tA+totalFixed;
   const netProfit=gCake-totalCost;
 
   // Animated metrics
@@ -1533,8 +1533,8 @@ async function exportDashExcel(){
   ws.columns=[{width:28},{width:20},{width:20},{width:20},{width:20},{width:20}];
   ws.mergeCells('A1:F1');const t=ws.getRow(1).getCell(1);t.value=`Dashboard Toulouse – Tháng ${m}/${y}`;t.font=xn(true,'FFFFFFFF',14);t.fill=xf('FF1F4E78');t.alignment={horizontal:'center',vertical:'middle'};ws.getRow(1).height=30;
   const tP=allCosts.reduce((s,c)=>s+n(c.price),0),tA=allCosts.reduce((s,c)=>s+n(c.adCost),0);
-  const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;
-  const totalFixed=fR+fE+fW,totalOrders=results.reduce((s,r)=>s+r.orders.length,0);
+  const fR=fixedResult.ok?n(fixedResult.rent):0,fE=fixedResult.ok?n(fixedResult.elec):0,fW=fixedResult.ok?n(fixedResult.water):0;const fS=fixedResult.ok?n(fixedResult.salary):0;
+  const totalFixed=fR+fE+fW+fS,totalOrders=results.reduce((s,r)=>s+r.orders.length,0);
   const gCake=results.reduce((s,r)=>s+r.orders.reduce((ss,o)=>ss+n(o.cakePrice)+n(o.accPrice),0),0);
   const gShip=results.reduce((s,r)=>s+r.orders.reduce((ss,o)=>ss+n(o.ship),0),0);
   const netProfit=gCake-tP-tA-totalFixed;
@@ -1575,7 +1575,7 @@ function renderReport(from,to){
   let gOrders=0,gCake=0,gShip=0;
   reportData.forEach(({orders})=>{gOrders+=orders.length;gCake+=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);gShip+=orders.reduce((s,o)=>s+n(o.ship),0);});
   const totalGross=gCake+gShip,tP=reportCosts.reduce((s,c)=>s+n(c.price),0),tA=reportCosts.reduce((s,c)=>s+n(c.adCost),0);
-  const totalFixed=Object.values(reportMonthFixeds).reduce((s,f)=>s+(f&&f.ok?n(f.rent)+n(f.elec)+n(f.water):0),0);
+  const totalFixed=Object.values(reportMonthFixeds).reduce((s,f)=>s+(f&&f.ok?n(f.rent)+n(f.elec)+n(f.water)+n(f.salary):0),0);
   const netProfit=gCake-tP-tA-totalFixed;
   const dayRows=reportData.filter(r=>r.orders.length||costsByDate[normDate(r.date)]);
   const dayTable=dayRows.map(({date,orders})=>{const[y,mo,d]=date.split('-');const cake=orders.reduce((s,o)=>s+n(o.cakePrice)+n(o.accPrice),0);const ship=orders.reduce((s,o)=>s+n(o.ship),0);const dc=costsByDate[normDate(date)]||{price:0,adCost:0};const profit=cake-(dc.price+dc.adCost);return`<tr><td>${d}/${mo}/${y}</td><td>${orders.length}</td><td>${fmt(cake)}</td><td style="color:var(--indigo)">${ship?fmt(ship):'–'}</td><td>${dc.price?fmt(dc.price):'–'}</td><td>${dc.adCost?fmt(dc.adCost):'–'}</td><td style="${profit>=0?'color:#1A6B3A':'color:#A03020'};font-weight:600">${fmt(profit)}</td></tr>`;}).join('');
