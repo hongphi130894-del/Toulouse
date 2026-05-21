@@ -855,11 +855,10 @@ function endGlobalProgress() {
 
 // ══ ĐÁNH CHẶN (INTERCEPT) LỆNH FETCH TOÀN CỤC ══
 const originalFetch = window.fetch;
-const originalFetch = window.fetch;
 window.fetch = async function(...args) {
   const url = args[0];
   // Chỉ kích hoạt thanh loading nếu link gọi đi chứa URL của Google Script
-  const isAppScript = typeof url === 'string' && url.includes(SCRIPT_URL);
+  const isAppScript = typeof url === 'string' && typeof SCRIPT_URL !== 'undefined' && url.includes(SCRIPT_URL);
   
   if (isAppScript) startGlobalProgress();
   
@@ -867,13 +866,6 @@ window.fetch = async function(...args) {
     return await originalFetch.apply(this, args);
   } finally {
     if (isAppScript) endGlobalProgress();
-  }
-}; {
-  startGlobalProgress();
-  try {
-    return await originalFetch.apply(this, args);
-  } finally {
-    endGlobalProgress();
   }
 };   
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzK1u9udQ8C3bOifz7DP3jwLr5Src1UI_VKDIX5PdKPSSQ3QZiaLaLsUzRh7EEOkZDJ3Q/exec';
