@@ -546,7 +546,6 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   <button class="tab-btn" id="tab-dashboard-btn" onclick="showTab('dashboard')"><i class="ti ti-chart-bar"></i> Dashboard</button>
   <button class="tab-btn" id="tab-report-btn" onclick="showTab('report')"><i class="ti ti-report-analytics"></i> Báo cáo</button>
   <button class="tab-btn" id="tab-cskh-btn" onclick="showTab('cskh')"><i class="ti ti-headset"></i> CSKH</button>
-  <button class="tab-btn" id="tab-crm-btn" onclick="showTab('crm')"><i class="ti ti-users"></i> CRM</button> 
 </div>
 
 <!-- ═══════════ TAB: ĐƠN HÀNG ═══════════ -->
@@ -751,38 +750,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
     </div>
   </div>
 </div>
-<div id="tab-crm" style="display:none">
-  <div class="rpt-card">
-    <h3><i class="ti ti-users"></i> Quản lý quan hệ khách hàng (CRM)</h3>
-    <div class="rpt-controls">
-      <div class="rpt-fg"><label>Từ ngày</label><input type="date" id="crmFrom"></div>
-      <div class="rpt-fg"><label>Đến ngày</label><input type="date" id="crmTo"></div>
-      <button class="btn btn-ol" id="btnLoadCRM" style="align-self:flex-end" onclick="loadCRM()"><i class="ti ti-refresh"></i> Đồng bộ dữ liệu thật</button>
-    </div>
-  </div>
-  
-  <div class="metrics" style="margin-top: 1.25rem;">
-    <div class="mc"><div class="mc-lbl">Tổng số khách hàng</div><div class="mc-val hl" id="crmTotal">–</div></div>
-    <div class="mc profit-card"><div class="mc-lbl">Khách VIP (>5 triệu)</div><div class="mc-val" id="crmVIP">–</div></div>
-    <div class="mc ship-card"><div class="mc-lbl">Tỷ lệ quay lại mua</div><div class="mc-val" id="crmRate">–</div></div>
-  </div>
 
-  <div class="dash-ctrl">
-    <input type="text" id="crmSearch" oninput="searchCRM()" placeholder="Tìm tên khách hoặc số điện thoại..." style="max-width: 300px;">
-  </div>
-
-  <div class="tw">
-    <table class="dash-tbl" style="min-width: 750px;">
-      <colgroup><col style="width:180px"><col style="width:120px"><col style="width:90px"><col style="width:140px"><col style="width:130px"><col style="width:110px"></colgroup>
-      <thead>
-        <tr><th>Tên khách</th><th>Số điện thoại</th><th>Số đơn</th><th>Tổng chi tiêu ★</th><th>Mua gần nhất</th><th>Phân hạng</th></tr>
-      </thead>
-      <tbody id="crmTbody">
-        <tr><td colspan="6" class="es">Vui lòng chọn khoảng thời gian và bấm <b>Đồng bộ dữ liệu thật</b></td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
 </div><!-- /.wrap -->
 <script>
 /* ══ TRÌNH QUẢN LÝ THANH TIẾN ĐỘ TOÀN CỤC ══ */
@@ -1064,10 +1032,10 @@ $('aiToggle').addEventListener('click',()=>{aiOpen=!aiOpen;$('aiBody').style.dis
 
 /* ── TABS ── */
 function showTab(t){
-  if(['costs','dashboard','report','crm'].includes(t)&&!authedBoss){requireAuth('boss',()=>showTab(t));return;}
+  if(['costs','dashboard','report'].includes(t)&&!authedBoss){requireAuth('boss',()=>showTab(t));return;}
   currentTab=t;
-  ['orders','dashboard','report','costs','cskh','crm'].forEach(id=>{$('tab-'+id).style.display=id===t?'':'none';$('tab-'+id+'-btn').classList.toggle('active',id===t);});
-  if(t==='dashboard')loadDash();if(t==='report')initReport();if(t==='costs')renderCosts();if(t==='crm')initCRM();
+  ['orders','dashboard','report','costs','cskh'].forEach(id=>{$('tab-'+id).style.display=id===t?'':'none';$('tab-'+id+'-btn').classList.toggle('active',id===t);});
+  if(t==='dashboard')loadDash();if(t==='report')initReport();if(t==='costs')renderCosts();
 }
 function refreshCurrentTab(){if(currentTab==='orders')render();else if(currentTab==='costs')renderCosts();else if(currentTab==='dashboard')loadDash();}
 
@@ -1647,80 +1615,6 @@ function updateClock(){const now=new Date(),h=now.getHours()%12,m=now.getMinutes
 
 $('selDate').addEventListener('change',()=>{cancelEdit();if(currentTab==='orders')render();else if(currentTab==='costs')renderCosts();});
 
-/* ── CRM LOGIC ── */
-let crmData = [];
-function initCRM() {
-  if (!$('crmFrom').value) {
-    const d = new Date(), y = d.getFullYear(), m = d.getMonth() + 1;
-    $('crmFrom').value = `${y}-${pad(m)}-01`; // Mặc định tự chọn từ đầu tháng hiện tại
-    $('crmTo').value = todayStr();
-  }
-}
-async function loadCRM() {
-  const from = $('crmFrom').value, to = $('crmTo').value;
-  if (!from || !to) { toast('Vui lòng chọn ngày!', true); return; }
-  if (from > to) { toast('Ngày bắt đầu phải ≤ ngày kết thúc!', true); return; }
-  const btn = $('btnLoadCRM'), orig = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span> Đang đồng bộ...'; btn.disabled = true;
-  $('crmTbody').innerHTML = '<tr><td colspan="6" class="es"><span class="sk"></span> Đang tổng hợp dữ liệu khách hàng từ lịch sử đơn...</td></tr>';
-  try {
-    const dates = genDates(from, to);
-    const results = await fetchRange(dates); // Quét đa luồng song song qua cache thông minh có sẵn của bạn
-    const cMap = {};
-    results.forEach(({ date, orders }) => {
-      orders.forEach(o => {
-        const phone = String(o.phone || '').trim(); if (!phone) return; // Nhóm khách theo SĐT
-        const name = String(o.name || 'Khách không tên').trim();
-        const spend = n(o.cakePrice) + n(o.accPrice);
-        if (!cMap[phone]) cMap[phone] = { phone, name, count: 0, spend: 0, last: date };
-        cMap[phone].count += 1;
-        cMap[phone].spend += spend;
-        if (date >= cMap[phone].last) {
-          cMap[phone].last = date;
-          if (o.name) cMap[phone].name = name;
-        }
-      });
-    });
-    crmData = Object.values(cMap).sort((a, b) => b.spend - a.spend); // Sắp xếp ai mua nhiều tiền nhất lên đầu
-    renderCRMTable(crmData);
-  } catch (e) {
-    $('crmTbody').innerHTML = `<tr><td colspan="6" class="es">⚠️ Lỗi: ${esc(e.message)}</td></tr>`;
-  }
-  btn.innerHTML = orig; btn.disabled = false;
-}
-function renderCRMTable(data) {
-  if (!data.length) {
-    $('crmTbody').innerHTML = '<tr><td colspan="6" class="es">Không có dữ liệu khách hàng trong khoảng thời gian này</td></tr>';
-    $('crmTotal').textContent = '0'; $('crmVIP').textContent = '0'; $('crmRate').textContent = '0%';
-    return;
-  }
-  let vipCount = 0, returnCount = 0;
-  const html = data.map(c => {
-    let rank = 'NEW';
-    if (c.spend >= 5000000) { rank = 'VIP'; vipCount++; }
-    else if (c.spend >= 2000000 || c.count >= 3) { rank = 'LOYAL'; }
-    if (c.count > 1) returnCount++;
-    const [y, mo, d] = c.last.split('-');
-    return `<tr>
-      <td><b>${esc(c.name)}</b></td>
-      <td>${esc(c.phone)}</td>
-      <td>${c.count} đơn</td>
-      <td class="red">${fmt(c.spend)}</td>
-      <td>${d}/${mo}/${y}</td>
-      <td><span style="font-weight:bold; color:${rank==='VIP'?'var(--red)':rank==='LOYAL'?'var(--green)':'var(--cm)'}">${rank}</span></td>
-    </tr>`;
-  }).join('');
-  $('crmTbody').innerHTML = html;
-  animateMetric($('crmTotal'), data.length, fmtCount, 400);
-  animateMetric($('crmVIP'), vipCount, fmtCount, 400);
-  $('crmRate').textContent = Math.round((returnCount / data.length) * 100) + '%';
-}
-function searchCRM() {
-  const q = $('crmSearch').value.toLowerCase().trim();
-  if (!q) { renderCRMTable(crmData); return; }
-  const filtered = crmData.filter(c => c.name.toLowerCase().includes(q) || c.phone.includes(q));
-  renderCRMTable(filtered);
-}
 /* ── INIT ── */
 (async function(){
   $('selDate').value=todayStr();
