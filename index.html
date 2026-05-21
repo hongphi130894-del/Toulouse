@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Toulouse – Quản lý đơn hàng</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"></noscript>
 <style>
 /* ══════════════════════════════════════════════════
    CSS VARIABLES – Light / Dark
@@ -854,7 +855,20 @@ function endGlobalProgress() {
 
 // ══ ĐÁNH CHẶN (INTERCEPT) LỆNH FETCH TOÀN CỤC ══
 const originalFetch = window.fetch;
+const originalFetch = window.fetch;
 window.fetch = async function(...args) {
+  const url = args[0];
+  // Chỉ kích hoạt thanh loading nếu link gọi đi chứa URL của Google Script
+  const isAppScript = typeof url === 'string' && url.includes(SCRIPT_URL);
+  
+  if (isAppScript) startGlobalProgress();
+  
+  try {
+    return await originalFetch.apply(this, args);
+  } finally {
+    if (isAppScript) endGlobalProgress();
+  }
+}; {
   startGlobalProgress();
   try {
     return await originalFetch.apply(this, args);
@@ -1111,20 +1125,43 @@ function pwCancel(){$('pwModal').style.display='none';pwCallback=null;}
 async function compressImage(file){return new Promise(resolve=>{const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(url);const MW=900,MH=700;let w=img.width,h=img.height;if(w>MW){h=Math.round(h*MW/w);w=MW;}if(h>MH){w=Math.round(w*MH/h);h=MH;}const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);resolve(cv.toDataURL('image/jpeg',.68));};img.src=url;});}
 
 /* ── MULTI IMAGE – COST FORM ── */
-async function onImagesSelected(input){
-  const files=Array.from(input.files);if(!files.length)return;
-  $('cBtnSub').disabled=true;$('cBtnTxt').textContent=`Đang tải ${files.length} ảnh...`;
-  for(const file of files){
-    try{
-      const b64=await compressImage(file);const base64=b64.split(',')[1],ext=b64.startsWith('data:image/png')?'png':'jpg';
-      const r=await apiPost({action:'uploadImage',base64,ext});
-      if(!r.ok)throw new Error(r.error||'Upload thất bại');
-      costImages.push({fileId:r.fileId,previewSrc:b64,isNew:true});renderCostImageGrid();
-    }catch(e){toast('⚠️ Lỗi tải ảnh: '+e.message,true);}
-  }
-  input.value='';$('cBtnSub').disabled=false;
-  $('cBtnTxt').textContent=editCostId?'Cập nhật':'Thêm chi phí';
-  const cnt=costImages.filter(i=>i.isNew).length;if(cnt)toast(`✓ Đã tải ${cnt} ảnh lên Drive`);
+async function onImagesSelected(input) {
+  const files = Array.from(input.files); 
+  if (!files.length) return;
+  
+  $('cBtnSub').disabled = true; 
+  $('cBtnTxt').textContent = `Đang tải ${files.length} ảnh...`;
+
+  // Tạo mảng các tiến trình upload chạy song song
+  const uploadPromises = files.map(async (file) => {
+    try {
+      const b64 = await compressImage(file);
+      const base64 = b64.split(',')[1];
+      const ext = b64.startsWith('data:image/png') ? 'png' : 'jpg';
+      
+      const r = await apiPost({ action: 'uploadImage', base64, ext });
+      if (!r.ok) throw new Error(r.error || 'Upload thất bại');
+      
+      return { fileId: r.fileId, previewSrc: b64, isNew: true };
+    } catch (e) {
+      toast('⚠️ Lỗi tải ảnh: ' + e.message, true);
+      return null;
+    }
+  });
+
+  // Chờ tất cả tiến trình hoàn thành cùng lúc
+  const results = await Promise.all(uploadPromises);
+  
+  // Đẩy các ảnh upload thành công vào danh sách
+  results.filter(img => img !== null).forEach(img => costImages.push(img));
+  renderCostImageGrid();
+
+  input.value = ''; 
+  $('cBtnSub').disabled = false;
+  $('cBtnTxt').textContent = editCostId ? 'Cập nhật' : 'Thêm chi phí';
+  
+  const cnt = costImages.filter(i => i.isNew).length;
+  if (cnt) toast(`✓ Đã tải ${cnt} ảnh lên Drive`);
 }
 function renderCostImageGrid(){
   const grid=$('cImgGrid');
@@ -1239,7 +1276,7 @@ async function submitOrder(){
   if(isPast($('selDate').value)&&editId===null){toast('Không thể thêm đơn cho ngày đã qua!',true);return;}
   const date=$('selDate').value, o={...getForm(),date};
   const isEdit=editId!==null;
-  const tempId = isEdit ? editId : '_tmp_'+Date.now(); // Tạo ID tạm nếu là đơn mới
+  const tempId = isEdit ? editId : '_tmp_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7); // Tạo ID tạm nếu là đơn mới
 
   // 1. TỐI ƯU: CẬP NHẬT GIAO DIỆN NGAY LẬP TỨC (0s delay)
   if(isEdit) {
@@ -1302,7 +1339,7 @@ async function submitCost(){
   const date=$('selDate').value, isEdit=editCostId!==null;
   const imageUrl=getCostImageUrl();
   const costData={date,supplier:$('cSupplier').value.trim(),product:$('cProduct').value.trim(),price:n($('cPrice').value)*1000,imageUrl,adCost:n($('cAdCost').value)*1000,note:$('cNote').value.trim()};
-  const tempId = isEdit ? editCostId : '_tmp_'+Date.now();
+  const tempId = isEdit ? editCostId : '_tmp_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
 
   // 1. TỐI ƯU: CẬP NHẬT BẢNG CHI PHÍ NGAY LẬP TỨC
   if(isEdit){
@@ -1754,11 +1791,20 @@ function renderCRMTable(data) {
   $('crmRate').textContent = Math.round((returnCount / data.length) * 100) + '%';
 }
 
+let crmSearchTimer = null; // Biến này để lưu thời gian chờ
+
 function searchCRM() {
-  const q = $('crmSearch').value.toLowerCase().trim();
-  if (!q) { renderCRMTable(crmData); return; }
-  const filtered = crmData.filter(c => c.name.toLowerCase().includes(q) || c.phone.includes(q));
-  renderCRMTable(filtered);
+  clearTimeout(crmSearchTimer); // Hủy lệnh tìm kiếm cũ nếu người dùng vẫn đang gõ
+  
+  crmSearchTimer = setTimeout(() => { // Đợi 300ms sau khi ngừng gõ mới chạy
+    const q = $('crmSearch').value.toLowerCase().trim();
+    if (!q) { 
+      renderCRMTable(crmData); 
+      return; 
+    }
+    const filtered = crmData.filter(c => c.name.toLowerCase().includes(q) || c.phone.includes(q));
+    renderCRMTable(filtered);
+  }, 300); 
 }
 
 async function exportCRMExcel() {
