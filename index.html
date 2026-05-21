@@ -7,78 +7,50 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
 /* ══════════════════════════════════════════════════
-   CSS VARIABLES – Ultra Minimalist (Toulouse Brand)
+   CSS VARIABLES – Light / Dark
 ══════════════════════════════════════════════════ */
-:root {
-  /* Brand Colors */
-  --gold: #6B7A2E; --gold-dark: #4A5E1C; --gold-light: #e8edd6; --gold-pale: #f2f5e8;
-  --red: #C00000; --green: #15803D; --orange: #E67E22; --indigo: #5B5EA6;
-  
-  /* Monochrome Minimalist */
-  --ct: #000000; --cm: #555555; 
-  --cb: #ffffff; /* Nền trắng tinh */
-  --cc: #ffffff; /* Nền card trắng tinh */
-  
-  /* Borders (Dùng viền thay cho bóng đổ) */
-  --bd: #000000; --bd2: rgba(0, 0, 0, 0.15);
-  
-  --dark: #000000; --dark2: #2d3a10;
-  --th-bg: #000000; --th-color: #ffffff; /* Table header Đen chữ Trắng */
-  --btn-bg: #000000; --btn-color: #ffffff; /* Nút chính Đen chữ Trắng */
-  
-  --card-bg: #ffffff;
-  --mc-bg: #ffffff;
-  --hdr-bg: #ffffff;
-  --tab-bg: transparent; --dot: transparent;
-  
-  /* Hình khối sắc cạnh */
-  --rmd: 2px; --rlg: 2px;
-  
-  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  --serif: Georgia, 'Times New Roman', serif;
-  
-  /* Loại bỏ hoàn toàn bóng đổ và phát sáng */
-  --sh-sm: none;
-  --sh: none;
-  --sh-lg: none;
-  --sh-xl: none;
-  --glass-border: var(--bd);
-  --glow-green: none;
-  --glow-red: none;
+:root{
+  --gold:#6B7A2E;--gold-dark:#4A5E1C;--gold-light:#e8edd6;--gold-pale:#f2f5e8;
+  --red:#C00000;--green:#15803D;--orange:#E67E22;--indigo:#5B5EA6;
+  --ct:#1a1a0e;--cm:#6b7240;--cb:#ecf0e2;--cc:#ffffff;
+  --bd:rgba(107,122,46,.14);--bd2:rgba(107,122,46,.24);
+  --dark:#1a1a0e;--dark2:#2d3a10;
+  --th-bg:#2d3a10;--th-color:#F5EDD4;
+  --btn-bg:#1a1a0e;--btn-color:#e8edd6;
+  --card-bg:linear-gradient(145deg,#ffffff 0%,#f6faea 100%);
+  --mc-bg:rgba(255,255,255,0.52);
+  --hdr-bg:linear-gradient(160deg,#f7faf0 0%,#e6edcc 100%);
+  --tab-bg:#edf1de;--dot:rgba(107,122,46,.1);
+  --rmd:10px;--rlg:14px;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+  --sh-sm:0 1px 3px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.8);
+  --sh:0 3px 10px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.8),0 0 0 .5px rgba(107,122,46,.1);
+  --sh-lg:0 8px 24px rgba(0,0,0,.10),0 2px 8px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.75),0 0 0 .5px rgba(107,122,46,.12);
+  --sh-xl:0 20px 60px rgba(0,0,0,.15),0 8px 20px rgba(0,0,0,.1);
+  --glass-border:rgba(255,255,255,.65);
+  --glow-green:0 0 18px rgba(21,128,61,.35);
+  --glow-red:0 0 16px rgba(192,0,0,.28);
 }
-[data-theme="dark"] {
-  /* Brand Colors */
-  --gold: #8a9c3a; --gold-dark: #b0c050; --gold-light: #242a12; --gold-pale: #1b2110;
-  
-  /* Monochrome Minimalist */
-  --ct: #ffffff; --cm: #a0a0a0;
-  --cb: #0a0a0a; /* Nền đen tuyền */
-  --cc: #0a0a0a;
-  
-  --bd: #444444; --bd2: rgba(255, 255, 255, 0.15);
-  --dark: #ffffff; --dark2: #a8c040;
-  --th-bg: #ffffff; --th-color: #000000;
-  --btn-bg: #ffffff; --btn-color: #000000;
-  
-  --card-bg: #0a0a0a;
-  --mc-bg: #0a0a0a;
-  --hdr-bg: #0a0a0a;
-  --tab-bg: transparent;
+[data-theme="dark"]{
+  --gold:#8a9c3a;--gold-dark:#b0c050;--gold-light:#242a12;--gold-pale:#1b2110;
+  --ct:#dde5b0;--cm:#8fa04f;--cb:#0c0e07;--cc:#161909;
+  --bd:rgba(107,122,46,.2);--bd2:rgba(107,122,46,.3);
+  --dark:#dde5b0;--dark2:#a8c040;
+  --th-bg:#222e0d;--th-color:#d0de8a;
+  --btn-bg:#2c3814;--btn-color:#d4e090;
+  --card-bg:linear-gradient(145deg,#1a1f0c 0%,#141809 100%);
+  --mc-bg:rgba(22,25,9,0.55);
+  --hdr-bg:linear-gradient(160deg,#171c09 0%,#0f1307 100%);
+  --tab-bg:#131709;--dot:rgba(107,122,46,.07);
+  --sh-sm:0 1px 3px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04);
+  --sh:0 3px 10px rgba(0,0,0,.35),0 1px 3px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.04),0 0 0 .5px rgba(107,122,46,.18);
+  --sh-lg:0 8px 24px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03),0 0 0 .5px rgba(107,122,46,.2);
+  --sh-xl:0 20px 60px rgba(0,0,0,.6),0 8px 20px rgba(0,0,0,.4);
+  --glass-border:rgba(107,122,46,.22);
+  --glow-green:0 0 20px rgba(21,128,61,.45);
+  --glow-red:0 0 18px rgba(192,0,0,.4);
 }
-
-/* ══ OVERRIDES (Gỡ bỏ các hiệu ứng thừa) ══ */
-body { background-image: none !important; }
-.hdr { border-bottom: 2px solid var(--bd) !important; }
-.hdr::before, .hdr::after { display: none !important; }
-.mc::before, .mc::after { display: none !important; }
-.mc, .fcard { 
-  border: 1px solid var(--bd) !important; 
-  backdrop-filter: none !important; 
-  -webkit-backdrop-filter: none !important; 
-}
-.mc:hover { transform: translateY(-2px) !important; box-shadow: 2px 2px 0 var(--bd) !important; }
-.btn-sub, .tab-btn.active { border: 1px solid var(--bd) !important; }
-input:focus, textarea:focus, select:focus { box-shadow: none !important; border-color: var(--gold) !important; outline: 1px solid var(--gold) !important; }
 
 /* ══ ANIMATIONS ══ */
 @keyframes spin{to{transform:rotate(360deg)}}
