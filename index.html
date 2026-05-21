@@ -546,6 +546,7 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
   <button class="tab-btn" id="tab-dashboard-btn" onclick="showTab('dashboard')"><i class="ti ti-chart-bar"></i> Dashboard</button>
   <button class="tab-btn" id="tab-report-btn" onclick="showTab('report')"><i class="ti ti-report-analytics"></i> Báo cáo</button>
   <button class="tab-btn" id="tab-cskh-btn" onclick="showTab('cskh')"><i class="ti ti-headset"></i> CSKH</button>
+  <button class="tab-btn" id="tab-crm-btn" onclick="showTab('crm')"><i class="ti ti-users"></i> QLKH</button> 
 </div>
 
 <!-- ═══════════ TAB: ĐƠN HÀNG ═══════════ -->
@@ -750,7 +751,39 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
     </div>
   </div>
 </div>
+<div id="tab-crm" style="display:none">
+  <div class="rpt-card">
+    <h3><i class="ti ti-users"></i> Quản lý quan hệ khách hàng (CRM)</h3>
+    <div class="rpt-controls">
+      <div class="rpt-fg"><label>Từ ngày</label><input type="date" id="crmFrom"></div>
+      <div class="rpt-fg"><label>Đến ngày</label><input type="date" id="crmTo"></div>
+      <button class="btn btn-ol" id="btnLoadCRM" style="align-self:flex-end" onclick="loadCRM()"><i class="ti ti-refresh"></i> Đồng bộ dữ liệu thật</button>
+      <button class="btn btn-ol" id="btnExportCRM" style="align-self:flex-end; display:none;" onclick="exportCRMExcel()"><i class="ti ti-file-spreadsheet"></i> Xuất Excel</button>
+    </div>
+  </div>
+  
+  <div class="metrics" style="margin-top: 1.25rem;">
+    <div class="mc"><div class="mc-lbl">Tổng số khách hàng</div><div class="mc-val hl" id="crmTotal">–</div></div>
+    <div class="mc profit-card"><div class="mc-lbl">Khách VIP (>5 triệu)</div><div class="mc-val" id="crmVIP">–</div></div>
+    <div class="mc ship-card"><div class="mc-lbl">Tỷ lệ quay lại mua</div><div class="mc-val" id="crmRate">–</div></div>
+  </div>
 
+  <div class="dash-ctrl">
+    <input type="text" id="crmSearch" oninput="searchCRM()" placeholder="Tìm tên khách hoặc số điện thoại..." style="max-width: 300px;">
+  </div>
+
+  <div class="tw">
+    <table class="dash-tbl" style="min-width: 850px;">
+      <colgroup><col style="width:170px"><col style="width:110px"><col style="width:80px"><col style="width:130px"><col style="width:110px"><col style="width:110px"><col style="width:100px"></colgroup>
+      <thead>
+        <tr><th>Tên khách</th><th>Số điện thoại</th><th>Số đơn</th><th>Tổng chi tiêu ★</th><th>Mua lần đầu</th><th>Mua gần nhất</th><th>Phân hạng</th></tr>
+      </thead>
+      <tbody id="crmTbody">
+        <tr><td colspan="7" class="es">Vui lòng chọn khoảng thời gian và bấm <b>Đồng bộ dữ liệu thật</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 </div><!-- /.wrap -->
 <script>
 /* ══ TRÌNH QUẢN LÝ THANH TIẾN ĐỘ TOÀN CỤC ══ */
@@ -1032,10 +1065,10 @@ $('aiToggle').addEventListener('click',()=>{aiOpen=!aiOpen;$('aiBody').style.dis
 
 /* ── TABS ── */
 function showTab(t){
-  if(['costs','dashboard','report'].includes(t)&&!authedBoss){requireAuth('boss',()=>showTab(t));return;}
+  if(['costs','dashboard','report','crm'].includes(t)&&!authedBoss){requireAuth('boss',()=>showTab(t));return;}
   currentTab=t;
-  ['orders','dashboard','report','costs','cskh'].forEach(id=>{$('tab-'+id).style.display=id===t?'':'none';$('tab-'+id+'-btn').classList.toggle('active',id===t);});
-  if(t==='dashboard')loadDash();if(t==='report')initReport();if(t==='costs')renderCosts();
+  ['orders','dashboard','report','costs','cskh','crm'].forEach(id=>{$('tab-'+id).style.display=id===t?'':'none';$('tab-'+id+'-btn').classList.toggle('active',id===t);});
+  if(t==='dashboard')loadDash();if(t==='report')initReport();if(t==='costs')renderCosts();if(t==='crm')initCRM();
 }
 function refreshCurrentTab(){if(currentTab==='orders')render();else if(currentTab==='costs')renderCosts();else if(currentTab==='dashboard')loadDash();}
 
@@ -1615,6 +1648,157 @@ function updateClock(){const now=new Date(),h=now.getHours()%12,m=now.getMinutes
 
 $('selDate').addEventListener('change',()=>{cancelEdit();if(currentTab==='orders')render();else if(currentTab==='costs')renderCosts();});
 
+/* ── CRM LOGIC ── */
+let crmData = [];
+
+function initCRM() {
+  if (!$('crmFrom').value) {
+    const d = new Date(), y = d.getFullYear(), m = d.getMonth() + 1;
+    $('crmFrom').value = `${y}-${pad(m)}-01`; // Tự động điền ngày đầu tháng hiện tại
+    $('crmTo').value = todayStr();
+  }
+}
+
+async function loadCRM() {
+  const from = $('crmFrom').value, to = $('crmTo').value;
+  if (!from || !to) { toast('Vui lòng chọn ngày!', true); return; }
+  if (from > to) { toast('Ngày bắt đầu phải ≤ ngày kết thúc!', true); return; }
+  
+  const btn = $('btnLoadCRM'), orig = btn.innerHTML;
+  btn.innerHTML = '<span class="spinner"></span> Đang đồng bộ...'; btn.disabled = true;
+  $('btnExportCRM').style.display = 'none';
+  $('crmTbody').innerHTML = '<tr><td colspan="7" class="es"><span class="sk"></span> Đang tổng hợp dữ liệu khách hàng từ lịch sử đơn...</td></tr>';
+  
+  try {
+    const dates = genDates(from, to);
+    const results = await fetchRange(dates); // Quét đa luồng tận dụng cache song song cực mượt
+    const cMap = {};
+    
+    results.forEach(({ date, orders }) => {
+      orders.forEach(o => {
+        const phone = String(o.phone || '').trim(); if (!phone) return; // Gom nhóm khách hàng tự động theo SĐT
+        const name = String(o.name || 'Khách không tên').trim();
+        const spend = n(o.cakePrice) + n(o.accPrice);
+        
+        if (!cMap[phone]) cMap[phone] = { phone, name, count: 0, spend: 0, first: date, last: date };
+        
+        cMap[phone].count += 1;
+        cMap[phone].spend += spend;
+        
+        // Ghi nhớ ngày mua hàng đầu tiên và ngày mua hàng gần nhất
+        if (date < cMap[phone].first) cMap[phone].first = date;
+        if (date >= cMap[phone].last) {
+          cMap[phone].last = date;
+          if (o.name) cMap[phone].name = name; 
+        }
+      });
+    });
+    
+    crmData = Object.values(cMap).sort((a, b) => b.spend - a.spend); // Ai tiêu nhiều tiền nhất xếp lên đầu bảng
+    renderCRMTable(crmData);
+    if (crmData.length > 0) $('btnExportCRM').style.display = '';
+  } catch (e) {
+    $('crmTbody').innerHTML = `<tr><td colspan="7" class="es">⚠️ Lỗi: ${esc(e.message)}</td></tr>`;
+  }
+  btn.innerHTML = orig; btn.disabled = false;
+}
+
+function renderCRMTable(data) {
+  if (!data.length) {
+    $('crmTbody').innerHTML = '<tr><td colspan="7" class="es">Không có dữ liệu khách hàng trong khoảng thời gian này</td></tr>';
+    $('crmTotal').textContent = '0'; $('crmVIP').textContent = '0'; $('crmRate').textContent = '0%';
+    return;
+  }
+  
+  let vipCount = 0, returnCount = 0;
+  const html = data.map(c => {
+    let rank = 'NEW';
+    if (c.spend >= 5000000) { rank = 'VIP'; vipCount++; }
+    else if (c.spend >= 2000000 || c.count >= 3) { rank = 'LOYAL'; }
+    if (c.count > 1) returnCount++;
+    
+    const [y, mo, d] = c.last.split('-');
+    const [fy, fmo, fd] = c.first.split('-');
+    
+    return `<tr>
+      <td><b>${esc(c.name)}</b></td>
+      <td>${esc(c.phone)}</td>
+      <td>${c.count} đơn</td>
+      <td class="red">${fmt(c.spend)}</td>
+      <td>${fd}/${fmo}/${fy}</td>
+      <td>${d}/${mo}/${y}</td>
+      <td><span style="font-weight:bold; color:${rank==='VIP'?'var(--red)':rank==='LOYAL'?'var(--green)':'var(--cm)'}">${rank}</span></td>
+    </tr>`;
+  }).join('');
+  
+  $('crmTbody').innerHTML = html;
+  animateMetric($('crmTotal'), data.length, fmtCount, 400);
+  animateMetric($('crmVIP'), vipCount, fmtCount, 400);
+  $('crmRate').textContent = Math.round((returnCount / data.length) * 100) + '%';
+}
+
+function searchCRM() {
+  const q = $('crmSearch').value.toLowerCase().trim();
+  if (!q) { renderCRMTable(crmData); return; }
+  const filtered = crmData.filter(c => c.name.toLowerCase().includes(q) || c.phone.includes(q));
+  renderCRMTable(filtered);
+}
+
+async function exportCRMExcel() {
+  await loadExcelJS();
+  if (!crmData || !crmData.length) { toast('Chưa có dữ liệu để xuất!', true); return; }
+  const btn = $('btnExportCRM'), orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ti ti-download"></i> <span class="spinner"></span>'; btn.disabled = true;
+  
+  try {
+    const from = $('crmFrom').value, to = $('crmTo').value;
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('CRM Toulouse');
+    
+    ws.columns = [
+      { width: 6 }, { width: 22 }, { width: 14 }, { width: 10 }, 
+      { width: 16 }, { width: 14 }, { width: 14 }, { width: 14 }
+    ];
+    
+    const xf = c => ({ type: 'pattern', pattern: 'solid', fgColor: { argb: c } });
+    const xn = (bold, argb, sz = 11) => ({ name: 'Arial', bold, color: { argb }, size: sz });
+    
+    ws.mergeCells('A1:H1');
+    const t1 = ws.getRow(1).getCell(1); 
+    t1.value = `Báo Cáo Quản Lý Khách Hàng CRM Toulouse – Từ ${from} Đến ${to}`;
+    t1.font = xn(true, 'FFFFFFFF', 13); t1.fill = xf('FF1F4E78'); 
+    t1.alignment = { horizontal: 'center', vertical: 'middle' };
+    ws.getRow(1).height = 28;
+    
+    const hdrs = ['STT', 'Tên khách', 'Số điện thoại', 'Số đơn', 'Tổng chi tiêu', 'Mua lần đầu', 'Mua gần nhất', 'Phân hạng'];
+    const r2 = ws.getRow(2); r2.height = 20;
+    hdrs.forEach((h, i) => { 
+      const c = r2.getCell(i + 1); c.value = h; 
+      c.font = xn(true, 'FFFFFFFF'); c.fill = xf('FF4472C4'); c.alignment = { horizontal: 'center' }; 
+    });
+    
+    let ri = 3;
+    crmData.forEach((c, i) => {
+      const row = ws.getRow(ri); row.height = 17;
+      let rank = 'NEW'; if (c.spend >= 5000000) rank = 'VIP'; else if (c.spend >= 2000000 || c.count >= 3) rank = 'LOYAL';
+      const [y, mo, d] = c.last.split('-'); const [fy, fmo, fd] = c.first.split('-');
+      
+      [i + 1, c.name, c.phone, c.count, c.spend, `${fd}/${fmo}/${fy}`, `${d}/${mo}/${y}`, rank].forEach((v, ci) => {
+        const cell = row.getCell(ci + 1); cell.value = v;
+        cell.font = xn(false, ci === 4 ? 'FFC00000' : ci === 7 ? (rank === 'VIP' ? 'FFC00000' : rank === 'LOYAL' ? 'FF15803D' : 'FF000000') : 'FF000000');
+        if (ci === 4 || ci === 3 || ci === 0) cell.alignment = { horizontal: 'center' };
+      });
+      ri++;
+    });
+    
+    const buf = await wb.xlsx.writeBuffer(); 
+    const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = URL.createObjectURL(blob); 
+    const a = document.createElement('a'); a.href = url; a.download = `Toulouse_CRM_${from}_${to}.xlsx`; a.click(); URL.revokeObjectURL(url);
+    toast('✓ Đã xuất file Excel CRM thành công');
+  } catch (e) { toast('Lỗi xuất Excel: ' + e.message, true); }
+  btn.innerHTML = orig; btn.disabled = false;
+}   
 /* ── INIT ── */
 (async function(){
   $('selDate').value=todayStr();
