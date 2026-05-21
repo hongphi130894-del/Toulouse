@@ -660,6 +660,17 @@ tr.trow td{background:rgba(240,226,180,.3);color:#8B2C00;font-weight:700;border-
         <div class="fg"><label>Tiền nhà (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fRent" placeholder="VD: 3000" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('rent',this)"></label></div><div id="fRentImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
         <div class="fg"><label>Tiền điện (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fElec" placeholder="VD: 500" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('elec',this)"></label></div><div id="fElecImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
         <div class="fg"><label>Tiền nước (nghìn đ)</label><div style="display:flex;gap:6px"><input type="number" id="fWater" placeholder="VD: 150" oninput="calcFixed()"><label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ"><i class="ti ti-camera"></i><input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('water',this)"></label></div><div id="fWaterImgBox" class="img-grid" style="display:none;margin-top:8px"></div></div>
+      <div class="fg">
+  <label>Tiền lương (nghìn đ)</label>
+  <div style="display:flex;gap:6px">
+    <input type="number" id="fSalary" placeholder="VD: 15000" oninput="calcFixed()">
+    <label class="btn btn-ol" style="padding:8px 10px;border-radius:8px;cursor:pointer;flex-shrink:0" title="Tải ảnh HĐ">
+      <i class="ti ti-camera"></i>
+      <input type="file" accept="image/*" multiple style="display:none" onchange="uploadFixedImg('salary',this)">
+    </label>
+  </div>
+  <div id="fSalaryImgBox" class="img-grid" style="display:none;margin-top:8px"></div>
+</div>
       </div>
       <div style="margin-top:10px"><div class="fa"><span>Tổng chi phí cố định tháng</span><b id="fixedTotal" style="color:var(--red)">0đ</b></div></div>
       <div class="fbtns"><button class="btn-sub orange" id="fixedSaveBtn" onclick="saveFixed()"><i class="ti ti-device-floppy"></i><span id="fixedBtnTxt">Lưu chi phí cố định</span></button></div>
@@ -1134,7 +1145,7 @@ function loadCostImages(imageUrl){costImages=[];getFileIds(imageUrl).forEach(fId
 function openImgViewer(src){const ov=document.createElement('div');ov.className='img-viewer';ov.innerHTML=`<img src="${src}" onerror="this.src=''">`;ov.onclick=()=>ov.remove();document.body.appendChild(ov);}
 
 /* ── FIXED COST IMAGES ── */
-let fImgs={rent:[],elec:[],water:[]};
+let fImgs={rent:[],elec:[],water:[],salary:[]};
 const capitalize=s=>s.charAt(0).toUpperCase()+s.slice(1);
 function showFixedImg(type){
   const box=$(`f${capitalize(type)}ImgBox`);
@@ -1166,7 +1177,7 @@ function clearFixedImg(type,index){
     fImgs[type].splice(index,1);showFixedImg(type);
   }
 }
-function calcFixed(){$('fixedTotal').textContent=fmt((n($('fRent').value)+n($('fElec').value)+n($('fWater').value))*1000);}
+function calcFixed(){$('fixedTotal').textContent=fmt((n($('fRent').value)+n($('fElec').value)+n($('fWater').value)+n($('fSalary').value))*1000);}
 
 /* ── ORDER FORM ── */
 function calc(){const c=n($('fCake').value)*1000,a=n($('fAcc').value)*1000,s=n($('fShip').value)*1000;$('aSum').textContent=fmt(c+a);$('aTot').textContent=fmt(c+a+s);}
@@ -1342,6 +1353,7 @@ async function loadFixedCosts(){
       $('fRent').value=r.rent?r.rent/1000:'';fImgs.rent=r.rentImg?r.rentImg.split('|').filter(Boolean):[];showFixedImg('rent');
       $('fElec').value=r.elec?r.elec/1000:'';fImgs.elec=r.elecImg?r.elecImg.split('|').filter(Boolean):[];showFixedImg('elec');
       $('fWater').value=r.water?r.water/1000:'';fImgs.water=r.waterImg?r.waterImg.split('|').filter(Boolean):[];showFixedImg('water');
+      $('fSalary').value=r.salary?r.salary/1000:'';fImgs.salary=r.salaryImg?r.salaryImg.split('|').filter(Boolean):[];showFixedImg('salary');
       calcFixed();
     }
   }catch(e){}
@@ -1350,7 +1362,7 @@ async function saveFixed(){
   const[y,m]=$('selDate').value.split('-');const ym=parseInt(m)+'_'+y;
   $('fixedBtnTxt').innerHTML='<span class="spinner"></span> Đang lưu...';$('fixedSaveBtn').disabled=true;
   try{
-    await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent.join('|'),elec:n($('fElec').value)*1000,elecImg:fImgs.elec.join('|'),water:n($('fWater').value)*1000,waterImg:fImgs.water.join('|')})});
+    await api({action:'saveFixedCosts',data:JSON.stringify({yearMonth:ym,rent:n($('fRent').value)*1000,rentImg:fImgs.rent.join('|'),elec:n($('fElec').value)*1000,elecImg:fImgs.elec.join('|'),water:n($('fWater').value)*1000,waterImg:fImgs.water.join('|'),salary:n($('fSalary').value)*1000,salaryImg:fImgs.salary.join('|')})});
     toast('✓ Đã lưu chi phí cố định!');
   }catch(e){toast('⚠️ '+e.message,true);}
   $('fixedBtnTxt').textContent='Lưu chi phí cố định';$('fixedSaveBtn').disabled=false;
